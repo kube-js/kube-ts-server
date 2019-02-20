@@ -1,0 +1,23 @@
+{
+  "name": "kube-ts-server",
+  "version": "1.0.0",
+  "description": "Dokerized restful API written in typescript ready to be deployed on kubernetes cluster",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^3.3.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kube-js/kube-ts-server.git"
+  },
+  "author": "Mariusz Rajczakowski <mariuszrajczakowski@gmail.com> (http://mariuszrajczakowski.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kube-js/kube-ts-server/issues"
+  },
+  "homepage": "https://github.com/kube-js/kube-ts-server#readme"
+}
