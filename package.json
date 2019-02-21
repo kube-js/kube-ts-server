@@ -5,7 +5,9 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "tscommons": "git+https://git@github.com/kube-js/tscommons.git",
     "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3.3"
   },
   "scripts": {
@@ -15,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/kube-js/kube-ts-server.git"
   },
-  "author": "Mariusz Rajczakowski <mariuszrajczakowski@gmail.com> (http://mariuszrajczakowski.me)",
+  "author": "Mariusz Rajczakowski <mariuszrajczakowski@pm.me> (http://mariuszrajczakowski.me)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kube-js/kube-ts-server/issues"
