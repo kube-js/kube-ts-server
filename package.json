@@ -6,9 +6,9 @@
   "dependencies": {},
   "devDependencies": {
     "tscommons": "git+https://git@github.com/kube-js/tscommons.git",
-    "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.3.3"
+    "tslint": "5.12.1",
+    "tslint-config-prettier": "1.18.0",
+    "typescript": "3.3.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
