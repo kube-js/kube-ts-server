@@ -3,20 +3,36 @@
   "version": "1.0.0",
   "description": "Dokerized restful API written in typescript ready to be deployed on kubernetes cluster",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.16.4",
+    "source-map-support": "^0.5.10"
+  },
   "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.9.4",
+    "@types/source-map-support": "^0.4.2",
+    "rimraf": "^2.6.3",
     "tscommons": "git+https://git@github.com/kube-js/tscommons.git",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3.3"
   },
   "scripts": {
+    "build": "rimraf dist && tsc",
+    "lint": "tslint --project tsconfig.json --config tslint.json './src/**/*.ts'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kube-js/kube-ts-server.git"
   },
+  "keywords": [
+    "rest",
+    "api",
+    "express",
+    "typescript",
+    "jwt"
+  ],
   "author": "Mariusz Rajczakowski <mariuszrajczakowski@pm.me> (http://mariuszrajczakowski.me)",
   "license": "MIT",
   "bugs": {

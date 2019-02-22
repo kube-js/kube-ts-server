@@ -2,5 +2,8 @@
   "extends": [
     "./node_modules/tscommons/tslint.json",
     "tslint-config-prettier"
-  ]
+  ],
+  "rules": {
+    "match-default-export-name": false
+  }
 }
