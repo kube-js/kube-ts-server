@@ -13,9 +13,9 @@
     "@types/source-map-support": "^0.4.2",
     "rimraf": "^2.6.3",
     "tscommons": "git+https://git@github.com/kube-js/tscommons.git",
-    "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.3.3"
+    "tslint": "5.12.1",
+    "tslint-config-prettier": "1.18.0",
+    "typescript": "3.3.3333"
   },
   "scripts": {
     "build": "rimraf dist && tsc",
