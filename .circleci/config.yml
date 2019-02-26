@@ -1,5 +1,3 @@
-
-    
 version: 2
 machine:
   services:
@@ -13,7 +11,7 @@ jobs:
       - NPM_CONFIG_LOGLEVEL: warn
     working_directory: ~/repo
     steps:
-        - checkout
+      - checkout
       - setup_remote_docker:
           docker_layer_caching: true
       - restore_cache:
