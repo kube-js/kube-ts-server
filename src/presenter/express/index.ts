@@ -12,7 +12,7 @@ const presenterFacade = (_req: express.Request, res: express.Response) => {
 
 app.use("/api/v1", presenterFacade);
 
-app.listen("3001", () => {
+app.listen("8080", () => {
   // tslint:disable-next-line:no-console
-  console.log(`Listening on port 3001`);
+  console.log(`Listening on port 8080`);
 });
