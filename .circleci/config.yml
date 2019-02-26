@@ -36,6 +36,9 @@ jobs:
       - run:
           name: Running tests
           command: npm run test
+      - run:
+          name: Build docker image
+          command: docker build -t kubejs/kube-ts-server .
       - deploy:
           name: Semantic Release
           command: npm run semantic-release
