@@ -26,6 +26,7 @@
     "lint": "tslint --project tsconfig.json --config tslint.json './src/**/*.ts'",
     "test": "jest --coverage",
     "test:watch": "jest --watch --coverage",
+    "start": "node ./dist/presenter/express/index.js",
     "semantic-release": "semantic-release-public-circleci-app"
   },
   "repository": {
