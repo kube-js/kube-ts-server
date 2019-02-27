@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@kube-js/semantic-release": "1.0.3",
-    "@kube-js/tscommons": "^1.0.0",
+    "@kube-js/tscommons": "1.0.0",
     "@types/express": "4.16.1",
     "@types/jest": "24.0.9",
     "@types/node": "11.9.5",
