@@ -1,5 +1,5 @@
 {
-  "extends": "./node_modules/tscommons/tsconfig.json",
+  "extends": "./node_modules/@kube-js/tscommons/configs/tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
