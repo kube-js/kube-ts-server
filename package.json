@@ -12,7 +12,7 @@
     "@kube-js/tscommons": "1.0.0",
     "@types/express": "4.16.1",
     "@types/jest": "24.0.9",
-    "@types/node": "11.9.5",
+    "@types/node": "11.9.6",
     "@types/source-map-support": "0.4.2",
     "jest": "24.1.0",
     "rimraf": "2.6.3",
