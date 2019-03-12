@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "4.16.4",
-    "source-map-support": "0.5.10"
+    "source-map-support": "0.5.11"
   },
   "devDependencies": {
     "@kube-js/semantic-release": "1.0.7",
