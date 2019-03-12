@@ -2,11 +2,12 @@ version: 2
 machine:
   services:
     - docker
-
 jobs:
   build:
+     build:
     docker:
       - image: circleci/node:8.15
+      - image: circleci/mysql:5.7
     environment:
       - NPM_CONFIG_LOGLEVEL: warn
     working_directory: ~/repo
@@ -18,24 +19,27 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package-lock.json" }}
       - run:
-          name: Installing Dependencies
+          name: Installing dependencies
           command: npm install
       - run:
-          name: Pruning Dependencies
+          name: Pruning dependencies
           command: npm prune
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package-lock.json" }}
       - run:
-          name: Compiling Code
+          name: Compiling code
           command: npm run build
       - run:
-          name: Linting Code
+          name: Testing code
+          command: npm run test
+      - run:
+          name: Linting code
           command: npm run lint
       - run:
-          name: Running tests
-          command: npm run test
+          name: Checking code duplication
+          command: npm run duplication
       - run:
           name: Build docker image
           command: docker build -t kubejs/kube-ts-server .
