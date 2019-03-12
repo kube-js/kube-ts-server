@@ -4,7 +4,6 @@ machine:
     - docker
 jobs:
   build:
-     build:
     docker:
       - image: circleci/node:8.15
       - image: circleci/mysql:5.7
