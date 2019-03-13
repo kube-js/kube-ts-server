@@ -1,18 +1,16 @@
 import sourceMapSupport from "source-map-support";
 sourceMapSupport.install();
 import express from "express";
+import { createServer } from "http";
+import app from "./app";
 
-const app: express.Application = express();
+const expressApp: express.Application = express();
 
-const presenterFacade = (_req: express.Request, res: express.Response) => {
-  res.json({
-    success: "ok"
-  });
-};
+expressApp.use("", app({}));
 
-app.use("/api/v1", presenterFacade);
+const server = createServer(expressApp);
 
-app.listen("8080", () => {
+server.listen("8080", () => {
   // tslint:disable-next-line:no-console
-  console.log(`Listening on port 8080`);
+  console.log(`Listening on localhost:8080`);
 });
