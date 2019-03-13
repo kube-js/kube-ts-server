@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@js-items/foundation": "1.0.17",
-    "@js-items/knex": "1.0.7",
+    "@js-items/knex": "1.0.8",
     "express": "4.16.4",
     "dotenv": "7.0.0",
     "jscpd": "2.0.11",
