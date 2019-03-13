@@ -1,5 +1,4 @@
 # kube-ts-server
-
 [![CircleCI](https://circleci.com/gh/kube-js/kube-ts-server.svg?style=svg)](https://circleci.com/gh/kube-js/kube-ts-server)
 [![codecov](https://codecov.io/gh/kube-js/kube-ts-server/branch/master/graph/badge.svg)](https://codecov.io/gh/kube-js/kube-ts-server)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/kube-js/kube-ts-server.svg)
