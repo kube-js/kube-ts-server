@@ -1,3 +1,9 @@
 {
-  "extends": ["./node_modules/@kube-js/tscommons/configs/tslint.json", "tslint-config-prettier"]
+  "extends": [
+    "./node_modules/@kube-js/tscommons/configs/tslint.json",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "no-any": false
+  }
 }
