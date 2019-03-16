@@ -21,5 +21,5 @@ const server = createServer(expressApp);
 
 server.listen(config.express.port, () => {
   // tslint:disable-next-line:no-console
-  console.log(`Listening on http://localhost:${config.express.port}`);
+  console.log(`Listening on ${config.express.host}:${config.express.port}`);
 });
