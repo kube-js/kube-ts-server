@@ -1,17 +1,15 @@
-import { Router } from "express";
-import enhancedRouter from "../enhancedRouter";
-import Config from "./Config";
+import { Router } from 'express';
+import { API_V1 } from '../../../constants/routes';
+import apiV1 from '../api/v1';
+import enhancedRouter from '../enhancedRouter';
+import Config from './Config';
 
-const presenterFactory = (_config: Config): Router => {
+const presenterFactory = (config: Config): Router => {
   /** TODO: allow customize middlewares in enhanced config via config options */
   const router = enhancedRouter({});
 
-  router.get("/", (_req, res) => {
-    res.json({
-      status: "ok"
-    });
-  });
-
+  router.use(API_V1, apiV1({ router, config }));
+  
   return router;
 };
 
