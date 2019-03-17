@@ -1,5 +1,7 @@
 import sourceMapSupport from 'source-map-support';
 sourceMapSupport.install();
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import { createServer } from 'http';
 import config from '../../config';

@@ -7,7 +7,7 @@ import Config from './Config';
 export default (_config: Config): Router => {
   const router: Router = Router();
 
-  /** TODO: Internationalization 
+  /** TODO: Internationalization
    *  check: https://github.com/mashpie/i18n-node
    */
 
@@ -17,20 +17,21 @@ export default (_config: Config): Router => {
    * - https://github.com/animir/node-rate-limiter-flexible
    * - https://github.com/AdamPflug/express-brute
    * - https://github.com/ded/express-limiter
-   */ 
-  
+   */
+
   /* CORS */
   const corsMiddleware = cors({
     origin: '*',
-    preflightContinue: true
+    preflightContinue: true,
   });
   router.use(corsMiddleware);
-  
+
   /* BODY PARSER */
   router.use(bodyParser.urlencoded({ extended: false }));
   router.use(bodyParser.json());
 
-  /* HELMET */ 
+  /* HELMET */
+
   router.use(helmet());
 
   return router;
