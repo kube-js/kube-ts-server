@@ -1,11 +1,25 @@
-import { Router } from "express";
-import presenterFactory from "../presenterFactory";
-import Config from "./Config";
+import { Router } from 'express';
+import loggerFactory from '../../../logger/factory';
+import repoFactory from '../../../repo/factory';
+import serviceFactory from '../../../service/factory';
+import translatorFactory from '../../../translator/factory';
+import presenterFactory from '../presenterFactory';
+import Config from './Config';
 
-export default (_config: Config): Router => {
-  /** TODO: inject repo, service, logger */
+export default (config: Config): Router => {
+  const repo = repoFactory(config.repo);
 
-  const presenter = presenterFactory({});
+  const logger = loggerFactory(config.logger);
+
+  const service = serviceFactory({ logger, repo });
+
+  const translator = translatorFactory(config.translator);
+
+  const presenter = presenterFactory({
+    httpConfig: config.http,
+    service,
+    translator,
+  });
 
   return presenter;
 };
