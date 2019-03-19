@@ -9,19 +9,22 @@ import app from './app';
 
 const expressApp: express.Application = express();
 
-expressApp.all('*', app({}));
-
-/**
- * TODO:
- * - rate limiting
- * - internationalization
- * - logging in distributed way
- * - lowering size of docker image
- */
+expressApp.all(
+  '*',
+  app({
+    auth: config.auth,
+    http: config.http,
+    logger: config.logger,
+    repo: config.repo,
+    translator: config.translator,
+  })
+);
 
 const server = createServer(expressApp);
 
-server.listen(config.express.port, () => {
+server.listen(config.http.express.port, () => {
   // tslint:disable-next-line:no-console
-  console.log(`Listening on ${config.express.host}:${config.express.port}`);
+  console.log(
+    `Listening on ${config.http.express.host}:${config.http.express.port}`
+  );
 });

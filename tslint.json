@@ -4,6 +4,7 @@
     "tslint-config-prettier"
   ],
   "rules": {
-    "no-any": false
+    "no-any": false,
+    "no-inferred-empty-object-type": false
   }
 }
