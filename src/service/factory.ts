@@ -1,3 +1,7 @@
 import FactoryConfig from './FactoryConfig';
+import authFactory from './functions/auth/factory';
 
-export default (_config: FactoryConfig) => ({});
+export default (config: FactoryConfig) => ({
+  auth: authFactory(config),
+  users: config.repo.users,
+});

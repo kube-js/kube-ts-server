@@ -8,5 +8,5 @@
 Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
 
 Credits:
-[banzaicloud.com](https://banzaicloud.com/blog/nodejs-in-production/)
-[ryansmith94](https://github.com/ryansmith94)
+- [banzaicloud.com](https://banzaicloud.com/blog/nodejs-in-production/)
+- [ryansmith94](https://github.com/ryansmith94)

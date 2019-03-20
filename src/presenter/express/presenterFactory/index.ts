@@ -9,8 +9,7 @@ import enhancedRouter from '../enhancedRouter';
 import Config from './Config';
 
 const presenterFactory = (config: Config): Router => {
-  /** TODO: allow customize enhancedRouter middlewares by passing specific config */
-  const router = enhancedRouter({});
+  const router = enhancedRouter(config.httpConfig);
 
   // KUBERNETES PROBES
   router.get(config.httpConfig.checks.liveness, healthCheck([checkDb(config)]));
@@ -19,7 +18,7 @@ const presenterFactory = (config: Config): Router => {
     healthCheck([initFinished(config), checkDb(config)])
   );
 
-  // GIT VERSION 
+  // GIT VERSION
   router.get(config.httpConfig.checks.version, checkVersion(config));
 
   // V1 API ROUTES

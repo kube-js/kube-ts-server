@@ -1,10 +1,13 @@
 import * as bodyParser from 'body-parser';
+import compression from 'compression';
 import cors from 'cors';
 import { Router } from 'express';
 import helmet from 'helmet';
 import Config from './Config';
 
-export default (_config: Config): Router => {
+export default ({ express }: Config): Router => {
+  const { middlewares } = express;
+
   const router: Router = Router();
 
   /** TODO: Internationalization
@@ -20,19 +23,30 @@ export default (_config: Config): Router => {
    */
 
   /* CORS */
-  const corsMiddleware = cors({
-    origin: '*',
-    preflightContinue: true,
-  });
-  router.use(corsMiddleware);
+  if (middlewares.cors.enabled) {
+    const corsMiddleware = cors({
+      origin: '*',
+      preflightContinue: true,
+    });
+    router.use(corsMiddleware);
+  }
 
   /* BODY PARSER */
-  router.use(bodyParser.urlencoded({ extended: false }));
-  router.use(bodyParser.json());
+  if (middlewares.bodyParser.enabled) {
+    router.use(bodyParser.urlencoded({ extended: false }));
+    router.use(bodyParser.json());
+  }
 
   /* HELMET */
+  if (middlewares.helmet.enabled) {
+    router.use(helmet());
+  }
 
-  router.use(helmet());
+  /* COMPRESSION */
+  /* use only when nginx reverse proxy gzip is disabled */
+  if (middlewares.compression.enabled) {
+    router.use(compression());
+  }
 
   return router;
 };
