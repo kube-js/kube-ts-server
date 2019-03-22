@@ -1,12 +1,7 @@
-import { ItemNotFoundError } from '@js-items/foundation';
 import { Request } from 'express';
-import * as jwt from 'jsonwebtoken';
 import authConfig from '../../../../config/subconfigs/auth';
 import serviceFactory from '../../../../service/factory';
 import User from '../../../../types/items/User';
-import ExpiredJwtTokenError from '../../../errors/auth/ExpiredJwtTokenError';
-import InvalidJwtTokenError from '../../../errors/auth/InvalidJwtTokenError';
-import UnauthorizedError from '../../../errors/auth/UnauthorizedError';
 import createExtractTokenFromRequest, {
   ExtractTokenFromRequest,
 } from '../createExtractTokenFromRequest';
