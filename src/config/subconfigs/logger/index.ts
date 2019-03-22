@@ -1,4 +1,4 @@
-import getStringValue from '../../../utils/helpers/getStringValue';
+import getStringValue from '../../../utils/helpers/config/getStringValue';
 
 export interface WinstonConfig {
   readonly level: string;

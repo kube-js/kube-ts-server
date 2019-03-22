@@ -10,6 +10,6 @@ export default (config: Config, handler: ExpressHandler) => async (
   try {
     await handler(req, res);
   } catch (error) {
-    handleError({ config, res, error });
+    handleError({ config, req, res, error });
   }
 };
