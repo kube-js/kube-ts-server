@@ -5,9 +5,9 @@ import {
   READINESS_CHECK_URL,
   VERSION_CHECK_URL,
 } from '../../../constants';
-import getBooleanValue from '../../../utils/helpers/getBooleanValue';
-import getNumberValue from '../../../utils/helpers/getNumberValue';
-import getStringValue from '../../../utils/helpers/getStringValue';
+import getBooleanValue from '../../../utils/helpers/config/getBooleanValue';
+import getNumberValue from '../../../utils/helpers/config/getNumberValue';
+import getStringValue from '../../../utils/helpers/config/getStringValue';
 
 export interface BaseMiddleware {
   readonly enabled: boolean;

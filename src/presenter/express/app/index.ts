@@ -16,7 +16,7 @@ export default (config: Config): Router => {
   const translator = translatorFactory(config.translator);
 
   const presenter = presenterFactory({
-    httpConfig: config.http,
+    globalConfig: config,
     service,
     translator,
   });

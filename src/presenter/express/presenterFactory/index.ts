@@ -9,17 +9,18 @@ import enhancedRouter from '../enhancedRouter';
 import Config from './Config';
 
 const presenterFactory = (config: Config): Router => {
-  const router = enhancedRouter(config.httpConfig);
-
+  const { http } = config.globalConfig;
+  const router = enhancedRouter(http);
+  
   // KUBERNETES PROBES
-  router.get(config.httpConfig.checks.liveness, healthCheck([checkDb(config)]));
+  router.get(http.checks.liveness, healthCheck([checkDb(config)]));
   router.get(
-    config.httpConfig.checks.readiness,
+    http.checks.readiness,
     healthCheck([initFinished(config), checkDb(config)])
   );
 
   // GIT VERSION
-  router.get(config.httpConfig.checks.version, checkVersion(config));
+  router.get(http.checks.version, checkVersion(config));
 
   // V1 API ROUTES
   router.use(API_V1, apiV1({ router, config }));

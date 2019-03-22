@@ -1,4 +1,4 @@
-import getStringValue from '../../../utils/helpers/getStringValue';
+import getStringValue from '../../../utils/helpers/config/getStringValue';
 
 // tslint:disable-next-line:no-empty-interface
 export interface DefaultTranslator {}
