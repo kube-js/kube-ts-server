@@ -6,17 +6,17 @@ import translatorFactory from '../../../translator/factory';
 import presenterFactory from '../presenterFactory';
 import Config from './Config';
 
-export default (config: Config): Router => {
-  const repo = repoFactory(config.repo);
+export default (globalConfig: Config): Router => {
+  const repo = repoFactory(globalConfig.repo);
 
-  const logger = loggerFactory(config.logger);
+  const logger = loggerFactory(globalConfig.logger);
 
-  const service = serviceFactory({ logger, repo });
+  const service = serviceFactory({ logger, repo, globalConfig });
 
-  const translator = translatorFactory(config.translator);
+  const translator = translatorFactory(globalConfig.translator);
 
   const presenter = presenterFactory({
-    globalConfig: config,
+    globalConfig,
     service,
     translator,
   });
