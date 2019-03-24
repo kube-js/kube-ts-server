@@ -9,10 +9,11 @@ import enhancedRouter from '../enhancedRouter';
 import Config from './Config';
 
 const presenterFactory = (config: Config): Router => {
-  const { http } = config.globalConfig;
+  const { http } = config.appConfig;
   const router = enhancedRouter(http);
   
   // KUBERNETES PROBES
+  // @credits: https://banzaicloud.com/blog/nodejs-in-production
   router.get(http.checks.liveness, healthCheck([checkDb(config)]));
   router.get(
     http.checks.readiness,
@@ -23,7 +24,7 @@ const presenterFactory = (config: Config): Router => {
   router.get(http.checks.version, checkVersion(config));
 
   // V1 API ROUTES
-  router.use(API_V1, apiV1({ router, config }));
+  router.use(API_V1, apiV1(config));
 
   return router;
 };

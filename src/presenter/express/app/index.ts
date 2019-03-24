@@ -4,22 +4,27 @@ import repoFactory from '../../../repo/factory';
 import serviceFactory from '../../../service/factory';
 import translatorFactory from '../../../translator/factory';
 import presenterFactory from '../presenterFactory';
-import Config from './Config';
+import AppConfig from './AppConfig';
 
-export default (globalConfig: Config): Router => {
-  const repo = repoFactory(globalConfig.repo);
+export interface App {
+  readonly presenter: Router;
+  readonly service: ReturnType<typeof serviceFactory>;
+}
 
-  const logger = loggerFactory(globalConfig.logger);
+export default (appConfig: AppConfig): App => {
+  const repo = repoFactory(appConfig.repo);
 
-  const service = serviceFactory({ logger, repo, globalConfig });
+  const logger = loggerFactory(appConfig.logger);
 
-  const translator = translatorFactory(globalConfig.translator);
+  const service = serviceFactory({ logger, repo, appConfig });
+
+  const translator = translatorFactory(appConfig.translator);
 
   const presenter = presenterFactory({
-    globalConfig,
+    appConfig,
     service,
     translator,
   });
 
-  return presenter;
+  return { presenter, service };
 };

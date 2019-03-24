@@ -9,16 +9,15 @@ import app from './app';
 
 const expressApp: express.Application = express();
 
-expressApp.all(
-  '*',
-  app({
-    auth: config.auth,
-    http: config.http,
-    logger: config.logger,
-    repo: config.repo,
-    translator: config.translator,
-  })
-);
+const { presenter } = app({
+  auth: config.auth,
+  http: config.http,
+  logger: config.logger,
+  repo: config.repo,
+  translator: config.translator,
+});
+
+expressApp.all('*', presenter);
 
 const server = createServer(expressApp);
 
