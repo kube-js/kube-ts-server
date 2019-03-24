@@ -6,10 +6,14 @@
   "dependencies": {
     "@js-items/foundation": "1.0.21",
     "@js-items/knex": "1.0.11",
+    "@js-migrations/commander": "^2.0.9",
+    "@js-migrations/core": "^6.2.3",
+    "@js-migrations/knex": "^3.0.7",
     "argon2": "0.21.0",
     "body-parser": "1.18.3",
     "boolean": "1.0.0",
     "codecov": "3.2.0",
+    "commander": "^2.19.0",
     "compression": "1.7.4",
     "cors": "2.8.5",
     "dotenv": "7.0.0",
@@ -23,7 +27,9 @@
     "make-error": "1.3.5",
     "moment": "2.24.0",
     "ramda": "0.26.1",
+    "rulr": "5.0.0",
     "source-map-support": "0.5.11",
+    "supertest": "^4.0.2",
     "url": "0.11.0",
     "uuid": "3.3.2",
     "winston": "3.2.1"
@@ -42,9 +48,11 @@
     "@types/node": "11.11.4",
     "@types/ramda": "0.26.3",
     "@types/source-map-support": "0.5.0",
+    "@types/supertest": "^2.0.7",
     "@types/uuid": "3.4.4",
     "@types/winston": "2.4.4",
     "jest": "24.5.0",
+    "pre-commit": "^1.2.2",
     "rimraf": "2.6.3",
     "ts-jest": "24.0.0",
     "tslint": "5.14.0",
@@ -53,13 +61,20 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc",
-    "lint": "tslint --project tsconfig.json --config tslint.json './src/**/*.ts'",
+    "db:migrate": "node ./dist/presenter/commander/index.js migrate",
     "duplication": "jscpd ./src",
-    "test": "jest --coverage && codecov",
-    "test:watch": "jest --watch --coverage",
+    "lint": "tslint --project tsconfig.json --config tslint.json './src/**/*.ts'",
     "start": "node ./dist/presenter/express/index.js",
-    "semantic-release": "semantic-release-public-circleci-app"
+    "semantic-release": "semantic-release-public-circleci-app",
+    "test": "jest --coverage && codecov",
+    "test:watch": "jest --watch --coverage"
   },
+  "pre-commit": [
+    "build",
+    "test",
+    "lint",
+    "duplication"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kube-js/kube-ts-server.git"

@@ -15,7 +15,7 @@ export interface Options {
   readonly password: string;
 }
 
-export default ({ repo, globalConfig }: Config) => async ({
+export default ({ repo, appConfig }: Config) => async ({
   email,
   password,
 }: Options) => {
@@ -59,7 +59,7 @@ export default ({ repo, globalConfig }: Config) => async ({
   if (!passwordMatches) {
     const loginFailedAttempts = incrementOrInitialise(user.loginFailedAttempts);
     const shouldLockAccount =
-      loginFailedAttempts >= globalConfig.auth.maxNumberOfLoginFailedAttempts;
+      loginFailedAttempts >= appConfig.auth.maxNumberOfLoginFailedAttempts;
     const accountLockoutExpiresAt = shouldLockAccount
       ? { accountLockoutExpiresAt: generateLockoutExpiresAtDate() }
       : {};
@@ -88,7 +88,7 @@ export default ({ repo, globalConfig }: Config) => async ({
   const visibleUserData: Partial<User> = getVisibleUserProperties(user);
 
   const token: string = generateToken({
-    config: globalConfig.auth.jwt,
+    config: appConfig.auth.jwt,
     data: visibleUserData,
   });
 
