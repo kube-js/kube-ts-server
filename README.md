@@ -11,4 +11,5 @@ This repo would not exist if not inspiration coming from [ryansmith94](https://g
 
 Credits:
 - [ryansmith94](https://github.com/ryansmith94)
+- [vinaysahni.com](https://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#rate-limiting)
 - [banzaicloud.com](https://banzaicloud.com/blog/nodejs-in-production/)

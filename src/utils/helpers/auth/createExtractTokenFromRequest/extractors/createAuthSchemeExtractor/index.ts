@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import authConfig from '../../../../../../config/subconfigs/auth';
-import isString from '../../../../commons/isString/isString';
+import isString from '../../../../commons/isString';
 // @credits: https://github.com/themikenicholson/passport-jwt
 
 export interface AuthSchemeExtractorOptions {

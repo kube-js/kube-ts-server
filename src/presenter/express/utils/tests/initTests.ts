@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import createSupertest from 'supertest';
-import config from '../../../../../config';
-import app from '../../../app';
+import config from '../../../../config';
+import app from '../../app';
 
 const expressApp: express.Application = express();
 

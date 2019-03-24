@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@presenter/auth/login should fail to log in user without password 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "email",
+    },
+    Object {
+      "field": "password",
+      "message": "password",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;

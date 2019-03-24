@@ -19,3 +19,9 @@ export const MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS = 5;
 // MODEL
 export const UUID_LENGTH = 36;
 export const VARCHAR_LENGTH = 255;
+
+// SUPPORTED LOCALES
+export const DEFAULT_LOCALE = 'en';
+export const SUPPORTED_LOCALES = ['en', 'pl'];
+export const LOCALE_HEADER = 'accept-language';
+export const LOCALE_QUERY_PARAM = 'lang';

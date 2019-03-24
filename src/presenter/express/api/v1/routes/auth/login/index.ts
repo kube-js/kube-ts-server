@@ -4,7 +4,7 @@ import String from 'rulr/String';
 import validateData from 'rulr/validateData';
 import { VARCHAR_LENGTH } from '../../../../../../../constants';
 import Config from '../../../../../presenterFactory/Config';
-import catchErrors from '../../../../../utils/catchErrors';
+import catchErrors from '../../../../../utils/errors/catchErrors';
 
 const rules = Record({
   email: String(0, VARCHAR_LENGTH),

@@ -1,14 +1,29 @@
 import { UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import { API_V1 } from '../../../../../../../constants/routes';
-import initTests from '../../../../utils/test/initTests';
+import initTests from '../../../../../utils/tests/initTests';
 
 describe('@presenter/auth/login', () => {
   const { request } = initTests();
 
-  it('should fail to log in user without input', async () => {
-    const response = await request.post(`${API_V1}/auth/login`);
+  it('should fail to log in user without both credentials', async () => {
+    const { status, body } = await request.post(`${API_V1}/auth/login`);
 
-    expect(response.status).toBe(UNPROCESSABLE_ENTITY);
+    expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
+  });
+
+  it('should fail to log in user without email', async () => {
+    const { status, body } = await request.post(`${API_V1}/auth/login`);
+
+    expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
+  });
+
+  it.only('should fail to log in user without password', async () => {
+    const { status, body } = await request.post(`${API_V1}/auth/login`);
+
+    expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
   });
 
   // it('should fail to log in user when email is invalid', async () => {

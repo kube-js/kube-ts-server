@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import Config from '../../presenterFactory/Config';
-import ExpressHandler from '../../types/ExpressHandler';
+import { v4 as uuid } from 'uuid';
+import Config from '../../../presenterFactory/Config';
+import ExpressHandler from '../../../types/ExpressHandler';
 import handleError from '../handleError';
 
 export default (config: Config, handler: ExpressHandler) => async (
@@ -10,6 +11,7 @@ export default (config: Config, handler: ExpressHandler) => async (
   try {
     await handler(req, res);
   } catch (error) {
-    handleError({ config, req, res, error });
+    const errorId = uuid();
+    handleError({ config, req, res, error, errorId });
   }
 };
