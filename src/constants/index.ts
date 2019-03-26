@@ -25,3 +25,10 @@ export const DEFAULT_LOCALE = 'en';
 export const SUPPORTED_LOCALES = ['en', 'pl'];
 export const LOCALE_HEADER = 'accept-language';
 export const LOCALE_QUERY_PARAM = 'lang';
+
+// REGEXP
+export const REGEXP_EMAIL = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+// minimum eight characters, at least one upper case letter, at least one lower case letter, one number and one special character:
+// @credits: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+export const REGEXP_PASSWORD = /"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"/;

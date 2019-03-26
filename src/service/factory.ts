@@ -4,7 +4,6 @@ import authFactory from './functions/auth/factory';
 
 export default (config: FactoryConfig) => ({
   auth: authFactory(config),
-  clearService: config.repo.clearRepo,
   migrations: migrationsServiceFactory({
     repo: config.repo.migrations,
   }),

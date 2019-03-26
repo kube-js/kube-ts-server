@@ -1,17 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@presenter/auth/login should fail to log in user without password 1`] = `
+exports[`@presenter/auth/login fails to log in user with invalid email 1`] = `
 Object {
   "errors": Array [
     Object {
       "field": "email",
-      "message": "email",
-    },
-    Object {
-      "field": "password",
-      "message": "password",
+      "message": "Invalid email",
     },
   ],
   "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/login fails to log in user without both credentials 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string with a length between 0 and 255",
+    },
+    Object {
+      "field": "password",
+      "message": "Expected string with a length between 0 and 255",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/login fails to log in user without email 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string with a length between 0 and 255",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/login fails to log in user without password 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "password",
+      "message": "Expected string with a length between 0 and 255",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/login should fail to log in when user does not exist 1`] = `
+Object {
+  "message": "Unauthorized",
 }
 `;

@@ -1,7 +1,10 @@
 import Translation from '../Translation';
+import validation from './subtranslations/validation';
+import validationErrorsTranslations from './subtranslations/validationsErrorsTranslations';
 
 const en: Translation = {
-  validationFailed: () => 'Validation failed',
+  ...validation,
+  ...validationErrorsTranslations,
 };
 
 export default en;

@@ -1,13 +1,4 @@
-import { AuthConfig } from '../../../config/subconfigs/auth';
-import { HttpConfig } from '../../../config/subconfigs/http';
-import { LoggerConfig } from '../../../config/subconfigs/logger';
-import { RepoConfig } from '../../../config/subconfigs/repo';
-import { TranslatorConfig } from '../../../config/subconfigs/translator';
+import BaseAppConfig from '../../../types/app/BaseAppConfig';
 
-export default interface AppConfig {
-  readonly logger: LoggerConfig;
-  readonly repo: RepoConfig;
-  readonly auth: AuthConfig;
-  readonly http: HttpConfig;
-  readonly translator: TranslatorConfig;
-}
+// tslint:disable-next-line:no-empty-interface
+export default interface AppConfig extends BaseAppConfig {}

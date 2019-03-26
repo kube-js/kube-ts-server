@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import ValidationError from 'rulr/ValidationError';
 import translatorFactory from '../../../../../translator/factory';
+import translateValidationError from '../translateValidationError';
 
 export interface Options {
   req: Request;
@@ -13,15 +14,14 @@ const mapValidationErrorsToResponse = ({
   req,
   translator,
 }: Options) => {
-  const translations = translator({ req });
+  const translation = translator({ req });
 
   return {
     errors: errors.map(error => ({
       field: error.getPath(),
-      // TODO: map to translated error
-      message: error.getPath(),
+      message: translateValidationError({ translation, error }),
     })),
-    message: translations.validationFailed(),
+    message: translation.validationFailed(),
   };
 };
 
