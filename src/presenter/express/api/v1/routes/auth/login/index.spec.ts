@@ -1,52 +1,59 @@
-import { UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import { UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import { API_V1 } from '../../../../../../../constants/routes';
 import initTests from '../../../../../utils/tests/initTests';
+import {
+  TEST_INVALID_EMAIL,
+  TEST_VALID_EMAIL,
+  TEST_VALID_PASSWORD,
+} from '../../../../../utils/tests/testData';
 
 describe('@presenter/auth/login', () => {
   const { request } = initTests();
 
-  it('should fail to log in user without both credentials', async () => {
+  it('fails to log in user without both credentials', async () => {
     const { status, body } = await request.post(`${API_V1}/auth/login`);
 
     expect(status).toBe(UNPROCESSABLE_ENTITY);
     expect(body).toMatchSnapshot();
   });
 
-  it('should fail to log in user without email', async () => {
-    const { status, body } = await request.post(`${API_V1}/auth/login`);
+  it('fails to log in user without email', async () => {
+    const { status, body } = await request.post(`${API_V1}/auth/login`).send({
+      password: TEST_VALID_PASSWORD,
+    });
 
     expect(status).toBe(UNPROCESSABLE_ENTITY);
     expect(body).toMatchSnapshot();
   });
 
-  it.only('should fail to log in user without password', async () => {
-    const { status, body } = await request.post(`${API_V1}/auth/login`);
+  it('fails to log in user without password', async () => {
+    const { status, body } = await request.post(`${API_V1}/auth/login`).send({
+      email: TEST_VALID_EMAIL,
+    });
 
     expect(status).toBe(UNPROCESSABLE_ENTITY);
     expect(body).toMatchSnapshot();
   });
 
-  // it('should fail to log in user when email is invalid', async () => {
-  //   const response = await request.post(`${API_V1}/auth/login`).send({
-  //     email: TEST_INVALID_EMAIL,
-  //     password: TEST_VALID_PASSWORD,
-  //   });
-  //   expect(response.status).toBe(UNAUTHORIZED);
-  // });
+  it('fails to log in user with invalid email', async () => {
+    const { status, body } = await request.post(`${API_V1}/auth/login`).send({
+      email: TEST_INVALID_EMAIL,
+      password: TEST_VALID_PASSWORD,
+    });
 
-  // it('should fail to log in a user without password', async () => {
-  //   const response = await request
-  //     .post(`${API_V1}/auth/login`)
-  //     .send({ email: TEST_VALID_EMAIL });
-  //   expect(response.status).toBe(UNAUTHORIZED);
-  // });
+    expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
+  });
 
-  // it('should fail to log in when user does not exist', async () => {
-  //   const response = await request
-  //     .post(`${API_V1}/auth/login`)
-  //     .send(TEST_VALID_LOGIN_USER);
-  //   expect(response.status).toBe(UNAUTHORIZED);
-  // });
+  it('should fail to log in when user does not exist', async () => {
+    const { body, status } = await request.post(`${API_V1}/auth/login`).send({
+      email: TEST_VALID_EMAIL,
+      password: TEST_VALID_PASSWORD,
+    });
+
+    expect(status).toBe(UNAUTHORIZED);
+    expect(body).toMatchSnapshot();
+  });
 
   // it('should fail to log in a user when password is invalid', async () => {
   //   const registeredUser = await service.register(TEST_VALID_LOGIN_USER);
@@ -70,4 +77,5 @@ describe('@presenter/auth/login', () => {
   //   expect(response.status).toBe(OK);
   //   expect(response.status).toBe(UNAUTHORIZED);
   // });
+  // tslint:disable-next-line:max-file-line-count
 });

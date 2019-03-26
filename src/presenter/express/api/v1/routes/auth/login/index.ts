@@ -1,13 +1,15 @@
 import { OK } from 'http-status-codes';
+import Intersection from 'rulr/Intersection';
 import Record from 'rulr/Record';
 import String from 'rulr/String';
 import validateData from 'rulr/validateData';
 import { VARCHAR_LENGTH } from '../../../../../../../constants';
+import Email from '../../../../../../../utils/validation/rules/Email';
 import Config from '../../../../../presenterFactory/Config';
 import catchErrors from '../../../../../utils/errors/catchErrors';
 
 const rules = Record({
-  email: String(0, VARCHAR_LENGTH),
+  email: Intersection([String(0, VARCHAR_LENGTH), Email()]),
   password: String(0, VARCHAR_LENGTH),
 });
 

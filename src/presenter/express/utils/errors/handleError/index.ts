@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
-import { INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import {
+  INTERNAL_SERVER_ERROR,
+  UNAUTHORIZED,
+  UNPROCESSABLE_ENTITY,
+} from 'http-status-codes';
 import ValidationErrors from 'rulr/ValidationErrors';
+import InvalidCredentialsError from '../../../../../utils/errors/auth/InvalidCredentialsError';
 import Config from '../../../presenterFactory/Config';
 import mapValidationErrorsToResponse from '../../translations/mapValidationErrorsToResponse';
 
@@ -24,6 +29,13 @@ export default ({ req, res, error, config }: Options) => {
     });
 
     return res.status(UNPROCESSABLE_ENTITY).json(jsonResponse);
+  }
+
+  if (error instanceof InvalidCredentialsError) {
+    // @TODO: update translations
+    return res.status(UNAUTHORIZED).json({
+      message: 'Unauthorized',
+    });
   }
 
   {
