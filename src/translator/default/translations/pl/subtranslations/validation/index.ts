@@ -1,10 +1,10 @@
 import { StringValidationError } from 'rulr/String';
 import ValidationError from 'rulr/ValidationError';
-import { EmailValidationError } from '../../../../../utils/errors/validation/EmailValidationError';
-import { PasswordValidationError } from '../../../../../utils/errors/validation/PasswordValidationError';
-import { ValidationErrorsTranslations } from '../../ValidationErrorsTranslations';
+import { EmailValidationError } from '../../../../../../utils/errors/validation/EmailValidationError';
+import { PasswordValidationError } from '../../../../../../utils/errors/validation/PasswordValidationError';
+import Validation from '../../../interfaces/Validation';
 
-const validationErrorsTranslations: ValidationErrorsTranslations = {
+const validation: Validation = {
   emailValidationError: (_error: EmailValidationError) =>
     'Niepoprawny adres e-mail',
   passwordValidationError: (_error: PasswordValidationError) =>
@@ -15,6 +15,7 @@ const validationErrorsTranslations: ValidationErrorsTranslations = {
     } znaków`,
   unknownValidationError: (_error: ValidationError) =>
     'Niezidentyfikowany problem',
+  validationFailed: () => 'Walidacja danych niepowiodła się',
 };
 
-export default validationErrorsTranslations;
+export default validation;

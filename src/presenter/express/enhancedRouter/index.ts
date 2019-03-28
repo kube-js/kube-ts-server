@@ -1,8 +1,9 @@
 import * as bodyParser from 'body-parser';
 import compression from 'compression';
-import cors from 'cors';
 import { Router } from 'express';
 import helmet from 'helmet';
+import createCorsMiddleware from '../middlewares/cors/factory';
+import createRateLimiter from '../middlewares/rateLimiter/factory';
 import Config from './Config';
 
 export default ({ express }: Config): Router => {
@@ -10,24 +11,16 @@ export default ({ express }: Config): Router => {
 
   const router: Router = Router();
 
-  /** TODO: Internationalization
-   *  check: https://github.com/mashpie/i18n-node
-   */
+  /* RATE LIMITING */
+  if (middlewares.rateLimiter.enabled) {
+    const rateLimiter = createRateLimiter(express);
+    router.use(rateLimiter);
+  }
 
-  /** TODO: Rate limiting
-   * check:
-   * - https://github.com/nfriedly/express-rate-limit
-   * - https://github.com/animir/node-rate-limiter-flexible
-   * - https://github.com/AdamPflug/express-brute
-   * - https://github.com/ded/express-limiter
-   */
-
+  /* TODO: configure remaining middleware via config */
   /* CORS */
   if (middlewares.cors.enabled) {
-    const corsMiddleware = cors({
-      origin: '*',
-      preflightContinue: true,
-    });
+    const corsMiddleware = createCorsMiddleware(express);
     router.use(corsMiddleware);
   }
 

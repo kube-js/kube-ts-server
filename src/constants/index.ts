@@ -5,6 +5,7 @@ export const VERSION_CHECK_URL = '/version';
 
 export const EXPRESS_PORT = 8080;
 export const EXPRESS_HOST = 'http://localhost';
+export const TOO_MANY_REQUEST_MESSAGE = 'Too many accounts created from this IP, please try again after an 15 minutes';
 
 // AUTH
 export const JWT_EXPIRES_IN = 86400000; // 24hrs

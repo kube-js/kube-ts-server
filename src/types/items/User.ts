@@ -19,3 +19,4 @@ export default interface User extends BaseItem {
   readonly loginLastAttemptAt?: Date;
   readonly accountLockoutExpiresAt?: Date; 
 }
+

@@ -52,8 +52,26 @@ Object {
 }
 `;
 
+exports[`@presenter/auth/login should fail to log in a user when password is invalid 1`] = `
+Object {
+  "message": "Invalid email and/or password",
+}
+`;
+
+exports[`@presenter/auth/login should fail to log in a user when user account is not verified 1`] = `
+Object {
+  "message": "Account unverified. Please verify you email by clicking an email you received from us",
+}
+`;
+
+exports[`@presenter/auth/login should fail to log in a user when user has been soft deleted 1`] = `
+Object {
+  "message": "Invalid email and/or password",
+}
+`;
+
 exports[`@presenter/auth/login should fail to log in when user does not exist 1`] = `
 Object {
-  "message": "Unauthorized",
+  "message": "Invalid email and/or password",
 }
 `;
