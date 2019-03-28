@@ -1,9 +1,10 @@
 import { StringValidationError } from 'rulr/String';
 import ValidationError from 'rulr/ValidationError';
-import { EmailValidationError } from '../../../utils/errors/validation/EmailValidationError';
-import { PasswordValidationError } from '../../../utils/errors/validation/PasswordValidationError';
+import { EmailValidationError } from '../../../../utils/errors/validation/EmailValidationError';
+import { PasswordValidationError } from '../../../../utils/errors/validation/PasswordValidationError';
 
-export interface ValidationErrorsTranslations {
+export default interface Validation {
+  readonly validationFailed: () => string;
   readonly stringValidationError: (error: StringValidationError) => string;
   readonly emailValidationError: (error: EmailValidationError) => string;
   readonly passwordValidationError: (error: PasswordValidationError) => string;

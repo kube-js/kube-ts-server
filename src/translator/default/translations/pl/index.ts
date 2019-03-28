@@ -1,10 +1,10 @@
-import Translation from '../Translation';
+import Translation from '../interfaces';
+import errors from './subtranslations/errors';
 import validation from './subtranslations/validation';
-import validationErrorsTranslations from './subtranslations/validationsErrorsTranslations';
 
 const pl: Translation = {
   ...validation,
-  ...validationErrorsTranslations,
+  ...errors,
 };
 
 export default pl;

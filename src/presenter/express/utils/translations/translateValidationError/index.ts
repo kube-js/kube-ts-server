@@ -1,6 +1,6 @@
 import { StringValidationError } from 'rulr/String';
 import ValidationError from 'rulr/ValidationError';
-import Translation from '../../../../../translator/default/translations/Translation';
+import Translation from '../../../../../translator/default/translations/interfaces';
 import { EmailValidationError } from '../../../../../utils/errors/validation/EmailValidationError';
 import { PasswordValidationError } from '../../../../../utils/errors/validation/PasswordValidationError';
 

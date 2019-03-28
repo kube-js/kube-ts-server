@@ -9,6 +9,11 @@ import app from './app';
 
 const expressApp: express.Application = express();
 
+if (config.http.express.trustProxy) {
+  // see: https://stackoverflow.com/questions/23413401/what-does-trust-proxy-actually-do-in-express-js-and-do-i-need-to-use-it
+  expressApp.enable('trust proxy');
+}
+
 const { presenter } = app({
   auth: config.auth,
   http: config.http,
