@@ -1,13 +1,5 @@
-import moment, { Moment, MomentInputObject } from 'moment';
+import moment from 'moment';
+import _isNil from 'ramda/src/isNil';
 
-type MomentInput =
-  | Moment
-  | Date
-  | string
-  | number
-  | (number | string)[]
-  | MomentInputObject
-  | void; // null | undefined
-
-export default (input: MomentInput): boolean =>
-  moment(input).isAfter(moment());
+export default (input: any): boolean =>
+  !_isNil(input) && moment(input).isAfter(moment());

@@ -1,6 +1,9 @@
+
+// tslint:disable:no-magic-numbers
 import { OK, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import moment from 'moment';
+import { MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS } from '../../../../../../../constants';
 import { API_V1, AUTH, LOGIN } from '../../../../../../../constants/routes';
-// import * as generateToken from '../../../../../../../utils/helpers/auth/generateToken';
 import hashPassword from '../../../../../../../utils/helpers/auth/hashPassword';
 import usersFactory from '../../../../../utils/fakeFactories/users/factory';
 import initTests from '../../../../../utils/tests/initTests';
@@ -28,6 +31,33 @@ describe('@presenter/auth/login', () => {
     const { status, body } = await request.post(LOGIN_URL);
 
     expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
+  });
+
+  it('fails to log in user without email', async () => {
+    const { status, body } = await request.post(LOGIN_URL).send({
+      password: TEST_VALID_PASSWORD,
+    });
+
+    expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
+  });
+
+  it('locks user account when too many login requests attempted', async () => {
+    const [user] = await usersFactory({
+      overrides: {
+        accountLockoutExpiresAt: moment().add(60, 'minutes').toDate(),
+        loginFailedAttempts: MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS,
+        password: await hashPassword(TEST_VALID_PASSWORD),
+      },
+      service: service.users,
+    });
+    const {status, body} = await request.post(LOGIN_URL).send({
+      email: user.email,
+      password: TEST_DIFFERENT_VALID_PASSWORD,
+    }) 
+
+    expect(status).toBe(UNAUTHORIZED);
     expect(body).toMatchSnapshot();
   });
 
