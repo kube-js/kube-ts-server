@@ -1,6 +1,9 @@
+import { ACCOUNT_LOCKOUT_TIME_IN_MINUTES } from '../../../../../../constants';
 import Errors from '../../../interfaces/Errors';
 
 const errors: Errors = {
+  accountLocked: () => `Zbyt wiele prób nieudanego logowania.
+ Twoje konto zostało zablokowane na ${ACCOUNT_LOCKOUT_TIME_IN_MINUTES} minut`,
   expiredJwtToken: () => 'Token JWT utracił ważność',
   forbidden: () => 'Brak uprawnień',
   invalidCredentials: () => 'Niewłaściwy email i/lub password',

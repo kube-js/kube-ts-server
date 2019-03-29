@@ -8,6 +8,7 @@ import ValidationErrors from 'rulr/ValidationErrors';
 import ExpiredJwtTokenError from '../../../../../utils/errors/auth/ExpiredJwtTokenError';
 import InvalidCredentialsError from '../../../../../utils/errors/auth/InvalidCredentialsError';
 import InvalidJwtTokenError from '../../../../../utils/errors/auth/InvalidJwtTokenError';
+import LockedAccountError from '../../../../../utils/errors/auth/LockedAccountError';
 import MissingJwtTokenError from '../../../../../utils/errors/auth/MissingJwtTokenError';
 import MissingJwtTokenExtractorError from '../../../../../utils/errors/auth/MissingJwtTokenExtractorError';
 import UnverifiedAccountError from '../../../../../utils/errors/auth/UnverifiedAccountError';
@@ -51,6 +52,12 @@ export default ({ req, res, error, config }: Options) => {
 
   if (error instanceof MissingJwtTokenError) {
     const message = translations.missingJwtToken();
+
+    return res.status(UNAUTHORIZED).json({ message });
+  }
+
+  if (error instanceof LockedAccountError) {
+    const message = translations.accountLocked();
 
     return res.status(UNAUTHORIZED).json({ message });
   }

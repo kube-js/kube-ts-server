@@ -40,6 +40,18 @@ Object {
 }
 `;
 
+exports[`@presenter/auth/login fails to log in user without email 2`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string with a length between 0 and 255",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
 exports[`@presenter/auth/login fails to log in user without password 1`] = `
 Object {
   "errors": Array [
@@ -49,6 +61,13 @@ Object {
     },
   ],
   "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/login locks user account when too many login requests attempted 1`] = `
+Object {
+  "message": "Too many invalid login attempts.
+  Your account has been locked for 10 minutes",
 }
 `;
 

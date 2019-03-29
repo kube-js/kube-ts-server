@@ -25,6 +25,7 @@ export default ({ db }: RepoConfig) => {
         .notNullable()
         .defaultTo(0);
       table.dateTime('authLastAttempt').nullable();
+      table.dateTime('accountLockoutExpiresAt').nullable();
       table.dateTime('loginLastAttemptAt').nullable();
       table.dateTime('createdAt').notNullable();
       table.dateTime('updatedAt').nullable();

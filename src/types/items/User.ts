@@ -1,4 +1,4 @@
-import BaseItem from './BaseItem';
+import BaseItem, { NullableDate } from './BaseItem';
 
 export enum GenderType {
   male = 'male',
@@ -11,12 +11,11 @@ export default interface User extends BaseItem {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly bio?: string;
-  readonly dateOfBirth?: Date;
+  readonly dateOfBirth?: NullableDate;
   readonly gender?: GenderType;
-  readonly verifiedAt?: Date;
-  readonly deletedAt?: Date;
+  readonly verifiedAt?: NullableDate;
+  readonly deletedAt?: NullableDate;
   readonly loginFailedAttempts?: number;
-  readonly loginLastAttemptAt?: Date;
-  readonly accountLockoutExpiresAt?: Date; 
+  readonly loginLastAttemptAt?: NullableDate;
+  readonly accountLockoutExpiresAt?: NullableDate;
 }
-

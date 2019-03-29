@@ -20,12 +20,11 @@ export default ({ repo, appConfig }: Config) => async ({
   email,
   password,
 }: Options) => {
-  // TODO: fix filter so it accepts null values
   const { items } = await repo.users.getItems({
     filter: {
       deletedAt: null,
       email,
-    } as any,
+    },
   });
 
   if (items.length === 0) {
@@ -34,8 +33,7 @@ export default ({ repo, appConfig }: Config) => async ({
 
   const user = items[0];
 
-  // TODO: check undefined and null? verifiedAt === undefined
-  if (_isNil(user.verifiedAt)) {
+  if (user.verifiedAt === undefined) {
     throw new UnverifiedAccountError();
   }
 
@@ -53,7 +51,7 @@ export default ({ repo, appConfig }: Config) => async ({
 
     throw new LockedAccountError();
   }
-  
+
   const passwordMatches = await verifyPassword(
     user.password as string,
     password
@@ -99,5 +97,5 @@ export default ({ repo, appConfig }: Config) => async ({
     token,
     user: visibleUserData,
   };
-// tslint:disable-next-line:max-file-line-count
+  // tslint:disable-next-line:max-file-line-count
 };

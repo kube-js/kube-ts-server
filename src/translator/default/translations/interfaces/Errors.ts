@@ -1,4 +1,5 @@
 export default interface ErrorsTranslations {
+  readonly accountLocked: () => string;
   readonly expiredJwtToken: () => string;
   readonly invalidJwtToken: () => string;
   readonly missingJwtToken: () => string;
