@@ -5,7 +5,8 @@
     "outDir": "dist",
     "noImplicitReturns": false,
     "typeRoots": ["./@types", "./node_modules/@types"],
-    "lib": ["dom"]
+    "lib": ["dom"],
+    
   },
   "includes": ["src/**/*"],
   "exclude": ["node_modules", "dist/**/*"]

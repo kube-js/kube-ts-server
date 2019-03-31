@@ -22,9 +22,13 @@ expressApp.all('*', presenter);
 const request = createSupertest(expressApp);
 
 export default () => {
-  beforeEach(async () => {
+  beforeEach(async() => {
     await service.migrations.rollback();
     await service.migrations.migrate();
+  });
+
+  afterEach(async() => {
+    await service.migrations.rollback();
   });
 
   return { service, request };

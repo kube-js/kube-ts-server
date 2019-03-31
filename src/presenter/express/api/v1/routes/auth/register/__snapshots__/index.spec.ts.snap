@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@presenter/auth/register fails to register user when email is missing out of required properties 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Invalid email",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/register fails to register user when password and password_confirmation are not matching 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "fields": Array [
+        "password",
+        "password_confirmation",
+      ],
+      "message": "Expected password to match password_confirmation",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/register fails to register user when password is missing out of required properties 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "password",
+      "message": "Expected string with a length between 0 and 255",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/register fails to register user when password_confirmation is missing out of required properties 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "password_confirmation",
+      "message": "Expected string with a length between 0 and 255",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/register fails to register user without required fields 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Invalid email",
+    },
+    Object {
+      "field": "password",
+      "message": "Expected string with a length between 0 and 255",
+    },
+    Object {
+      "field": "password_confirmation",
+      "message": "Expected string with a length between 0 and 255",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;

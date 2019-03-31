@@ -6,4 +6,5 @@ export default ({ db }: RepoConfig) =>
   knexMigrationsRepoFactory({
     db,
     migrations: [createUsersTable({ db })],
+    tableName: 'migrations',
   });

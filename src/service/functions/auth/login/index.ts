@@ -1,14 +1,11 @@
 import _isNil from 'ramda/src/isNil';
-import User from '../../../../types/items/User';
 import InvalidCredentialsError from '../../../../utils/errors/auth/InvalidCredentialsError';
 import LockedAccountError from '../../../../utils/errors/auth/LockedAccountError';
 import UnverifiedAccountError from '../../../../utils/errors/auth/UnverifiedAccountError';
-import generateToken from '../../../../utils/helpers/auth/generateToken';
 import verifyPassword from '../../../../utils/helpers/auth/verifyPassword';
 import generateLockoutExpiresAtDate from '../../../../utils/helpers/date/generateLockoutExpiresAtDate';
 import isInTheFuture from '../../../../utils/helpers/date/isInTheFuture';
 import incrementOrInitialise from '../../../../utils/helpers/math/incrementOrInitialise';
-import getVisibleUserProperties from '../../../../utils/helpers/model/getVisibleUserProperties';
 import Config from '../../../FactoryConfig';
 
 export interface Options {
@@ -22,7 +19,9 @@ export default ({ repo, appConfig }: Config) => async ({
 }: Options) => {
   const { items } = await repo.users.getItems({
     filter: {
-      deletedAt: null,
+      deletedAt: {
+        $eq: null,
+      },
       email,
     },
   });
@@ -59,25 +58,27 @@ export default ({ repo, appConfig }: Config) => async ({
 
   if (!passwordMatches) {
     const loginFailedAttempts = incrementOrInitialise(user.loginFailedAttempts);
+
     const shouldLockAccount =
       loginFailedAttempts >= appConfig.auth.maxNumberOfLoginFailedAttempts;
+
     const accountLockoutExpiresAt = shouldLockAccount
-      ? { accountLockoutExpiresAt: generateLockoutExpiresAtDate() }
-      : {};
+      ? generateLockoutExpiresAtDate()
+      : null;
 
     await repo.users.updateItem({
       id: user.id,
       patch: {
+        accountLockoutExpiresAt,
         loginFailedAttempts,
         loginLastAttemptAt: new Date(),
-        ...accountLockoutExpiresAt,
       },
     });
 
     throw new InvalidCredentialsError();
   }
 
-  await repo.users.updateItem({
+  const { item: updatedUser } = await repo.users.updateItem({
     id: user.id,
     patch: {
       accountLockoutExpiresAt: undefined,
@@ -86,16 +87,5 @@ export default ({ repo, appConfig }: Config) => async ({
     },
   });
 
-  const visibleUserData: Partial<User> = getVisibleUserProperties(user);
-
-  const token: string = generateToken({
-    config: appConfig.auth.jwt,
-    data: visibleUserData,
-  });
-
-  return {
-    token,
-    user: visibleUserData,
-  };
-  // tslint:disable-next-line:max-file-line-count
+  return updatedUser;
 };
