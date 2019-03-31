@@ -1,6 +1,7 @@
 import { StringValidationError } from 'rulr/String';
 import ValidationError from 'rulr/ValidationError';
 import Translation from '../../../../../translator/default/translations/interfaces';
+import DateValidationError from '../../../../../utils/errors/validation/DateValidationError';
 import EmailValidationError from '../../../../../utils/errors/validation/EmailValidationError';
 import MatchValidationError from '../../../../../utils/errors/validation/MatchValidationError';
 import PasswordValidationError from '../../../../../utils/errors/validation/PasswordValidationError';
@@ -20,10 +21,10 @@ export default ({ translation, error }: Options) => {
       return translation.passwordValidationError(
         error as PasswordValidationError
       );
+    case DateValidationError:
+      return translation.dateValidationError();
     case MatchValidationError:
-      return translation.matchValidationError(
-        error as MatchValidationError
-      );
+      return translation.matchValidationError(error as MatchValidationError);
     default:
       return translation.unknownValidationError(error);
   }

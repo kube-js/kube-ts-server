@@ -6,6 +6,7 @@ import PasswordValidationError from '../../../../../../utils/errors/validation/P
 import Validation from '../../../interfaces/Validation';
 
 const validation: Validation = {
+  dateValidationError: () => `Nieprawidłowa data`,
   emailValidationError: (_error: EmailValidationError) =>
     'Niepoprawny adres e-mail',
   matchValidationError: (error: MatchValidationError) =>

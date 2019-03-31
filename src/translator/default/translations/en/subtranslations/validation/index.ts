@@ -3,6 +3,7 @@ import MatchValidationError from '../../../../../../utils/errors/validation/Matc
 import Validation from '../../../interfaces/Validation';
 
 const validationErrorsTranslations: Validation = {
+  dateValidationError: () => `Invalid date`,
   emailValidationError: () => 'Invalid email',
   matchValidationError: (error: MatchValidationError) =>
     `Expected ${error.fieldOne} to match ${error.fieldTwo}`,
@@ -11,7 +12,7 @@ const validationErrorsTranslations: Validation = {
   stringValidationError: (error: StringValidationError) =>
     `Expected string with a length between ${error.minLength} and ${
       error.maxLength
-    }`,
+    } characters`,
   unknownValidationError: () => 'Unknown error',
   validationFailed: () => 'Validation failed',
 };

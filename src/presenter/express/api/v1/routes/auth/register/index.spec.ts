@@ -1,6 +1,6 @@
-// import faker from 'faker';
+import faker from 'faker';
 import { UNPROCESSABLE_ENTITY } from 'http-status-codes';
-// import { TEXT_LENGTH } from '../../../../../../../constants';
+import { TEXT_LENGTH } from '../../../../../../../constants';
 import { API_V1, AUTH, REGISTER } from '../../../../../../../constants/routes';
 import initTests from '../../../../../utils/tests/initTests';
 import {
@@ -16,13 +16,13 @@ jest.mock('../../../../../../../utils/helpers/auth/generateToken', () =>
 describe('@presenter/auth/register', () => {
   const { request } = initTests();
   const REGISTER_URL = `${API_V1}${AUTH}${REGISTER}`;
-  // const validRequiredFields = {
-  //   email: TEST_VALID_EMAIL,
-  //   password: TEST_VALID_PASSWORD,
-  //   password_confirmation: TEST_VALID_PASSWORD,
-  // };
+  const validRequiredFields = {
+    email: TEST_VALID_EMAIL,
+    password: TEST_VALID_PASSWORD,
+    password_confirmation: TEST_VALID_PASSWORD,
+  };
 
-  afterAll(() => {
+  afterAll(async () => {
     jest.clearAllMocks();
   });
 
@@ -78,15 +78,26 @@ describe('@presenter/auth/register', () => {
     expect(body).toMatchSnapshot();
   });
 
-  // it('fails to register user when bio exceeds number of characters', async () => {
-  //   const payload = {
-  //     ...validRequiredFields,
-  //     bio: faker.lorem.text(TEXT_LENGTH + 1),
-  //   };
-  //   const { status, body } = await request.post(REGISTER_URL).send(payload);
+  it('fails to register user when bio exceeds number of characters', async () => {
+    const payload = {
+      ...validRequiredFields,
+      bio: faker.random.alphaNumeric(TEXT_LENGTH) ,
+    };
+    const { status, body } = await request.post(REGISTER_URL).send(payload);
 
-  //   expect(status).toBe(UNPROCESSABLE_ENTITY);
-  //   expect(body).toMatchSnapshot();
-  // });
+    expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
+  });
 
+  it('fails to register user when date_of_birth is not valid date', async () => {
+    const payload = {
+      ...validRequiredFields,
+      date_of_birth: 'invalid date',
+    };
+    const { status, body } = await request.post(REGISTER_URL).send(payload);
+
+    expect(status).toBe(UNPROCESSABLE_ENTITY);
+    expect(body).toMatchSnapshot();
+  });
+// tslint:disable-next-line:max-file-line-count
 });

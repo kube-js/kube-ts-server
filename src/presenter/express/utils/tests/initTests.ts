@@ -22,6 +22,7 @@ expressApp.all('*', presenter);
 const request = createSupertest(expressApp);
 
 export default () => {
+  
   beforeEach(async() => {
     await service.migrations.rollback();
     await service.migrations.migrate();
@@ -30,6 +31,10 @@ export default () => {
   afterEach(async() => {
     await service.migrations.rollback();
   });
+
+  afterAll(async() => {
+    await service.closeDbConnection();
+  })
 
   return { service, request };
 };
