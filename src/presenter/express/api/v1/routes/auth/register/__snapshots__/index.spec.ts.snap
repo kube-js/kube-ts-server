@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`@presenter/auth/register fails to register user when bio exceeds number of characters 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "bio",
+      "message": "Expected string with a length between 0 and 65535 characters",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/register fails to register user when date_of_birth is not valid date 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "date_of_birth",
+      "message": "Invalid date",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
 exports[`@presenter/auth/register fails to register user when email is missing out of required properties 1`] = `
 Object {
   "errors": Array [
@@ -32,7 +56,7 @@ Object {
   "errors": Array [
     Object {
       "field": "password",
-      "message": "Expected string with a length between 0 and 255",
+      "message": "Expected string with a length between 0 and 255 characters",
     },
   ],
   "message": "Validation failed",
@@ -44,7 +68,7 @@ Object {
   "errors": Array [
     Object {
       "field": "password_confirmation",
-      "message": "Expected string with a length between 0 and 255",
+      "message": "Expected string with a length between 0 and 255 characters",
     },
   ],
   "message": "Validation failed",
@@ -60,11 +84,11 @@ Object {
     },
     Object {
       "field": "password",
-      "message": "Expected string with a length between 0 and 255",
+      "message": "Expected string with a length between 0 and 255 characters",
     },
     Object {
       "field": "password_confirmation",
-      "message": "Expected string with a length between 0 and 255",
+      "message": "Expected string with a length between 0 and 255 characters",
     },
   ],
   "message": "Validation failed",

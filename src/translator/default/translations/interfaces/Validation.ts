@@ -5,6 +5,7 @@ import MatchValidationError from '../../../../utils/errors/validation/MatchValid
 import PasswordValidationError from '../../../../utils/errors/validation/PasswordValidationError';
 
 export default interface Validation {
+  readonly dateValidationError: () => string;
   readonly validationFailed: () => string;
   readonly stringValidationError: (error: StringValidationError) => string;
   readonly emailValidationError: (error: EmailValidationError) => string;
