@@ -1,5 +1,5 @@
 import { REGEXP_PASSWORD } from '../../../constants';
-import { EmailValidationError } from '../../errors/validation/EmailValidationError';
+import EmailValidationError from '../../errors/validation/EmailValidationError';
 
 export default function() {
   return (data: string) => {

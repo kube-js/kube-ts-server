@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import ValidationError from 'rulr/ValidationError';
 import translatorFactory from '../../../../../translator/factory';
+import MatchValidationError from '../../../../../utils/errors/validation/MatchValidationError';
 import translateValidationError from '../translateValidationError';
 
 export interface Options {
@@ -8,6 +9,18 @@ export interface Options {
   translator: ReturnType<typeof translatorFactory>;
   errors: ValidationError[];
 }
+
+export const getFieldsProperties = (error: ValidationError) => {
+  if (error instanceof MatchValidationError) {
+    return {
+      fields: [error.fieldOne, error.fieldTwo],
+    };
+  }
+
+  return {
+    field: error.getPath(),
+  };
+};
 
 const mapValidationErrorsToResponse = ({
   errors,
@@ -18,7 +31,7 @@ const mapValidationErrorsToResponse = ({
 
   return {
     errors: errors.map(error => ({
-      field: error.getPath(),
+      ...getFieldsProperties(error),
       message: translateValidationError({ translation, error }),
     })),
     message: translation.validationFailed(),

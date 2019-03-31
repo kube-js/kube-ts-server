@@ -14,10 +14,6 @@ export default ({ client, connection }: KnexConfig) => {
   });
 
   return {
-    clearRepo: async () => {
-      const conn = await db();
-      await Promise.resolve(conn.schema.dropTableIfExists('users'));
-    },
     migrations: migrationsFactory({ db }),
     users: usersFactory({ db }),
   };

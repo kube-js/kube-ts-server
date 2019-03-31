@@ -20,6 +20,7 @@ export const MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS = 5;
 // MODEL
 export const UUID_LENGTH = 36;
 export const VARCHAR_LENGTH = 255;
+export const TEXT_LENGTH = 65535 ;
 
 // SUPPORTED LOCALES
 export const DEFAULT_LOCALE = 'en';

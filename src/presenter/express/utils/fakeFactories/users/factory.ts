@@ -7,6 +7,7 @@ import baseFactory, { Options } from '../index';
 const constantDate = new Date('2019-03-27T21:32:31.000Z');
 
 const createUserItemData = async () => ({
+  accountLockoutExpiresAt: null,
   bio: faker.lorem.sentences(10),
   dateOfBirth: faker.date.past(50),
   email: faker.internet.exampleEmail(),

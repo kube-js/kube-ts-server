@@ -1,4 +1,3 @@
-
 // tslint:disable:no-magic-numbers
 import { OK, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import moment from 'moment';
@@ -14,9 +13,8 @@ import {
   TEST_VALID_PASSWORD,
 } from '../../../../../utils/tests/testData';
 
-jest.mock(
-  '../../../../../../../utils/helpers/auth/generateToken',
-  () => jest.fn(() => 'token')
+jest.mock('../../../../../../../utils/helpers/auth/generateToken', () =>
+  jest.fn(() => 'token')
 );
 
 describe('@presenter/auth/login', () => {
@@ -46,16 +44,18 @@ describe('@presenter/auth/login', () => {
   it('locks user account when too many login requests attempted', async () => {
     const [user] = await usersFactory({
       overrides: {
-        accountLockoutExpiresAt: moment().add(60, 'minutes').toDate(),
+        accountLockoutExpiresAt: moment()
+          .add(60, 'minutes')
+          .toDate(),
         loginFailedAttempts: MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS,
         password: await hashPassword(TEST_VALID_PASSWORD),
       },
       service: service.users,
     });
-    const {status, body} = await request.post(LOGIN_URL).send({
+    const { status, body } = await request.post(LOGIN_URL).send({
       email: user.email,
       password: TEST_DIFFERENT_VALID_PASSWORD,
-    }) 
+    });
 
     expect(status).toBe(UNAUTHORIZED);
     expect(body).toMatchSnapshot();
@@ -102,6 +102,7 @@ describe('@presenter/auth/login', () => {
   it('should fail to log in a user when password is invalid', async () => {
     const [user] = await usersFactory({
       overrides: {
+        loginFailedAttempts: MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS + 1,
         password: await hashPassword(TEST_VALID_PASSWORD),
       },
       service: service.users,
@@ -177,5 +178,5 @@ describe('@presenter/auth/login', () => {
     expect(body.user.email).toBe(user.email);
     expect(body.user.id).toBe(user.id);
   });
-// tslint:disable-next-line:max-file-line-count
+  // tslint:disable-next-line:max-file-line-count
 });
