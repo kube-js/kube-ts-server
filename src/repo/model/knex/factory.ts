@@ -3,6 +3,7 @@ import * as knex from 'knex';
 import { KnexConfig } from '../../../config/subconfigs/repo/model';
 import closeDbConnection from './commons/closeDbConnection';
 import migrationsFactory from './migrations/factory';
+import resetPasswordTokens from './resetPasswordTokens/factory';
 import usersFactory from './users/factory';
 
 export type Connect = () => Promise<knex>;
@@ -20,6 +21,7 @@ export default ({ client, connection }: KnexConfig) => {
   return {
     closeDbConnection: closeDbConnection({ db }),
     migrations: migrationsFactory({ db }),
+    resetPasswordTokens: resetPasswordTokens({ db }),
     users: usersFactory({ db }),
   };
 };

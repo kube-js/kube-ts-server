@@ -1,11 +1,13 @@
-import { toCamel } from 'convert-keys';
+import { toCamel, toSnake } from 'convert-keys';
 import { CREATED } from 'http-status-codes';
 import _omit from 'ramda/src/omit';
 import _pick from 'ramda/src/pick';
 import validateData from 'rulr/validateData';
+import { v4 as uuid } from 'uuid';
 import User from '../../../../../../../types/items/User';
 import generateToken from '../../../../../../../utils/helpers/auth/generateToken';
 import getVisibleUserProperties from '../../../../../../../utils/helpers/model/getVisibleUserProperties';
+import getVerifyEmailUrl from '../../../../../../../utils/helpers/url/getVerifyEmailUrl';
 import Config from '../../../../../presenterFactory/Config';
 import catchErrors from '../../../../../utils/errors/catchErrors';
 import rules, { schema } from '../../../../../utils/schemas/auth/register';
@@ -26,6 +28,27 @@ export default (config: Config) =>
       password,
     } = toCamel(data);
 
+    const { appConfig, translator } = config;
+
+    const translations = translator({ req });
+
+    const verifyToken = uuid();
+
+    const link = getVerifyEmailUrl({
+      config: appConfig.http.client,
+      email,
+      token: verifyToken,
+    });
+
+    const mailOptions = {
+      from: appConfig.repo.mail.from,
+      html: translations.verifyYourEmailHtml(link),
+      subject: translations.verifyYourEmailSubject(),
+      text: translations.verifyYourEmailText(link),
+      to: email,
+      verifyToken,
+    };
+
     const user = await config.service.auth.register({
       bio,
       dateOfBirth,
@@ -33,8 +56,10 @@ export default (config: Config) =>
       firstName,
       gender,
       lastName,
+      mailOptions,
       password,
     });
+
     const visibleUserData: Partial<User> = getVisibleUserProperties(user);
 
     const token: string = generateToken({
@@ -42,8 +67,10 @@ export default (config: Config) =>
       data: visibleUserData,
     });
 
-    res.status(CREATED).json({
+    const responseData = toSnake({
       token,
       user: visibleUserData,
     });
+
+    res.status(CREATED).json(responseData);
   });

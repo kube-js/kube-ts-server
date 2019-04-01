@@ -1,6 +1,7 @@
 import { StringValidationError } from 'rulr/String';
 import ValidationError from 'rulr/ValidationError';
 import EmailValidationError from '../../../../../../utils/errors/validation/EmailValidationError';
+import EnumValidationError from '../../../../../../utils/errors/validation/EnumValidationError';
 import MatchValidationError from '../../../../../../utils/errors/validation/MatchValidationError';
 import PasswordValidationError from '../../../../../../utils/errors/validation/PasswordValidationError';
 import Validation from '../../../interfaces/Validation';
@@ -9,10 +10,12 @@ const validation: Validation = {
   dateValidationError: () => `Nieprawidłowa data`,
   emailValidationError: (_error: EmailValidationError) =>
     'Niepoprawny adres e-mail',
+  enumValidationError: (error: EnumValidationError) =>
+    `Wymagane jedno z następujących: ${error.enumValues.join(', ')}`,
   matchValidationError: (error: MatchValidationError) =>
     `Pola ${error.fieldOne} i ${error.fieldTwo} muszą być taką samą wartość`,
   passwordValidationError: (_error: PasswordValidationError) =>
-    'Wymagany ciąg znaków o dlugości minimum 8 znaków, zawierający co najmniej: jedną dużą i jedną małą literę, jedną cyfrę i jeden znak specjalny (np. jeden z następujących: $#@!%^&*)',
+    'Wymagany ciąg znaków o dlugości minimum 8 znaków, zawierający co najmniej: jedną dużą i jedną małą literę, jedną cyfrę i jeden znak specjalny (np. jeden z następujących: #?!@$%^&*-)',
   stringValidationError: (error: StringValidationError) =>
     `Wymagany ciąg znaków o dlugości pomiędzy ${error.minLength} a ${
       error.maxLength

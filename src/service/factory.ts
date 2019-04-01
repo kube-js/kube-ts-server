@@ -8,6 +8,8 @@ export default (config: FactoryConfig) => ({
   migrations: migrationsServiceFactory({
     repo: config.repo.migrations,
   }),
-  /* TODO: create wrapper for repo functions calls so it won't expose the user sensitive informations i.e. password */
+  /* TODO: create wrapper for repo functions calls so it won't expose the repo sensitive informations i.e. password */
+  resetPasswordTokens: config.repo.resetPasswordTokens,
+  sendEmail: config.repo.sendEmail,
   users: config.repo.users,
 });

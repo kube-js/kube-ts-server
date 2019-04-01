@@ -52,7 +52,7 @@ export default ({ repo, appConfig }: Config) => async ({
   }
 
   const passwordMatches = await verifyPassword(
-    user.password as string,
+    user.password,
     password
   );
 

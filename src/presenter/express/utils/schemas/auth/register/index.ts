@@ -9,6 +9,7 @@ import Email from '../../../../../../utils/validation/rules/Email';
 import Enum from '../../../../../../utils/validation/rules/Enum';
 import Match from '../../../../../../utils/validation/rules/Match';
 import Optional from '../../../../../../utils/validation/rules/Optional';
+import Password from '../../../../../../utils/validation/rules/Password';
 
 export const schema = {
   bio: Optional(String(0, TEXT_LENGTH)),
@@ -17,8 +18,8 @@ export const schema = {
   first_name: Optional(String(0, VARCHAR_LENGTH)),
   gender: Optional(Enum(GenderType)),
   last_name: Optional(String(0, VARCHAR_LENGTH)),
-  password: String(0, VARCHAR_LENGTH),
-  password_confirmation: String(0, VARCHAR_LENGTH),
+  password: Password(),
+  password_confirmation: Password(),
 };
 
 const rules = Intersection([

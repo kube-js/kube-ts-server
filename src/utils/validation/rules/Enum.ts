@@ -1,4 +1,3 @@
-
 import Rule from 'rulr/Rule';
 import EnumValidationError from '../../errors/validation/EnumValidationError';
 
@@ -21,5 +20,5 @@ export default <T>(enumType: T): Rule<T> => (data: T) => {
     return [];
   }
 
-  return [new EnumValidationError(data)];
+  return [new EnumValidationError(data, enumValues)];
 };
