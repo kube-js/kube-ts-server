@@ -3,6 +3,7 @@ import ValidationError from 'rulr/ValidationError';
 import Translation from '../../../../../translator/default/translations/interfaces';
 import DateValidationError from '../../../../../utils/errors/validation/DateValidationError';
 import EmailValidationError from '../../../../../utils/errors/validation/EmailValidationError';
+import EnumValidationError from '../../../../../utils/errors/validation/EnumValidationError';
 import MatchValidationError from '../../../../../utils/errors/validation/MatchValidationError';
 import PasswordValidationError from '../../../../../utils/errors/validation/PasswordValidationError';
 
@@ -23,6 +24,8 @@ export default ({ translation, error }: Options) => {
       );
     case DateValidationError:
       return translation.dateValidationError();
+    case EnumValidationError:
+      return translation.enumValidationError(error as EnumValidationError);
     case MatchValidationError:
       return translation.matchValidationError(error as MatchValidationError);
     default:

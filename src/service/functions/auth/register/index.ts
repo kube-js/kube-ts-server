@@ -1,101 +1,80 @@
+import { ConflictingItemError } from '@js-items/foundation';
+import moment from 'moment';
 import _isNil from 'ramda/src/isNil';
+import { v4 as uuid } from 'uuid';
 import { GenderType } from '../../../../types/items/User';
-import InvalidCredentialsError from '../../../../utils/errors/auth/InvalidCredentialsError';
-import LockedAccountError from '../../../../utils/errors/auth/LockedAccountError';
-import UnverifiedAccountError from '../../../../utils/errors/auth/UnverifiedAccountError';
-import verifyPassword from '../../../../utils/helpers/auth/verifyPassword';
-import generateLockoutExpiresAtDate from '../../../../utils/helpers/date/generateLockoutExpiresAtDate';
-import isInTheFuture from '../../../../utils/helpers/date/isInTheFuture';
-import incrementOrInitialise from '../../../../utils/helpers/math/incrementOrInitialise';
+import ConflictError from '../../../../utils/errors/http/ConflictError';
 import Config from '../../../FactoryConfig';
+
+export interface MailOptions {
+  readonly from: string;
+  readonly html: string;
+  readonly subject: string;
+  readonly text: string;
+  readonly to: string;
+  readonly verifyToken: string;
+}
 
 export interface Options {
   readonly bio: string;
   readonly dateOfBirth: string;
   readonly email: string;
   readonly firstName: string;
-  readonly gender: GenderType.male | GenderType.female;
+  readonly gender: GenderType;
   readonly lastName: string;
   readonly password: string;
+  readonly mailOptions: MailOptions;
 }
 
-export default ({ repo, appConfig }: Config) => async ({
-  // bio,
-  // dateOfBirth,
+export default ({ repo }: Config) => async ({
+  bio,
+  dateOfBirth,
   email,
+  firstName,
+  gender,
+  lastName,
   password,
+  mailOptions,
 }: Options) => {
+  try {
+    const id = uuid();
 
-  const { items } = await repo.users.getItems({
-    filter: {
-      deletedAt: {
-        $eq: null,
-      },
-      email,
-    },
-  });
-
-  if (items.length === 0) {
-    throw new InvalidCredentialsError();
-  }
-
-  const user = items[0];
-
-  if (user.verifiedAt === undefined) {
-    throw new UnverifiedAccountError();
-  }
-
-  const isValidDate = user.accountLockoutExpiresAt !== undefined;
-  const isAccountLocked = isInTheFuture(user.accountLockoutExpiresAt);
-
-  if (isValidDate && isAccountLocked) {
-    await repo.users.updateItem({
-      id: user.id,
-      patch: {
-        loginFailedAttempts: incrementOrInitialise(user.loginFailedAttempts),
-        loginLastAttemptAt: new Date(),
+    const { item } = await repo.users.createItem({
+      id,
+      item: {
+        bio,
+        createdAt: new Date(),
+        dateOfBirth: moment(dateOfBirth).toDate(),
+        email,
+        firstName,
+        gender,
+        id,
+        lastName,
+        password,
       },
     });
 
-    throw new LockedAccountError();
+    /*  TODO: move that to remind password */
+    // await repo.resetPasswordTokens.createItem({
+    //   id: mailOptions.verifyToken,
+    //   item: {
+    //     createdAt: new Date(),
+    //     expiresAt: moment()
+    //       .add(DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES, 'minutes')
+    //       .toDate(),
+    //     id: mailOptions.verifyToken,
+    //     userId: item.id,
+    //   },
+    // });
+
+    await repo.sendEmail(mailOptions);
+
+    return Promise.resolve(item);
+  } catch (error) {
+    if (error instanceof ConflictingItemError) {
+      throw new ConflictError(error.itemName, error.itemId);
+    }
+    
+    throw error;
   }
-
-  const passwordMatches = await verifyPassword(
-    user.password as string,
-    password
-  );
-
-  if (!passwordMatches) {
-    const loginFailedAttempts = incrementOrInitialise(user.loginFailedAttempts);
-
-    const shouldLockAccount =
-      loginFailedAttempts >= appConfig.auth.maxNumberOfLoginFailedAttempts;
-
-    const accountLockoutExpiresAt = shouldLockAccount
-      ? generateLockoutExpiresAtDate()
-      : null;
-
-    await repo.users.updateItem({
-      id: user.id,
-      patch: {
-        accountLockoutExpiresAt,
-        loginFailedAttempts,
-        loginLastAttemptAt: new Date(),
-      },
-    });
-
-    throw new InvalidCredentialsError();
-  }
-
-  const { item: updatedUser } = await repo.users.updateItem({
-    id: user.id,
-    patch: {
-      accountLockoutExpiresAt: undefined,
-      loginFailedAttempts: 0,
-      loginLastAttemptAt: new Date(),
-    },
-  });
-
-  return updatedUser;
-  // tslint:disable-next-line:max-file-line-count
 };

@@ -1,3 +1,4 @@
+import { toSnake } from 'convert-keys';
 import { OK } from 'http-status-codes';
 import Record from 'rulr/Record';
 import String from 'rulr/String';
@@ -33,8 +34,10 @@ export default (config: Config) =>
       data: visibleUserData,
     });
 
-    res.status(OK).json({
+    const data = toSnake({
       token,
       user: visibleUserData,
     });
+
+    res.status(OK).json(data);
   });

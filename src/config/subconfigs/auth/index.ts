@@ -4,7 +4,7 @@ import {
   AUTH_QUERY_PARAM_NAME,
   AUTH_SCHEME_NAME,
   JWT_ALGORITM,
-  JWT_EXPIRES_IN,
+  JWT_EXPIRES_IN_MS,
   MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS,
 } from '../../../constants';
 import getNumberValue from '../../../utils/helpers/config/getNumberValue';
@@ -44,7 +44,7 @@ const config: AuthConfig = {
       process.env.AUTH_SCHEME_NAME,
       AUTH_SCHEME_NAME
     ),
-    expiresIn: getNumberValue(process.env.JWT_EXPIRES_IN, JWT_EXPIRES_IN),
+    expiresIn: getNumberValue(process.env.JWT_EXPIRES_IN, JWT_EXPIRES_IN_MS),
     secret: process.env.JWT_SECRET, // intentional - do not change as exception is thrown if not set
   },
   maxNumberOfLoginFailedAttempts: getNumberValue(

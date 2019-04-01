@@ -5,3 +5,4 @@ export const LOGIN = '/login';
 export const REGISTER = '/register';
 export const RESET_PASSWORD = '/reset-password';
 export const REMIND_PASSWORD = '/remind-password';
+export const VERIFY_PASSWORD = '/verify-password';

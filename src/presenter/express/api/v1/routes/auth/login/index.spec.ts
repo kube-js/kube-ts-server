@@ -21,7 +21,7 @@ describe('@presenter/auth/login', () => {
   const { request, service } = initTests();
   const LOGIN_URL = `${API_V1}${AUTH}${LOGIN}`;
 
-  afterAll(async() => {
+  afterAll(() => {
     jest.clearAllMocks();
   });
 

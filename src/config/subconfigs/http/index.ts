@@ -1,11 +1,15 @@
 // tslint:disable:no-magic-numbers
 import { TOO_MANY_REQUESTS } from 'http-status-codes';
 import {
+  CLIENT_URL,
+  CLIENT_VERIFY_EMAIL_URL,
+  CLIENT_VERIFY_TOKEN_QUERY_PARAM_NAME,
   EXPRESS_HOST,
   EXPRESS_PORT,
   LIVENESS_CHECK_URL,
   READINESS_CHECK_URL,
   TOO_MANY_REQUEST_MESSAGE,
+  TRUST_PROXY,
   VERSION_CHECK_URL,
 } from '../../../constants';
 import getBooleanValue from '../../../utils/helpers/config/getBooleanValue';
@@ -57,9 +61,16 @@ export interface Checks {
   readonly readiness: string;
 }
 
+export interface ClientConfig {
+  readonly siteUrl: string;
+  readonly verifyEmailUrl: string;
+  readonly verifyTokenQueryParamName: string;
+}
+
 export interface HttpConfig {
   readonly checks: Checks;
   readonly express: ExpressConfig;
+  readonly client: ClientConfig;
 }
 
 const config: HttpConfig = {
@@ -73,6 +84,20 @@ const config: HttpConfig = {
       READINESS_CHECK_URL
     ),
     version: getStringValue(process.env.VERSION_CHECK_URL, VERSION_CHECK_URL),
+  },
+  client: {
+    siteUrl: getStringValue(
+      process.env.CLIENT_SITE_URL,
+      CLIENT_URL
+    ),
+    verifyEmailUrl: getStringValue(
+      process.env.CLIENT_VERIFY_EMAIL_URL,
+      CLIENT_VERIFY_EMAIL_URL
+    ),
+    verifyTokenQueryParamName: getStringValue(
+      process.env.CLIENT_VERIFY_TOKEN_QUERY_PARAM_NAME,
+      CLIENT_VERIFY_TOKEN_QUERY_PARAM_NAME
+    ),
   },
   express: {
     host: getStringValue(process.env.EXPRESS_HOST, EXPRESS_HOST),
@@ -117,8 +142,9 @@ const config: HttpConfig = {
       },
     },
     port: getNumberValue(process.env.EXPRESS_PORT, EXPRESS_PORT),
-    trustProxy: getBooleanValue(process.env.TRUST_PROXY, true),
+    trustProxy: getBooleanValue(process.env.TRUST_PROXY, TRUST_PROXY),
   },
+
 };
 
 // tslint:disable-next-line:max-file-line-count
