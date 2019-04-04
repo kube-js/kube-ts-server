@@ -1,5 +1,14 @@
-// @credits:  https://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript
-// as moment(value).isValid() is depreceated
-export default (value: any): boolean =>
-  Object.prototype.toString.call(value) === '[object Date]' &&
-  !isNaN(value.getTime());
+import moment from 'moment';
+import { DEFAULT_DATE_FORMATS } from '../../../../constants';
+
+export interface Options {
+  readonly value: any;
+  readonly expectedFormats?: string[];
+  readonly strict?: boolean;
+}
+
+export default ({
+  value,
+  expectedFormats = DEFAULT_DATE_FORMATS,
+  strict = true,
+}: Options): boolean => moment(value, expectedFormats, strict).isValid();

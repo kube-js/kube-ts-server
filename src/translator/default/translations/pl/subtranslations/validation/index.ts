@@ -1,5 +1,6 @@
 import { StringValidationError } from 'rulr/String';
 import ValidationError from 'rulr/ValidationError';
+import DateValidationError from '../../../../../../utils/errors/validation/DateValidationError';
 import EmailValidationError from '../../../../../../utils/errors/validation/EmailValidationError';
 import EnumValidationError from '../../../../../../utils/errors/validation/EnumValidationError';
 import MatchValidationError from '../../../../../../utils/errors/validation/MatchValidationError';
@@ -7,7 +8,7 @@ import PasswordValidationError from '../../../../../../utils/errors/validation/P
 import Validation from '../../../interfaces/Validation';
 
 const validation: Validation = {
-  dateValidationError: () => `Nieprawidłowa data`,
+  dateValidationError: (error: DateValidationError) => `Wymagana data w jednym z podanych formatów: ${error.expectedFormats.join(', ')}`,
   emailValidationError: (_error: EmailValidationError) =>
     'Niepoprawny adres e-mail',
   enumValidationError: (error: EnumValidationError) =>

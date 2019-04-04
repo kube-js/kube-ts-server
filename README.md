@@ -7,7 +7,12 @@
 
 Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
 
-This repo would not exist if not inspiration coming from [ryansmith94](https://github.com/ryansmith94) and his great dev work.
+Read our [docs](https://kube-js.github.io/kube-ts-server-docs).
+
+This repo would not exist if not inspiration coming from [ryansmith94](https://github.com/ryansmith94) and his great dev work including:
+[js-entity-repos](https://github.com/js-entity-repos)
+[js-migrations](https://github.com/js-migrations)
+[rulr](https://github.com/ryansmith94/rulr/)
 
 Credits:
 - [ryansmith94](https://github.com/ryansmith94)

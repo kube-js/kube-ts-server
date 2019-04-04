@@ -1,5 +1,6 @@
-const baseConfig = require("@kube-js/tscommons/configs/jest.config.js");
+const baseConfig = require('@kube-js/tscommons/configs/jest.config.js');
 
 module.exports = {
-  ...baseConfig
+  ...baseConfig,
+  moduleFileExtensions: ['json', 'ts', 'js', 'jsx', 'tsx', 'node'],
 };

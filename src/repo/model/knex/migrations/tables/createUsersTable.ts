@@ -15,7 +15,7 @@ export default ({ db }: RepoConfig) => {
       table.string('firstName');
       table.string('lastName');
       table.text('bio');
-      table.dateTime('dateOfBirth').nullable();
+      table.date('dateOfBirth').nullable();
       table.enum('gender', Object.keys(GenderType));
       table.dateTime('verifiedAt').nullable();
       table.dateTime('deletedAt').nullable();

@@ -1,4 +1,5 @@
 import { Transporter } from 'nodemailer';
+import isString from '../../../../../utils/helpers/commons/isString';
 
 export interface Options {
   readonly from: string;
@@ -21,8 +22,8 @@ export default ({ mailer }: Config) => async ({
   subject,
   text,
 }: Options) => {
-  const ccData = cc !== undefined ? { cc } : {};
-  const textData = text !== undefined ? { text } : {};
+  const ccData = isString(cc) ? { cc } : {};
+  const textData = isString(text) ? { text } : {};
 
   return mailer.sendMail({
     from,

@@ -159,7 +159,7 @@ describe('@presenter/auth/login', () => {
     expect(body).toMatchSnapshot();
   });
 
-  it('should succesfully log in a user', async () => {
+  it('logs user in succesfully', async () => {
     const [user] = await usersFactory({
       overrides: {
         id: '1',

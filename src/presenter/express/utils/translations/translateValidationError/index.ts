@@ -23,7 +23,7 @@ export default ({ translation, error }: Options) => {
         error as PasswordValidationError
       );
     case DateValidationError:
-      return translation.dateValidationError();
+      return translation.dateValidationError(error as DateValidationError);
     case EnumValidationError:
       return translation.enumValidationError(error as EnumValidationError);
     case MatchValidationError:

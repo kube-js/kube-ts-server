@@ -17,7 +17,7 @@ Object {
   "errors": Array [
     Object {
       "field": "date_of_birth",
-      "message": "Invalid date",
+      "message": "Expected date in one of the formats: DD-MM-YYYY, YYYY-MM-DD",
     },
   ],
   "message": "Validation failed",
@@ -111,6 +111,12 @@ Object {
 }
 `;
 
+exports[`@presenter/auth/register fails to register user when user with the email already exist 1`] = `
+Object {
+  "message": "Model of type User already exists",
+}
+`;
+
 exports[`@presenter/auth/register fails to register user without required fields 1`] = `
 Object {
   "errors": Array [
@@ -129,4 +135,41 @@ Object {
   ],
   "message": "Validation failed",
 }
+`;
+
+exports[`@presenter/auth/register registers user returning back it visible fields and jwt token 1`] = `
+Object {
+  "token": "token",
+  "user": Object {
+    "bio": "short bio",
+    "date_of_birth": "1969-12-31T23:00:00.000Z",
+    "email": "valid.email@test.com",
+    "first_name": "John",
+    "gender": "male",
+    "id": "1",
+    "last_name": "Doe",
+  },
+}
+`;
+
+exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: envelope 1`] = `
+Object {
+  "address": "noreply@cognitio.pl",
+  "args": false,
+}
+`;
+
+exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: html 1`] = `"<h1>Hello,</h1><p>To activate your account click <a href=\\"link\\">here</a>, alternatively if the address is not active copy/paste into your browser.</p><p>kube-ts-server</p>"`;
+
+exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: subject 1`] = `"[kube-ts-server] Verify your email"`;
+
+exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: text 1`] = `"Hello, to activate your account click: link, alternatively if the address is not active copy/paste into your browser. kube-ts-server"`;
+
+exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: to 1`] = `
+Array [
+  Object {
+    "address": "valid.email@test.com",
+    "name": "",
+  },
+]
 `;
