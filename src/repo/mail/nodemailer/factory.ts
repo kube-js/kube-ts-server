@@ -2,17 +2,21 @@ import { createTransport } from 'nodemailer';
 import { NodeMailerConfig } from '../../../config/subconfigs/repo/mail';
 import sendEmail from './functions/sendEmail';
 
-const createMailer = (config: NodeMailerConfig) =>
+const createMailer = ({
+  user,
+  pass,
+  domain,
+  api_key,
+  ...otherOptions
+}: NodeMailerConfig) =>
   createTransport({
-    auth: {
-      pass: config.pass,
-      user: config.user,
-    },
-    ignoreTLS: config.ignoreTLS,
-    port: config.port,
-    requireTLS: config.requireTLS,
-    secure: config.secure,
-    service: config.service,
+    // auth: {
+    //   api_key,
+    //   domain,
+    //   pass,
+    //   user,
+    // },
+    ...otherOptions,
   });
 
 export default (config: NodeMailerConfig) => {

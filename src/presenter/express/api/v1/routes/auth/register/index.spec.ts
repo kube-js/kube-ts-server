@@ -1,14 +1,30 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import faker from 'faker';
-import { UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import { CONFLICT, CREATED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import supertest from 'supertest';
+import config from '../../../../../../../config';
 import { TEXT_LENGTH } from '../../../../../../../constants';
 import { API_V1, AUTH, REGISTER } from '../../../../../../../constants/routes';
+import usersFactory from '../../../../../utils/fakeFactories/users/factory';
+import createFakeEmailServer from '../../../../../utils/tests/createFakeEmailServer';
 import initTests from '../../../../../utils/tests/initTests';
 import {
   TEST_DIFFERENT_VALID_PASSWORD,
   TEST_VALID_EMAIL,
   TEST_VALID_PASSWORD,
 } from '../../../../../utils/tests/testData';
+
+const emailSubject = 'subject';
+const link = 'link';
+
+jest.mock('uuid', () => ({
+  v4: jest.fn(() => '1'),
+}));
+
+jest.mock('../../../../../../../utils/helpers/url/getVerifyEmailUrl', () =>
+  jest.fn(() => link)
+);
 
 jest.mock('../../../../../../../utils/helpers/auth/generateToken', () =>
   jest.fn(() => 'token')
@@ -21,100 +37,176 @@ const validRequiredFields = {
 };
 
 const REGISTER_URL = `${API_V1}${AUTH}${REGISTER}`;
+interface AssertOptions {
+  readonly request: supertest.SuperTest<any>;
+  readonly fields?: { [key: string]: any };
+  readonly statusCode?: number;
+}
 
-export const validateOptionalField = async (
-  request: supertest.SuperTest<any>,
-  optionalField: { [key: string]: any }
-) => {
-  const payload = {
-    ...validRequiredFields,
-    ...optionalField,
-  };
-  const { status, body } = await request.post(REGISTER_URL).send(payload);
+export const assertOnResponseAndStatus = async ({
+  request,
+  fields,
+  statusCode = UNPROCESSABLE_ENTITY,
+}: AssertOptions) => {
+  const { status, body } = await request.post(REGISTER_URL).send(fields);
 
-  expect(status).toBe(UNPROCESSABLE_ENTITY);
+  expect(status).toBe(statusCode);
   expect(body).toMatchSnapshot();
+
+  return { status, body };
 };
 
+export const assertWithRequiredFieldAlreadyIncluded = ({
+  request,
+  fields,
+  statusCode,
+}: AssertOptions) =>
+  assertOnResponseAndStatus({
+    fields: {
+      ...validRequiredFields,
+      ...fields,
+    },
+    request,
+    statusCode,
+  });
+
 describe('@presenter/auth/register', () => {
-  const { request } = initTests();
+  const { request, service } = initTests();
 
   afterAll(() => {
     jest.clearAllMocks();
   });
 
   it('fails to register user without required fields', async () => {
-    const { status, body } = await request.post(REGISTER_URL);
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
+    await assertOnResponseAndStatus({
+      request,
+    });
   });
 
   it('fails to register user when email is missing out of required properties', async () => {
-    const payload = {
-      password: TEST_VALID_PASSWORD,
-      password_confirmation: TEST_VALID_PASSWORD,
-    };
-    const { status, body } = await request.post(REGISTER_URL).send(payload);
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
+    await assertOnResponseAndStatus({
+      fields: {
+        password: TEST_VALID_PASSWORD,
+        password_confirmation: TEST_VALID_PASSWORD,
+      },
+      request,
+    });
   });
 
   it('fails to register user when password is missing out of required properties', async () => {
-    const payload = {
-      email: TEST_VALID_EMAIL,
-      password_confirmation: TEST_VALID_PASSWORD,
-    };
-    const { status, body } = await request.post(REGISTER_URL).send(payload);
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_VALID_EMAIL,
+        password_confirmation: TEST_VALID_PASSWORD,
+      },
+      request,
+    });
   });
 
   it('fails to register user when password_confirmation is missing out of required properties', async () => {
-    const payload = {
-      email: TEST_VALID_EMAIL,
-      password: TEST_VALID_PASSWORD,
-    };
-    const { status, body } = await request.post(REGISTER_URL).send(payload);
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_VALID_EMAIL,
+        password: TEST_VALID_PASSWORD,
+      },
+      request,
+    });
   });
 
   it('fails to register user when password and password_confirmation are not matching', async () => {
-    const payload = {
-      email: TEST_VALID_EMAIL,
-      password: TEST_VALID_PASSWORD,
-      password_confirmation: TEST_DIFFERENT_VALID_PASSWORD,
-    };
-    const { status, body } = await request.post(REGISTER_URL).send(payload);
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_VALID_EMAIL,
+        password: TEST_VALID_PASSWORD,
+        password_confirmation: TEST_DIFFERENT_VALID_PASSWORD,
+      },
+      request,
+    });
   });
 
   it('fails to register user when bio exceeds number of characters', async () => {
-    await validateOptionalField(request, {
-      bio: faker.random.alphaNumeric(TEXT_LENGTH),
+    await assertWithRequiredFieldAlreadyIncluded({
+      fields: {
+        bio: faker.random.alphaNumeric(TEXT_LENGTH),
+      },
+      request,
     });
   });
 
   it('fails to register user when date_of_birth is not valid date', async () => {
-    await validateOptionalField(request, { date_of_birth: 'invalid date' });
+    await assertWithRequiredFieldAlreadyIncluded({
+      fields: { date_of_birth: 'invalid date' },
+      request,
+    });
   });
 
   it('fails to register user when first_name is invalid', async () => {
-    await validateOptionalField(request, { first_name: 3232 });
+    await assertWithRequiredFieldAlreadyIncluded({
+      fields: { first_name: 3222 },
+      request,
+    });
   });
 
   it('fails to register user when gender is invalid', async () => {
-    await validateOptionalField(request, { gender: 'non-existing-gender' });
+    await assertWithRequiredFieldAlreadyIncluded({
+      fields: { gender: 'non-existing-gender' },
+      request,
+    });
   });
 
   it('fails to register user when last_name is invalid', async () => {
-    await validateOptionalField(request, { last_name: 3232 });
+    await assertWithRequiredFieldAlreadyIncluded({
+      fields: { last_name: 3232 },
+      request,
+    });
+  });
+
+  it('fails to register user when user with the email already exist', async () => {
+    await usersFactory({
+      overrides: {
+        email: validRequiredFields.email,
+      },
+      service: service.users,
+    });
+
+    await assertWithRequiredFieldAlreadyIncluded({
+      request,
+      statusCode: CONFLICT,
+    });
+  });
+
+  it('registers user returning back it visible fields and jwt token', async () => {
+    jest.mock('../../../../../../../translator/factory.ts', () => () => ({
+      verifyYourEmailHtml: jest.fn(() => link),
+      verifyYourEmailSubject: () => emailSubject,
+      verifyYourEmailText: jest.fn(() => link),
+    }));
+
+    const mailServer = createFakeEmailServer(config.repo.mail.nodemailer);
+
+    process.env.SMTP_HOST = 'localhost';
+
+    const fields = {
+      bio: 'short bio',
+      date_of_birth: '1970-01-01',
+      first_name: 'John',
+      gender: 'male',
+      last_name: 'Doe',
+    };
+
+    await assertWithRequiredFieldAlreadyIncluded({
+      fields,
+      request,
+      statusCode: CREATED,
+    });
+
+    const { envelope, html, text, subject, to } = await mailServer;
+
+    expect(envelope.from).toMatchSnapshot('envelope');
+    expect(html).toMatchSnapshot('html');
+    expect(text).toMatchSnapshot('text');
+    expect(subject).toMatchSnapshot('subject');
+    expect(to).toMatchSnapshot('to');
   });
   // tslint:disable-next-line:max-file-line-count
 });

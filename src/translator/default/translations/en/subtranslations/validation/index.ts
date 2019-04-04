@@ -1,10 +1,11 @@
 import { StringValidationError } from 'rulr/String';
+import DateValidationError from '../../../../../../utils/errors/validation/DateValidationError';
 import EnumValidationError from '../../../../../../utils/errors/validation/EnumValidationError';
 import MatchValidationError from '../../../../../../utils/errors/validation/MatchValidationError';
 import Validation from '../../../interfaces/Validation';
 
 const validationErrorsTranslations: Validation = {
-  dateValidationError: () => `Invalid date`,
+  dateValidationError: (error: DateValidationError) => `Expected date in one of the formats: ${error.expectedFormats.join(', ')}`,
   emailValidationError: () => 'Invalid email',
   enumValidationError: (error: EnumValidationError) => `Expected one of the following: ${error.enumValues.join(', ')}`,
   matchValidationError: (error: MatchValidationError) =>

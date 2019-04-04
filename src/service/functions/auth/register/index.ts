@@ -38,7 +38,7 @@ export default ({ repo }: Config) => async ({
 }: Options) => {
   try {
     const id = uuid();
-
+    
     const { item } = await repo.users.createItem({
       id,
       item: {
@@ -54,19 +54,6 @@ export default ({ repo }: Config) => async ({
       },
     });
 
-    /*  TODO: move that to remind password */
-    // await repo.resetPasswordTokens.createItem({
-    //   id: mailOptions.verifyToken,
-    //   item: {
-    //     createdAt: new Date(),
-    //     expiresAt: moment()
-    //       .add(DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES, 'minutes')
-    //       .toDate(),
-    //     id: mailOptions.verifyToken,
-    //     userId: item.id,
-    //   },
-    // });
-
     await repo.sendEmail(mailOptions);
 
     return Promise.resolve(item);
@@ -74,7 +61,7 @@ export default ({ repo }: Config) => async ({
     if (error instanceof ConflictingItemError) {
       throw new ConflictError(error.itemName, error.itemId);
     }
-    
+
     throw error;
   }
 };

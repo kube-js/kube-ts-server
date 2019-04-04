@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import {
+  CONFLICT,
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED,
   UNPROCESSABLE_ENTITY,
@@ -12,6 +13,7 @@ import LockedAccountError from '../../../../../utils/errors/auth/LockedAccountEr
 import MissingJwtTokenError from '../../../../../utils/errors/auth/MissingJwtTokenError';
 import MissingJwtTokenExtractorError from '../../../../../utils/errors/auth/MissingJwtTokenExtractorError';
 import UnverifiedAccountError from '../../../../../utils/errors/auth/UnverifiedAccountError';
+import ConflictError from '../../../../../utils/errors/http/ConflictError';
 import Config from '../../../presenterFactory/Config';
 import mapValidationErrorsToResponse from '../../translations/mapValidationErrorsToResponse';
 
@@ -78,6 +80,12 @@ export default ({ req, res, error, config }: Options) => {
     const message = translations.invalidJwtToken();
 
     return res.status(UNAUTHORIZED).json({ message });
+  }
+
+  if (error instanceof ConflictError) {
+    const message = translations.conflict(error);
+
+    return res.status(CONFLICT).json({ message });
   }
 
   {

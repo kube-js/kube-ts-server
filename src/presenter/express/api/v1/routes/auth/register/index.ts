@@ -17,7 +17,6 @@ export default (config: Config) =>
     const payload: any = _pick(Object.keys(schema), req.body);
 
     const { password_confirmation, ...data } = validateData(rules)(payload);
-
     const {
       bio,
       dateOfBirth,
@@ -48,7 +47,7 @@ export default (config: Config) =>
       to: email,
       verifyToken,
     };
-
+    
     const user = await config.service.auth.register({
       bio,
       dateOfBirth,
