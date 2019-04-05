@@ -1,6 +1,6 @@
-import documentToItemDate from '../helpers/documentToItemDate';
+import documentToItemDateTime from '../helpers/documentToItemDateTime';
 
 export default {
-  createdAt: documentToItemDate,
-  updatedAt: documentToItemDate,
+  createdAt: documentToItemDateTime,
+  updatedAt: documentToItemDateTime,
 };
