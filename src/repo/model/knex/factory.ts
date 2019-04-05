@@ -15,7 +15,7 @@ export interface RepoConfig {
 export default ({ client, connection }: KnexConfig) => {
   const db = connectToDb({
     client,
-    connection,
+    connection: { ...connection, timezone: 'UTC' },
   });
 
   return {
