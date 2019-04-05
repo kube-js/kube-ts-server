@@ -3,18 +3,43 @@
 [![codecov](https://codecov.io/gh/kube-js/kube-ts-server/branch/master/graph/badge.svg)](https://codecov.io/gh/kube-js/kube-ts-server)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/kube-js/kube-ts-server.svg)
 ![jscpd](assets/jscpd-badge.svg)
-[![Known Vulnerabilities](https://snyk.io/test/github/kube-js/kube-ts-server/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kube-js/kube-ts-server?targetFile=package.json)
 
-Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
+## Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
 
-Read our [docs](https://kube-js.github.io/kube-ts-server-docs).
+### Read our [docs](https://kubetsserver.docs.apiary.io).
 
-This repo would not exist if not inspiration coming from [ryansmith94](https://github.com/ryansmith94) and his great dev work including:
-[js-entity-repos](https://github.com/js-entity-repos)
-[js-migrations](https://github.com/js-migrations)
-[rulr](https://github.com/ryansmith94/rulr/)
+### Getting started
+- clone the repo
+```sh
+git clone git@github.com:kube-js/kube-ts-server.git
+```
+- install all dependencies
+```sh
+npm install
+```
+- build the project
+```sh
+npm run build
+```
+- run the server
+```sh
+npm run start
+```
+- run tests
+```sh
+npm run test 
+or
+npm run test:watch
+```
 
-Credits:
-- [ryansmith94](https://github.com/ryansmith94)
-- [vinaysahni.com](https://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
+### This repo would not exist if not inspiration coming from:
+  - [ryansmith94](https://github.com/ryansmith94):
+    - [js-entity-repos](https://github.com/js-entity-repos)
+    - [js-migrations](https://github.com/js-migrations)
+    - [rulr](https://github.com/ryansmith94/rulr/)
+  - vinaysahni.com: 
+    - [best-practices-for-a-pragmatic-restful-api](https://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
+    - [http://dev.enchant.com](http://dev.enchant.com)
+
+### Credits:
 - [banzaicloud.com](https://banzaicloud.com/blog/nodejs-in-production/)

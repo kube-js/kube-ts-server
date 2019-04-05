@@ -1,11 +1,11 @@
 import { Document } from '@js-items/knex/dist/FacadeConfig';
 import baseMap from '../convertersMaps/baseMap';
-import documentToItemDate from '../helpers/documentToItemDate';
+import documentToItemDateTime from '../helpers/documentToItemDateTime';
 import recursiveConverter from '../recursiveConverter';
 
 const convertersMap = {
   ...baseMap,
-  expiresAt: documentToItemDate,
+  expiresAt: documentToItemDateTime,
 };
 
 const documentToItem = <I>(document: Document): I =>
