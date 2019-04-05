@@ -10,12 +10,12 @@ const createMailer = ({
   ...otherOptions
 }: NodeMailerConfig) =>
   createTransport({
-    // auth: {
-    //   api_key,
-    //   domain,
-    //   pass,
-    //   user,
-    // },
+    auth: {
+      api_key,
+      domain,
+      pass,
+      user,
+    },
     ...otherOptions,
   });
 
