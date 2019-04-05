@@ -18,7 +18,7 @@ jest.mock('../../../../../../../utils/helpers/auth/generateToken', () =>
 );
 
 describe('@presenter/auth/login', () => {
-  const { request, service } = initTests();
+  const { request, service } = initTests({});
   const LOGIN_URL = `${API_V1}${AUTH}${LOGIN}`;
 
   afterAll(() => {

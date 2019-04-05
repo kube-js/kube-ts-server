@@ -3,12 +3,11 @@ dotenv.config();
 import faker from 'faker';
 import { CONFLICT, CREATED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import supertest from 'supertest';
-import config from '../../../../../../../config';
 import { TEXT_LENGTH } from '../../../../../../../constants';
 import { API_V1, AUTH, REGISTER } from '../../../../../../../constants/routes';
 import usersFactory from '../../../../../utils/fakeFactories/users/factory';
-import createFakeEmailServer from '../../../../../utils/tests/createFakeEmailServer';
 import initTests from '../../../../../utils/tests/initTests';
+
 import {
   TEST_DIFFERENT_VALID_PASSWORD,
   TEST_VALID_EMAIL,
@@ -71,7 +70,7 @@ export const assertWithRequiredFieldAlreadyIncluded = ({
   });
 
 describe('@presenter/auth/register', () => {
-  const { request, service } = initTests();
+  const { request, service, mailServer } = initTests({ useMailServer: true });
 
   afterAll(() => {
     jest.clearAllMocks();
@@ -182,10 +181,6 @@ describe('@presenter/auth/register', () => {
       verifyYourEmailText: jest.fn(() => link),
     }));
 
-    const mailServer = createFakeEmailServer(config.repo.mail.nodemailer);
-
-    process.env.SMTP_HOST = 'localhost';
-
     const fields = {
       bio: 'short bio',
       date_of_birth: '1970-01-01',
@@ -200,11 +195,15 @@ describe('@presenter/auth/register', () => {
       statusCode: CREATED,
     });
 
-    const { envelope, html, text, subject, to } = await mailServer;
+    const messages = mailServer.messages;
 
-    expect(envelope.from).toMatchSnapshot('envelope');
-    expect(html).toMatchSnapshot('html');
-    expect(text).toMatchSnapshot('text');
+    expect(messages.length).toBe(1);
+
+    const { textContent, subject, to, from, htmlContent } = messages[0];
+
+    expect(from).toMatchSnapshot('from');
+    expect(htmlContent).toMatchSnapshot('htmlContent');
+    expect(textContent).toMatchSnapshot('textContent');
     expect(subject).toMatchSnapshot('subject');
     expect(to).toMatchSnapshot('to');
   });
