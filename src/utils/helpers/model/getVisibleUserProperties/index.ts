@@ -4,6 +4,8 @@ import User from '../../../../types/items/User';
 export default (user: User): Partial<User> =>
   pick(
     [
+      'createdAt',
+      'updatedAt',
       'id',
       'email',
       'firstName',

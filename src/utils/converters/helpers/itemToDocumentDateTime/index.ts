@@ -1,11 +1,10 @@
 import moment from 'moment';
 import _isNil from 'ramda/src/isNil';
 
-const itemToDocumentDate = (value: any) =>
+const itemToDocumentDateTime = (value: any) =>
   !_isNil(value) && moment(value).isValid()
-    ? moment(value)
-        .utc()
+    ? moment.utc(value)
         .toDate()
     : null;
 
-export default itemToDocumentDate;
+export default itemToDocumentDateTime;

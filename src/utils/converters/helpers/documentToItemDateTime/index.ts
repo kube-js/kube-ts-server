@@ -1,6 +1,6 @@
 import moment from 'moment';
 
- const documentToItemDate = (value: any) =>
-  value === null ? undefined : moment(value).utc().toDate();
+ const documentToItemDateTime = (value: any) =>
+  value === null ? undefined : moment.utc(value).toDate();
 
-  export default documentToItemDate;
+  export default documentToItemDateTime;
