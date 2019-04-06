@@ -96,4 +96,5 @@ export default ({ req, res, error, config }: Options) => {
       .status(INTERNAL_SERVER_ERROR)
       .json({ message: translations.serverError() });
   }
+  // tslint:disable-next-line:max-file-line-count
 };

@@ -6,6 +6,7 @@ import recursiveConverter from '../recursiveConverter';
 const convertersMap = {
   ...baseMap,
   accountLockoutExpiresAt: itemToDocumentDateTime,
+  authLastAttempt: itemToDocumentDateTime,
   dateOfBirth: itemToDocumentDateTime,
   deletedAt: itemToDocumentDateTime,
   loginLastAttemptAt: itemToDocumentDateTime,

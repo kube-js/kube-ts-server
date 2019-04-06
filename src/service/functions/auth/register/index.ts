@@ -1,9 +1,10 @@
 import { ConflictingItemError } from '@js-items/foundation';
-import moment from 'moment';
 import _isNil from 'ramda/src/isNil';
 import { v4 as uuid } from 'uuid';
 import { GenderType } from '../../../../types/items/User';
 import ConflictError from '../../../../utils/errors/http/ConflictError';
+import hashPassword from '../../../../utils/helpers/auth/hashPassword';
+import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 import Config from '../../../FactoryConfig';
 
 export interface MailOptions {
@@ -38,25 +39,29 @@ export default ({ repo }: Config) => async ({
 }: Options) => {
   try {
     const id = uuid();
-    
-    const { item } = await repo.users.createItem({
+
+    await repo.users.createItem({
       id,
       item: {
         bio,
-        createdAt: new Date(),
-        dateOfBirth: moment(dateOfBirth).toDate(),
+        createdAt: getUtcDate(),
+        dateOfBirth: getUtcDate(dateOfBirth, 'YYYY-MM-DD'),
         email,
         firstName,
         gender,
         id,
         lastName,
-        password,
+        password: await hashPassword(password),
       },
+    });
+
+    const { item: insertedItem } = await repo.users.getItem({
+      id,
     });
 
     await repo.sendEmail(mailOptions);
 
-    return Promise.resolve(item);
+    return Promise.resolve(insertedItem);
   } catch (error) {
     if (error instanceof ConflictingItemError) {
       throw new ConflictError(error.itemName, error.itemId);

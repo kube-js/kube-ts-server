@@ -25,6 +25,10 @@ jest.mock('../../../../../../../utils/helpers/url/getVerifyEmailUrl', () =>
   jest.fn(() => link)
 );
 
+jest.mock('../../../../../../../utils/helpers/date/getUtcDate', () =>
+  jest.fn(() => '2000-04-05T23:26:42.000Z')
+);
+
 jest.mock('../../../../../../../utils/helpers/auth/generateToken', () =>
   jest.fn(() => 'token')
 );
