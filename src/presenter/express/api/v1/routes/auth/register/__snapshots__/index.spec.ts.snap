@@ -155,7 +155,7 @@ Object {
 
 exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: from 1`] = `"noreply@gamechanger.diet"`;
 
-exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: htmlContent 1`] = `"<h1>Hello,</h1><p>To activate your account click <a href=\\"link\\"target=\\"_blank\\">here</a>.</p><p>kube-ts-server</p>"`;
+exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: htmlContent 1`] = `"<h1>Hello,</h1><p>To activate your account click <a href=\\"link\\">here</a>.</p><p>kube-ts-server</p>"`;
 
 exports[`@presenter/auth/register registers user returning back it visible fields and jwt token: subject 1`] = `"[kube-ts-server] Verify your email"`;
 

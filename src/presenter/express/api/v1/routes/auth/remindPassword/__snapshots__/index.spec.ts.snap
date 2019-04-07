@@ -38,7 +38,7 @@ Object {
 
 exports[`@presenter/auth/register sends reset password link and create reset password token: from 1`] = `"noreply@gamechanger.diet"`;
 
-exports[`@presenter/auth/register sends reset password link and create reset password token: htmlContent 1`] = `"<h1>Hello,</h1><p>To reset your password click <a href=\\"http://localhost:9000/reset-password?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com\\" target=\\"_blank\\">here</a></p><p>kube-ts-server</p>"`;
+exports[`@presenter/auth/register sends reset password link and create reset password token: htmlContent 1`] = `"<h1>Hello,</h1><p>To reset your password click <a href=\\"http://localhost:9000/reset-password?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com\\">here</a></p><p>kube-ts-server</p>"`;
 
 exports[`@presenter/auth/register sends reset password link and create reset password token: subject 1`] = `"[kube-ts-server] Reset your password"`;
 
