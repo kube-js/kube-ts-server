@@ -18,6 +18,7 @@ export default ({ db }: RepoConfig) => {
       table.date('dateOfBirth').nullable();
       table.enum('gender', Object.keys(GenderType));
       table.dateTime('verifiedAt').nullable();
+      table.string('verifyToken', UUID_LENGTH).nullable();
       table.dateTime('deletedAt').nullable();
       table
         .integer('loginFailedAttempts')

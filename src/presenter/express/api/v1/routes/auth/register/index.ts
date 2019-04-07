@@ -45,7 +45,6 @@ export default (config: Config) =>
       subject: translations.verifyYourEmailSubject(),
       text: translations.verifyYourEmailText(link),
       to: email,
-      verifyToken,
     };
     
     const user = await config.service.auth.register({
@@ -57,6 +56,7 @@ export default (config: Config) =>
       lastName,
       mailOptions,
       password,
+      verifyToken,
     });
 
     const visibleUserData: Partial<User> = getVisibleUserProperties(user);

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import {
   CONFLICT,
   INTERNAL_SERVER_ERROR,
+  OK,
   UNAUTHORIZED,
   UNPROCESSABLE_ENTITY,
 } from 'http-status-codes';
@@ -12,6 +13,7 @@ import InvalidJwtTokenError from '../../../../../utils/errors/auth/InvalidJwtTok
 import LockedAccountError from '../../../../../utils/errors/auth/LockedAccountError';
 import MissingJwtTokenError from '../../../../../utils/errors/auth/MissingJwtTokenError';
 import MissingJwtTokenExtractorError from '../../../../../utils/errors/auth/MissingJwtTokenExtractorError';
+import RemindPasswordError from '../../../../../utils/errors/auth/RemindPasswordError';
 import UnverifiedAccountError from '../../../../../utils/errors/auth/UnverifiedAccountError';
 import ConflictError from '../../../../../utils/errors/http/ConflictError';
 import Config from '../../../presenterFactory/Config';
@@ -88,13 +90,20 @@ export default ({ req, res, error, config }: Options) => {
     return res.status(CONFLICT).json({ message });
   }
 
-  {
-    // tslint:disable-next-line:no-console
-    console.log(translations.serverError(), error, error.message);
+  if (error instanceof RemindPasswordError) {
+    // for security reasons return same response as email would exist in db
+    const message = translations.resetPasswordLinkSent();
 
-    res
-      .status(INTERNAL_SERVER_ERROR)
-      .json({ message: translations.serverError() });
+    return res.status(OK).json({ message });
+  }
+
+  {
+    const message = translations.serverError();
+
+    // tslint:disable-next-line:no-console
+    console.log(message, error, error.message);
+    
+    res.status(INTERNAL_SERVER_ERROR).json({ message });
   }
   // tslint:disable-next-line:max-file-line-count
 };

@@ -17,7 +17,7 @@ Object {
   "errors": Array [
     Object {
       "field": "email",
-      "message": "Invalid email",
+      "message": "Expected string with a length between 0 and 255 characters",
     },
     Object {
       "field": "password",
@@ -33,7 +33,7 @@ Object {
   "errors": Array [
     Object {
       "field": "email",
-      "message": "Invalid email",
+      "message": "Expected string with a length between 0 and 255 characters",
     },
   ],
   "message": "Validation failed",
@@ -45,7 +45,7 @@ Object {
   "errors": Array [
     Object {
       "field": "email",
-      "message": "Invalid email",
+      "message": "Expected string with a length between 0 and 255 characters",
     },
   ],
   "message": "Validation failed",

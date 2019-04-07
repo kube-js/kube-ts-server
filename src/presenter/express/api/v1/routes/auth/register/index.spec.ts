@@ -1,15 +1,18 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import faker from 'faker';
-import { CONFLICT, CREATED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
-import supertest from 'supertest';
+import { CONFLICT, CREATED } from 'http-status-codes';
 import { TEXT_LENGTH } from '../../../../../../../constants';
 import { API_V1, AUTH, REGISTER } from '../../../../../../../constants/routes';
 import usersFactory from '../../../../../utils/fakeFactories/users/factory';
+import assertOnResponseAndStatus, {
+  BaseAssertionOptions,
+} from '../../../../../utils/tests/assertOnResponseAndStatus';
 import initTests from '../../../../../utils/tests/initTests';
-
 import {
   TEST_DIFFERENT_VALID_PASSWORD,
+  TEST_UTC_DATE,
+  TEST_UUID,
   TEST_VALID_EMAIL,
   TEST_VALID_PASSWORD,
 } from '../../../../../utils/tests/testData';
@@ -18,7 +21,7 @@ const emailSubject = 'subject';
 const link = 'link';
 
 jest.mock('uuid', () => ({
-  v4: jest.fn(() => '1'),
+  v4: jest.fn(() => TEST_UUID),
 }));
 
 jest.mock('../../../../../../../utils/helpers/url/getVerifyEmailUrl', () =>
@@ -26,7 +29,7 @@ jest.mock('../../../../../../../utils/helpers/url/getVerifyEmailUrl', () =>
 );
 
 jest.mock('../../../../../../../utils/helpers/date/getUtcDate', () =>
-  jest.fn(() => '2000-04-05T23:26:42.000Z')
+  jest.fn(() => TEST_UTC_DATE)
 );
 
 jest.mock('../../../../../../../utils/helpers/auth/generateToken', () =>
@@ -40,30 +43,12 @@ const validRequiredFields = {
 };
 
 const REGISTER_URL = `${API_V1}${AUTH}${REGISTER}`;
-interface AssertOptions {
-  readonly request: supertest.SuperTest<any>;
-  readonly fields?: { [key: string]: any };
-  readonly statusCode?: number;
-}
-
-export const assertOnResponseAndStatus = async ({
-  request,
-  fields,
-  statusCode = UNPROCESSABLE_ENTITY,
-}: AssertOptions) => {
-  const { status, body } = await request.post(REGISTER_URL).send(fields);
-
-  expect(status).toBe(statusCode);
-  expect(body).toMatchSnapshot();
-
-  return { status, body };
-};
 
 export const assertWithRequiredFieldAlreadyIncluded = ({
   request,
   fields,
   statusCode,
-}: AssertOptions) =>
+}: BaseAssertionOptions) =>
   assertOnResponseAndStatus({
     fields: {
       ...validRequiredFields,
@@ -71,6 +56,7 @@ export const assertWithRequiredFieldAlreadyIncluded = ({
     },
     request,
     statusCode,
+    url: REGISTER_URL,
   });
 
 describe('@presenter/auth/register', () => {
@@ -83,6 +69,7 @@ describe('@presenter/auth/register', () => {
   it('fails to register user without required fields', async () => {
     await assertOnResponseAndStatus({
       request,
+      url: REGISTER_URL,
     });
   });
 
@@ -93,6 +80,7 @@ describe('@presenter/auth/register', () => {
         password_confirmation: TEST_VALID_PASSWORD,
       },
       request,
+      url: REGISTER_URL,
     });
   });
 
@@ -103,6 +91,7 @@ describe('@presenter/auth/register', () => {
         password_confirmation: TEST_VALID_PASSWORD,
       },
       request,
+      url: REGISTER_URL,
     });
   });
 
@@ -113,6 +102,7 @@ describe('@presenter/auth/register', () => {
         password: TEST_VALID_PASSWORD,
       },
       request,
+      url: REGISTER_URL,
     });
   });
 
@@ -124,6 +114,7 @@ describe('@presenter/auth/register', () => {
         password_confirmation: TEST_DIFFERENT_VALID_PASSWORD,
       },
       request,
+      url: REGISTER_URL,
     });
   });
 
@@ -193,11 +184,18 @@ describe('@presenter/auth/register', () => {
       last_name: 'Doe',
     };
 
-    await assertWithRequiredFieldAlreadyIncluded({
+    const { body: id } = await assertWithRequiredFieldAlreadyIncluded({
       fields,
       request,
       statusCode: CREATED,
     });
+
+    const { item } = await service.users.getItem({
+      id,
+    });
+
+    expect(item.verifiedAt).toBeUndefined();
+    expect(item.verifyToken).toBe(TEST_UUID);
 
     const messages = mailServer.messages;
 

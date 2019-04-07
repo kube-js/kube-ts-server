@@ -1,20 +1,12 @@
 import { ConflictingItemError } from '@js-items/foundation';
 import _isNil from 'ramda/src/isNil';
 import { v4 as uuid } from 'uuid';
+import { Options as MailOptions } from '../../../../repo/mail/nodemailer/functions/sendEmail';
 import { GenderType } from '../../../../types/items/User';
 import ConflictError from '../../../../utils/errors/http/ConflictError';
 import hashPassword from '../../../../utils/helpers/auth/hashPassword';
 import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 import Config from '../../../FactoryConfig';
-
-export interface MailOptions {
-  readonly from: string;
-  readonly html: string;
-  readonly subject: string;
-  readonly text: string;
-  readonly to: string;
-  readonly verifyToken: string;
-}
 
 export interface Options {
   readonly bio: string;
@@ -25,6 +17,7 @@ export interface Options {
   readonly lastName: string;
   readonly password: string;
   readonly mailOptions: MailOptions;
+  readonly verifyToken: string;
 }
 
 export default ({ repo }: Config) => async ({
@@ -36,6 +29,7 @@ export default ({ repo }: Config) => async ({
   lastName,
   password,
   mailOptions,
+  verifyToken,
 }: Options) => {
   try {
     const id = uuid();
@@ -52,6 +46,7 @@ export default ({ repo }: Config) => async ({
         id,
         lastName,
         password: await hashPassword(password),
+        verifyToken,
       },
     });
 

@@ -7,8 +7,11 @@ export const TRUST_PROXY = true;
 export const EXPRESS_PORT = 8080;
 export const EXPRESS_HOST = 'http://localhost';
 export const CLIENT_URL = 'http://localhost:9000';
-export const CLIENT_VERIFY_EMAIL_URL = 'http://localhost:9000/verify';
+export const CLIENT_VERIFY_EMAIL_URL = 'http://localhost:9000/verify'; // @note: this is client url
 export const CLIENT_VERIFY_TOKEN_QUERY_PARAM_NAME = 'token';
+export const CLIENT_RESET_PASSWORD_URL = 'http://localhost:9000/reset-password'; // @note: this is client url
+export const CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME = 'token'
+
 export const TOO_MANY_REQUEST_MESSAGE =
 'Too many accounts created from this IP, please try again after an 15 minutes';
 

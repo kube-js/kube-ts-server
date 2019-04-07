@@ -1,9 +1,10 @@
 import _isNil from 'ramda/src/isNil';
+import { ACCOUNT_LOCKOUT_TIME_IN_MINUTES } from '../../../../constants';
 import InvalidCredentialsError from '../../../../utils/errors/auth/InvalidCredentialsError';
 import LockedAccountError from '../../../../utils/errors/auth/LockedAccountError';
 import UnverifiedAccountError from '../../../../utils/errors/auth/UnverifiedAccountError';
 import verifyPassword from '../../../../utils/helpers/auth/verifyPassword';
-import generateLockoutExpiresAtDate from '../../../../utils/helpers/date/generateLockoutExpiresAtDate';
+import fastForwardTimeBy from '../../../../utils/helpers/date/fastForwardTimeBy';
 import isInTheFuture from '../../../../utils/helpers/date/isInTheFuture';
 import incrementOrInitialise from '../../../../utils/helpers/math/incrementOrInitialise';
 import Config from '../../../FactoryConfig';
@@ -51,10 +52,7 @@ export default ({ repo, appConfig }: Config) => async ({
     throw new LockedAccountError();
   }
 
-  const passwordMatches = await verifyPassword(
-    user.password,
-    password
-  );
+  const passwordMatches = await verifyPassword(user.password, password);
 
   if (!passwordMatches) {
     const loginFailedAttempts = incrementOrInitialise(user.loginFailedAttempts);
@@ -63,7 +61,7 @@ export default ({ repo, appConfig }: Config) => async ({
       loginFailedAttempts >= appConfig.auth.maxNumberOfLoginFailedAttempts;
 
     const accountLockoutExpiresAt = shouldLockAccount
-      ? generateLockoutExpiresAtDate()
+      ? fastForwardTimeBy(ACCOUNT_LOCKOUT_TIME_IN_MINUTES, 'minutes')
       : null;
 
     await repo.users.updateItem({

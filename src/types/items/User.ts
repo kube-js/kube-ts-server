@@ -18,4 +18,5 @@ export default interface User extends BaseItem {
   readonly loginFailedAttempts?: number;
   readonly loginLastAttemptAt?: NullableDate;
   readonly accountLockoutExpiresAt?: NullableDate;
+  readonly verifyToken?: string;
 }

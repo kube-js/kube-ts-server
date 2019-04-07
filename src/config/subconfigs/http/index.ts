@@ -1,6 +1,8 @@
 // tslint:disable:no-magic-numbers
 import { TOO_MANY_REQUESTS } from 'http-status-codes';
 import {
+  CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME,
+  CLIENT_RESET_PASSWORD_URL,
   CLIENT_URL,
   CLIENT_VERIFY_EMAIL_URL,
   CLIENT_VERIFY_TOKEN_QUERY_PARAM_NAME,
@@ -65,6 +67,8 @@ export interface ClientConfig {
   readonly siteUrl: string;
   readonly verifyEmailUrl: string;
   readonly verifyTokenQueryParamName: string;
+  readonly resetPasswordUrl: string;
+  readonly resetPasswordTokenQueryParamName: string;
 }
 
 export interface HttpConfig {
@@ -86,10 +90,15 @@ const config: HttpConfig = {
     version: getStringValue(process.env.VERSION_CHECK_URL, VERSION_CHECK_URL),
   },
   client: {
-    siteUrl: getStringValue(
-      process.env.CLIENT_SITE_URL,
-      CLIENT_URL
+    resetPasswordTokenQueryParamName: getStringValue(
+      process.env.CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME,
+      CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME
     ),
+    resetPasswordUrl: getStringValue(
+      process.env.CLIENT_RESET_PASSWORD_URL,
+      CLIENT_RESET_PASSWORD_URL
+    ),
+    siteUrl: getStringValue(process.env.CLIENT_SITE_URL, CLIENT_URL),
     verifyEmailUrl: getStringValue(
       process.env.CLIENT_VERIFY_EMAIL_URL,
       CLIENT_VERIFY_EMAIL_URL
@@ -144,7 +153,6 @@ const config: HttpConfig = {
     port: getNumberValue(process.env.EXPRESS_PORT, EXPRESS_PORT),
     trustProxy: getBooleanValue(process.env.TRUST_PROXY, TRUST_PROXY),
   },
-
 };
 
 // tslint:disable-next-line:max-file-line-count
