@@ -109,7 +109,7 @@ describe('@presenter/auth/verifyAccount', () => {
     });
   });
 
-  it.only('fails to verify already verified account', async () => {
+  it('fails to verify already verified account', async () => {
     await usersFactory({
       overrides: {
         email: TEST_VALID_EMAIL,
