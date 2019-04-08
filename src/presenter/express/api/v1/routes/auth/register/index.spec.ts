@@ -62,7 +62,7 @@ export const assertWithRequiredFieldAlreadyIncluded = ({
 describe('@presenter/auth/register', () => {
   const { request, service, mailServer } = initTests({ useMailServer: true });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -121,7 +121,7 @@ describe('@presenter/auth/register', () => {
   it('fails to register user when bio exceeds number of characters', async () => {
     await assertWithRequiredFieldAlreadyIncluded({
       fields: {
-        bio: faker.random.alphaNumeric(TEXT_LENGTH),
+        bio: faker.random.alphaNumeric(TEXT_LENGTH + 1),
       },
       request,
     });

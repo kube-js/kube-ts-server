@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@presenter/auth/register fails to remind user password when payload contains invalid email 1`] = `
+exports[`@presenter/auth/remindPassword fails to remind user password when payload contains invalid email 1`] = `
 Object {
   "errors": Array [
     Object {
@@ -12,36 +12,36 @@ Object {
 }
 `;
 
-exports[`@presenter/auth/register fails to remind user password without email 1`] = `
+exports[`@presenter/auth/remindPassword fails to remind user password without email 1`] = `
 Object {
   "errors": Array [
     Object {
       "field": "email",
-      "message": "Expected string with a length between 0 and 255 characters",
+      "message": "Expected string between 0 and 255 characters long",
     },
   ],
   "message": "Validation failed",
 }
 `;
 
-exports[`@presenter/auth/register fails to send reset password link when user does not exist 1`] = `
+exports[`@presenter/auth/remindPassword fails to send reset password link when user does not exist 1`] = `
 Object {
   "message": "If the email you specified exists in our system, we've sent a password reset link to it.",
 }
 `;
 
-exports[`@presenter/auth/register sends reset password link and create reset password token 1`] = `
+exports[`@presenter/auth/remindPassword sends reset password link and create reset password token 1`] = `
 Object {
   "message": "If the email you specified exists in our system, we've sent a password reset link to it.",
 }
 `;
 
-exports[`@presenter/auth/register sends reset password link and create reset password token: from 1`] = `"noreply@gamechanger.diet"`;
+exports[`@presenter/auth/remindPassword sends reset password link and create reset password token: from 1`] = `"noreply@gamechanger.diet"`;
 
-exports[`@presenter/auth/register sends reset password link and create reset password token: htmlContent 1`] = `"<h1>Hello,</h1><p>To reset your password click <a href=\\"http://localhost:9000/reset-password?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com\\">here</a></p><p>kube-ts-server</p>"`;
+exports[`@presenter/auth/remindPassword sends reset password link and create reset password token: htmlContent 1`] = `"<h1>Hello,</h1><p>There was recently a request to change the password for your account. </p><p>If you requested this password change, please click on the following link to reset your password: <a href=\\"http://localhost:9000/reset-password?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com\\">http://localhost:9000/reset-password?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com</a></p><p>If clicking the link does not work, please copy and paste the URL into your browser instead. </p><p>If you did not make this request, you can ignore this message and your password will remain the same.</p><p>kube-ts-server</p>"`;
 
-exports[`@presenter/auth/register sends reset password link and create reset password token: subject 1`] = `"[kube-ts-server] Reset your password"`;
+exports[`@presenter/auth/remindPassword sends reset password link and create reset password token: subject 1`] = `"[kube-ts-server] Change your password"`;
 
-exports[`@presenter/auth/register sends reset password link and create reset password token: textContent 1`] = `"Hello, to reset your password click: http://localhost:9000/reset-password?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com. kube-ts-server"`;
+exports[`@presenter/auth/remindPassword sends reset password link and create reset password token: textContent 1`] = `"Hello, There was recently a request to change the password for your account. If you requested this password change, please click on the following link to reset your password: http://localhost:9000/reset-password?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com. If clicking the link does not work, please copy and paste the URL into your browser instead. If you did not make this request, you can ignore this message and your password will remain the same. kube-ts-server"`;
 
-exports[`@presenter/auth/register sends reset password link and create reset password token: to 1`] = `"valid.email@test.com"`;
+exports[`@presenter/auth/remindPassword sends reset password link and create reset password token: to 1`] = `"valid.email@test.com"`;

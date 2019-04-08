@@ -2,6 +2,7 @@ import { Item } from '@js-items/foundation';
 import Facade from '@js-items/foundation/dist/Facade';
 import _times from 'ramda/src/times';
 import { v4 as uuid } from 'uuid';
+import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 
 export interface OverrideInterface {
   readonly [key: string]: any;
@@ -30,7 +31,7 @@ const baseFactory = <I extends Item>(itemData: Partial<I>) => async ({
     const id = uuid();
     const item: any = {
       ...model,
-      createdAt: new Date(),
+      createdAt: getUtcDate(),
       id,
       updatedAt: undefined,
       ...overrides,

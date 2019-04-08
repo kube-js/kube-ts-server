@@ -11,13 +11,13 @@ import Config from '../../../FactoryConfig';
 export interface Options {
   readonly email: string;
   readonly mailOptions: MailOptions;
-  readonly resetPasswordToken: string;
+  readonly remindPasswordToken: string;
 }
 
 export default ({ repo }: Config) => async ({
   email,
   mailOptions,
-  resetPasswordToken,
+  remindPasswordToken,
 }: Options) => {
   try {
     const { items } = await repo.users.getItems({
@@ -33,18 +33,17 @@ export default ({ repo }: Config) => async ({
     const user = items[0];
 
     await repo.resetPasswordTokens.createItem({
-      id: resetPasswordToken,
+      id: remindPasswordToken,
       item: {
         createdAt: getUtcDate(),
         expiresAt: fastForwardTimeBy(DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES, 'minutes'),
-        id: resetPasswordToken,
+        id: remindPasswordToken,
         userId: user.id,
       },
     });
 
     await repo.sendEmail(mailOptions);
 
-    // return Promise.resolve(insertedItem);
   } catch (error) {
     if (error instanceof ConflictingItemError) {
       throw new ConflictError(error.itemName, error.itemId);

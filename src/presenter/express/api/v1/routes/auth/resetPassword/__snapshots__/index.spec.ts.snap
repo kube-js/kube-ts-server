@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@presenter/auth/resetPassword fails to reset password when password does not match password_confirmation 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "fields": Array [
+        "password",
+        "password_confirmation",
+      ],
+      "message": "Expected password to match password_confirmation",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/resetPassword fails to reset password when reset password token does not exist in db 1`] = `
+Object {
+  "message": "Invalid reset password token",
+}
+`;
+
+exports[`@presenter/auth/resetPassword fails to reset password with invalid email 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Invalid email",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/resetPassword fails to reset password with invalid token 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "token",
+      "message": "Expected string 36 characters long",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/resetPassword fails to reset password without password 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "password",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/resetPassword fails to reset password without password_confirmation 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "password_confirmation",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/resetPassword fails to reset password without payload 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+    Object {
+      "field": "password",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+    Object {
+      "field": "password_confirmation",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+    Object {
+      "field": "token",
+      "message": "Expected string 36 characters long",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;
+
+exports[`@presenter/auth/resetPassword fails to reset password without token 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "token",
+      "message": "Expected string 36 characters long",
+    },
+  ],
+  "message": "Validation failed",
+}
+`;

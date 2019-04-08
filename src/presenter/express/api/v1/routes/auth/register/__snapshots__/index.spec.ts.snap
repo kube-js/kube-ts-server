@@ -5,7 +5,7 @@ Object {
   "errors": Array [
     Object {
       "field": "bio",
-      "message": "Expected string with a length between 0 and 65535 characters",
+      "message": "Expected string between 0 and 65535 characters long",
     },
   ],
   "message": "Validation failed",
@@ -29,7 +29,7 @@ Object {
   "errors": Array [
     Object {
       "field": "email",
-      "message": "Invalid email",
+      "message": "Expected string between 0 and 255 characters long",
     },
   ],
   "message": "Validation failed",
@@ -41,7 +41,7 @@ Object {
   "errors": Array [
     Object {
       "field": "first_name",
-      "message": "Expected string with a length between 0 and 255 characters",
+      "message": "Expected string between 0 and 255 characters long",
     },
   ],
   "message": "Validation failed",
@@ -65,7 +65,7 @@ Object {
   "errors": Array [
     Object {
       "field": "last_name",
-      "message": "Expected string with a length between 0 and 255 characters",
+      "message": "Expected string between 0 and 255 characters long",
     },
   ],
   "message": "Validation failed",
@@ -92,7 +92,7 @@ Object {
   "errors": Array [
     Object {
       "field": "password",
-      "message": "Expected string minimum 8 characters long, containing at least: 1 upper and 1 lower case, 1 digit and 1 special characters i.e. one of the following: #?!@$%^&*-",
+      "message": "Expected string between 0 and 255 characters long",
     },
   ],
   "message": "Validation failed",
@@ -104,7 +104,7 @@ Object {
   "errors": Array [
     Object {
       "field": "password_confirmation",
-      "message": "Expected string minimum 8 characters long, containing at least: 1 upper and 1 lower case, 1 digit and 1 special characters i.e. one of the following: #?!@$%^&*-",
+      "message": "Expected string between 0 and 255 characters long",
     },
   ],
   "message": "Validation failed",
@@ -122,15 +122,15 @@ Object {
   "errors": Array [
     Object {
       "field": "email",
-      "message": "Invalid email",
+      "message": "Expected string between 0 and 255 characters long",
     },
     Object {
       "field": "password",
-      "message": "Expected string minimum 8 characters long, containing at least: 1 upper and 1 lower case, 1 digit and 1 special characters i.e. one of the following: #?!@$%^&*-",
+      "message": "Expected string between 0 and 255 characters long",
     },
     Object {
       "field": "password_confirmation",
-      "message": "Expected string minimum 8 characters long, containing at least: 1 upper and 1 lower case, 1 digit and 1 special characters i.e. one of the following: #?!@$%^&*-",
+      "message": "Expected string between 0 and 255 characters long",
     },
   ],
   "message": "Validation failed",

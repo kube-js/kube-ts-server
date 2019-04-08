@@ -5,17 +5,23 @@ import MatchValidationError from '../../../../../../utils/errors/validation/Matc
 import Validation from '../../../interfaces/Validation';
 
 const validationErrorsTranslations: Validation = {
-  dateValidationError: (error: DateValidationError) => `Expected date in one of the formats: ${error.expectedFormats.join(', ')}`,
+  dateValidationError: (error: DateValidationError) =>
+    `Expected date in one of the formats: ${error.expectedFormats.join(', ')}`,
   emailValidationError: () => 'Invalid email',
-  enumValidationError: (error: EnumValidationError) => `Expected one of the following: ${error.enumValues.join(', ')}`,
+  enumValidationError: (error: EnumValidationError) =>
+    `Expected one of the following: ${error.enumValues.join(', ')}`,
   matchValidationError: (error: MatchValidationError) =>
     `Expected ${error.fieldOne} to match ${error.fieldTwo}`,
   passwordValidationError: () =>
     'Expected string minimum 8 characters long, containing at least: 1 upper and 1 lower case, 1 digit and 1 special characters i.e. one of the following: #?!@$%^&*-',
-  stringValidationError: (error: StringValidationError) =>
-    `Expected string with a length between ${error.minLength} and ${
-      error.maxLength
-    } characters`,
+  stringValidationError: (error: StringValidationError) => {
+    const numberOfCharacters =
+      error.minLength === error.maxLength
+        ? `${error.minLength} characters long`
+        : `between ${error.minLength} and ${error.maxLength} characters long`;
+
+    return `Expected string ${numberOfCharacters}`;
+  },
   unknownValidationError: () => 'Unknown error',
   validationFailed: () => 'Validation failed',
 };

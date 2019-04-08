@@ -5,6 +5,8 @@ export default interface ErrorsTranslations {
   readonly conflict: (error: ConflictError) => string;
   readonly expiredJwtToken: () => string;
   readonly invalidJwtToken: () => string;
+  readonly invalidResetPasswordtoken: () => string;
+  readonly expiredResetPasswordtoken: () => string;
   readonly missingJwtToken: () => string;
   readonly missingJwtTokenExtractor: () => string;
   readonly unauthorized: () => string;

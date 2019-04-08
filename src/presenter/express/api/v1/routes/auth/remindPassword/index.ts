@@ -1,20 +1,12 @@
 import { ItemNotFoundError } from '@js-items/foundation';
 import { OK } from 'http-status-codes';
-import Intersection from 'rulr/Intersection';
-import Record from 'rulr/Record';
-import String from 'rulr/String';
 import validateData from 'rulr/validateData';
 import { v4 as uuid } from 'uuid';
-import { VARCHAR_LENGTH } from '../../../../../../../constants';
 import RemindPasswordError from '../../../../../../../utils/errors/auth/RemindPasswordError';
 import getResetPasswordUrl from '../../../../../../../utils/helpers/url/getResetPasswordUrl';
-import Email from '../../../../../../../utils/validation/rules/Email';
 import Config from '../../../../../presenterFactory/Config';
 import catchErrors from '../../../../../utils/errors/catchErrors';
-
-const rules = Record({
-  email: Intersection([String(0, VARCHAR_LENGTH), Email()]),
-});
+import rules from '../../../../../utils/schemas/auth/remindPassword';
 
 export default (config: Config) =>
   catchErrors(config, async (req, res) => {
@@ -26,24 +18,28 @@ export default (config: Config) =>
 
     const translations = translator({ req });
 
-    const resetPasswordToken = uuid();
+    const remindPasswordToken = uuid();
 
     try {
       const link = getResetPasswordUrl({
         config: appConfig.http.client,
         email,
-        token: resetPasswordToken,
+        token: remindPasswordToken,
       });
 
       const mailOptions = {
         from: appConfig.repo.mail.from,
-        html: translations.resetPasswordHtml(link),
-        subject: translations.resetPasswordSubject(),
-        text: translations.resetPasswordText(link),
+        html: translations.remindPasswordHtml(link),
+        subject: translations.remindPasswordSubject(),
+        text: translations.remindPasswordText(link),
         to: email,
       };
 
-      await service.auth.remindPassword({ email, mailOptions, resetPasswordToken });
+      await service.auth.remindPassword({
+        email,
+        mailOptions,
+        remindPasswordToken,
+      });
 
       const message = translations.resetPasswordLinkSent();
 

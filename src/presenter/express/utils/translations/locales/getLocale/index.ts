@@ -13,14 +13,15 @@ const getLocale = ({ defaultLocale, headerName, queryParam, req }: Options) => {
     return defaultLocale;
   }
 
-  const header = getLocaleFromHeader({ req, headerName });
   const queryParameter = getLocaleFromQueryParam({ req, queryParam });
-
+  
   // queryParam takes precedence over header
   if (isString(queryParameter)) {
     return queryParameter;
   }
-
+  
+  const header = getLocaleFromHeader({ req, headerName });
+  
   if (isString(header)) {
     return header;
   }

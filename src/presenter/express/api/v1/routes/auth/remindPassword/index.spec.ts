@@ -24,10 +24,10 @@ jest.mock('uuid', () => ({
 
 const REMIND_PASSWORD_URL = `${API_V1}${AUTH}${REMIND_PASSWORD}`;
 
-describe('@presenter/auth/register', () => {
+describe('@presenter/auth/remindPassword', () => {
   const { request, mailServer, service } = initTests({ useMailServer: true });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -74,7 +74,6 @@ describe('@presenter/auth/register', () => {
       },
       service: service.users,
     });
-
 
     await assertOnResponseAndStatus({
       fields: {

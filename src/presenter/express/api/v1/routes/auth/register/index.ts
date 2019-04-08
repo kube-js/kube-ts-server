@@ -1,6 +1,5 @@
 import { toCamel, toSnake } from 'convert-keys';
 import { CREATED } from 'http-status-codes';
-import _omit from 'ramda/src/omit';
 import _pick from 'ramda/src/pick';
 import validateData from 'rulr/validateData';
 import { v4 as uuid } from 'uuid';
