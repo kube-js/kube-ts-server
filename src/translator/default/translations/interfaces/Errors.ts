@@ -6,6 +6,8 @@ export default interface ErrorsTranslations {
   readonly expiredJwtToken: () => string;
   readonly invalidJwtToken: () => string;
   readonly invalidResetPasswordtoken: () => string;
+  readonly invalidVerifyAccountToken: () => string;
+  readonly accountAlreadyVerified: () => string;
   readonly expiredResetPasswordtoken: () => string;
   readonly missingJwtToken: () => string;
   readonly missingJwtTokenExtractor: () => string;

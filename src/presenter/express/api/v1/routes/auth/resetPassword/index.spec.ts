@@ -1,16 +1,16 @@
 import dotenv from 'dotenv';
-// import moment from 'moment';
+import moment from 'moment';
 import assertOnResponseAndStatus from '../../../../../utils/tests/assertOnResponseAndStatus';
 dotenv.config();
-// import { OK } from 'http-status-codes';
-// import { DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES } from '../../../../../../../constants';
+import { OK } from 'http-status-codes';
+import { DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES } from '../../../../../../../constants';
 import {
   API_V1,
   AUTH,
   RESET_PASSWORD,
 } from '../../../../../../../constants/routes';
-// import resetPasswordTokensFactory from '../../../../../utils/fakeFactories/resetPasswordTokens/factory';
-// import usersFactory from '../../../../../utils/fakeFactories/users/factory';
+import resetPasswordTokensFactory from '../../../../../utils/fakeFactories/resetPasswordTokens/factory';
+import usersFactory from '../../../../../utils/fakeFactories/users/factory';
 import initTests from '../../../../../utils/tests/initTests';
 import {
   TEST_DIFFERENT_VALID_PASSWORD,
@@ -20,8 +20,8 @@ import {
   TEST_VALID_PASSWORD,
 } from '../../../../../utils/tests/testData';
 
-// const emailSubject = 'subject';
-// const link = 'link';
+const emailSubject = 'subject';
+const link = 'link';
 
 jest.mock('uuid', () => ({
   v4: jest.fn(() => TEST_UUID),
@@ -30,7 +30,7 @@ jest.mock('uuid', () => ({
 const RESET_PASSWORD_URL = `${API_V1}${AUTH}${RESET_PASSWORD}`;
 
 describe('@presenter/auth/resetPassword', () => {
-  const { request } = initTests({ useMailServer: true });
+  const { request, service, mailServer } = initTests({ useMailServer: true });
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -131,86 +131,93 @@ describe('@presenter/auth/resetPassword', () => {
     });
   });
 
-  // it('fails to reset password when reset password token is expired', async () => {
-  //   await usersFactory({
-  //     overrides: {
-  //       email: TEST_VALID_EMAIL,
-  //       id: TEST_UUID
-  //     },
-  //     service: service.users,
-  //   });
+  it('fails to reset password when reset password token is expired', async () => {
+    await usersFactory({
+      overrides: {
+        email: TEST_VALID_EMAIL,
+        id: TEST_UUID,
+      },
+      service: service.users,
+    });
 
-  //   const expiresAt = moment().add(
-  //     DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES + 1,
-  //     'minutes'
-  //   ).toDate();
+    const expiresAt = moment()
+      .subtract(DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES + 1, 'minutes')
+      .toDate();
 
-  //   await resetPasswordTokensFactory({
-  //     overrides: {
-  //       expiresAt,
-  //       id: TEST_UUID,
-  //     },
-  //     service: service.resetPasswordTokens,
-  //   });
+    await resetPasswordTokensFactory({
+      overrides: {
+        expiresAt,
+        id: TEST_UUID,
+        userId: TEST_UUID,
+      },
+      service: service.resetPasswordTokens,
+    });
 
-  //   await assertOnResponseAndStatus({
-  //     fields: {
-  //       email: TEST_VALID_EMAIL,
-  //       password: TEST_VALID_PASSWORD,
-  //       password_confirmation: TEST_VALID_PASSWORD,
-  //       token: TEST_UUID,
-  //     },
-  //     request,
-  //     url: RESET_PASSWORD_URL,
-  //   });
-  // });
+    expect(mailServer.messages.length).toBe(0);
 
-  // it('resets password and send confirming email', async () => {
-  //   jest.mock('../../../../../../../translator/factory.ts', () => () => ({
-  //     reserPasswordHtml: jest.fn(() => link),
-  //     reserPasswordSubject: () => emailSubject,
-  //     reserPasswordText: jest.fn(() => link),
-  //   }));
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_VALID_EMAIL,
+        password: TEST_VALID_PASSWORD,
+        password_confirmation: TEST_VALID_PASSWORD,
+        token: TEST_UUID,
+      },
+      request,
+      url: RESET_PASSWORD_URL,
+    });
+  });
 
-  //   await usersFactory({
-  //     overrides: {
-  //       email: TEST_VALID_EMAIL,
-  //     },
-  //     service: service.users,
-  //   });
+  it('resets password and send confirming email', async () => {
+    jest.mock('../../../../../../../translator/factory.ts', () => () => ({
+      reserPasswordHtml: jest.fn(() => link),
+      reserPasswordSubject: () => emailSubject,
+      reserPasswordText: jest.fn(() => link),
+    }));
 
-  //   await assertOnResponseAndStatus({
-  //     fields: {
-  //       email: TEST_VALID_EMAIL,
-  //       password: TEST_VALID_PASSWORD,
-  //       password_confirmation: TEST_VALID_PASSWORD,
-  //       token: TEST_UUID,
-  //     },
-  //     request,
-  //     statusCode: OK, // @note: for security reasons
-  //     url: RESET_PASSWORD_URL,
-  //   });
+    await usersFactory({
+      overrides: {
+        email: TEST_VALID_EMAIL,
+        id: TEST_UUID,
+      },
+      service: service.users,
+    });
 
-  //   const { items } = await service.resetPasswordTokens.getItems({
-  //     filter: {
-  //       userId: TEST_UUID,
-  //     },
-  //   });
+    const expiresAt = moment()
+      .subtract(DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES - 1, 'minutes')
+      .toDate();
 
-  //   expect(items.length).toBe(1);
-  //   expect(items[0].id).toBe(TEST_UUID);
+    await resetPasswordTokensFactory({
+      overrides: {
+        expiresAt,
+        id: TEST_UUID,
+        userId: TEST_UUID,
+      },
+      service: service.resetPasswordTokens,
+    });
 
-  //   const messages = mailServer.messages;
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_VALID_EMAIL,
+        password: TEST_VALID_PASSWORD,
+        password_confirmation: TEST_VALID_PASSWORD,
+        token: TEST_UUID,
+      },
+      request,
+      statusCode: OK,
+      url: RESET_PASSWORD_URL,
+    });
 
-  //   expect(messages.length).toBe(1);
+    const messages = mailServer.messages;
 
-  //   const { textContent, subject, to, from, htmlContent } = messages[0];
+    expect(messages.length).toBe(1);
 
-  //   expect(from).toMatchSnapshot('from');
-  //   expect(htmlContent).toMatchSnapshot('htmlContent');
-  //   expect(textContent).toMatchSnapshot('textContent');
-  //   expect(subject).toMatchSnapshot('subject');
-  //   expect(to).toMatchSnapshot('to');
-  // });
+    const { textContent, subject, to, from, htmlContent } = messages[0];
+
+    expect(from).toMatchSnapshot('from');
+    expect(htmlContent).toMatchSnapshot('htmlContent');
+    expect(textContent).toMatchSnapshot('textContent');
+    expect(subject).toMatchSnapshot('subject');
+    expect(to).toMatchSnapshot('to');
+  });
   // tslint:disable-next-line:max-file-line-count
 });

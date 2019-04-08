@@ -7,11 +7,13 @@ import {
   UNPROCESSABLE_ENTITY,
 } from 'http-status-codes';
 import ValidationErrors from 'rulr/ValidationErrors';
+import AccountAlreadyVerifiedError from '../../../../../utils/errors/auth/AccountAlreadyVerifiedError';
 import ExpiredJwtTokenError from '../../../../../utils/errors/auth/ExpiredJwtTokenError';
 import ExpiredResetPasswordTokenError from '../../../../../utils/errors/auth/ExpiredResetPasswordTokenError';
 import InvalidCredentialsError from '../../../../../utils/errors/auth/InvalidCredentialsError';
 import InvalidJwtTokenError from '../../../../../utils/errors/auth/InvalidJwtTokenError';
 import InvalidResetPasswordTokenError from '../../../../../utils/errors/auth/InvalidResetPasswordTokenError';
+import InvalidVerifyAccountTokenError from '../../../../../utils/errors/auth/InvalidVerifyAccountTokenError';
 import LockedAccountError from '../../../../../utils/errors/auth/LockedAccountError';
 import MissingJwtTokenError from '../../../../../utils/errors/auth/MissingJwtTokenError';
 import MissingJwtTokenExtractorError from '../../../../../utils/errors/auth/MissingJwtTokenExtractorError';
@@ -100,17 +102,27 @@ export default ({ req, res, error, config }: Options) => {
   }
 
   if (error instanceof InvalidResetPasswordTokenError) {
-    // for security reasons return same response as email would exist in db
     const message = translations.invalidResetPasswordtoken();
 
     return res.status(UNPROCESSABLE_ENTITY).json({ message });
   }
 
   if (error instanceof ExpiredResetPasswordTokenError) {
-    // for security reasons return same response as email would exist in db
     const message = translations.expiredResetPasswordtoken();
 
     return res.status(UNPROCESSABLE_ENTITY).json({ message });
+  }
+
+  if (error instanceof InvalidVerifyAccountTokenError) {
+    const message = translations.invalidVerifyAccountToken();
+
+    return res.status(UNPROCESSABLE_ENTITY).json({ message });
+  }
+
+  if (error instanceof AccountAlreadyVerifiedError) {
+    const message = translations.accountAlreadyVerified();
+    
+    return res.status(CONFLICT).json({ message });
   }
 
   {

@@ -11,13 +11,13 @@ import Config from '../../../FactoryConfig';
 export interface Options {
   readonly email: string;
   readonly mailOptions: MailOptions;
-  readonly remindPasswordToken: string;
+  readonly token: string;
 }
 
 export default ({ repo }: Config) => async ({
   email,
   mailOptions,
-  remindPasswordToken,
+  token,
 }: Options) => {
   try {
     const { items } = await repo.users.getItems({
@@ -33,11 +33,11 @@ export default ({ repo }: Config) => async ({
     const user = items[0];
 
     await repo.resetPasswordTokens.createItem({
-      id: remindPasswordToken,
+      id: token,
       item: {
         createdAt: getUtcDate(),
         expiresAt: fastForwardTimeBy(DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES, 'minutes'),
-        id: remindPasswordToken,
+        id: token,
         userId: user.id,
       },
     });

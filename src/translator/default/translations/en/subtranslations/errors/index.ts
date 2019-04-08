@@ -3,6 +3,7 @@ import ConflictError from '../../../../../../utils/errors/http/ConflictError';
 import Errors from '../../../interfaces/Errors';
 
 const errorsTranslations: Errors = {
+  accountAlreadyVerified: () => 'Account has been already verified',
   accountLocked: () => `Too many invalid login attempts.
   Your account has been locked for ${ACCOUNT_LOCKOUT_TIME_IN_MINUTES} minutes`,
   conflict: (error: ConflictError) => `Model of type ${error.itemName} already exists`,
@@ -12,6 +13,7 @@ const errorsTranslations: Errors = {
   invalidCredentials: () => 'Invalid email and/or password',
   invalidJwtToken: () => 'Invalid JWT token',
   invalidResetPasswordtoken: () => `Invalid reset password token`,
+  invalidVerifyAccountToken: () => 'Invalid email and/or verify account token',
   missingJwtToken: () => 'Missing JWT token',
   missingJwtTokenExtractor: () => 'Missing JWT token extractor',
   serverError: () => 'Server error',

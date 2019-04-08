@@ -21,6 +21,12 @@ Object {
 }
 `;
 
+exports[`@presenter/auth/resetPassword fails to reset password when reset password token is expired 1`] = `
+Object {
+  "message": "Expired reset password token",
+}
+`;
+
 exports[`@presenter/auth/resetPassword fails to reset password with invalid email 1`] = `
 Object {
   "errors": Array [
@@ -104,3 +110,19 @@ Object {
   "message": "Validation failed",
 }
 `;
+
+exports[`@presenter/auth/resetPassword resets password and send confirming email 1`] = `
+Object {
+  "message": "Password changed successfully. You can now log in.",
+}
+`;
+
+exports[`@presenter/auth/resetPassword resets password and send confirming email: from 1`] = `"noreply@gamechanger.diet"`;
+
+exports[`@presenter/auth/resetPassword resets password and send confirming email: htmlContent 1`] = `"<h1>Hello,</h1><p>We wanted to let you know that your password was changed.</p><p>If you did not perform this action contact us immediately.</p><p>kube-ts-server</p>"`;
+
+exports[`@presenter/auth/resetPassword resets password and send confirming email: subject 1`] = `"[kube-ts-server] Your password has been changed"`;
+
+exports[`@presenter/auth/resetPassword resets password and send confirming email: textContent 1`] = `"Hello, we wanted to let you know that your password was changed. If you did not perform this action contact us immediately. kube-ts-server"`;
+
+exports[`@presenter/auth/resetPassword resets password and send confirming email: to 1`] = `"valid.email@test.com"`;

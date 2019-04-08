@@ -18,13 +18,13 @@ export default (config: Config) =>
 
     const translations = translator({ req });
 
-    const remindPasswordToken = uuid();
+    const token = uuid();
 
     try {
       const link = getResetPasswordUrl({
         config: appConfig.http.client,
         email,
-        token: remindPasswordToken,
+        token,
       });
 
       const mailOptions = {
@@ -38,7 +38,7 @@ export default (config: Config) =>
       await service.auth.remindPassword({
         email,
         mailOptions,
-        remindPasswordToken,
+        token,
       });
 
       const message = translations.resetPasswordLinkSent();

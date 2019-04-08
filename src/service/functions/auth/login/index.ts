@@ -33,6 +33,7 @@ export default ({ repo, appConfig }: Config) => async ({
 
   const user = items[0];
 
+  // @TODO: move to auth/authorization guard and protect resources against token from unverified account
   if (user.verifiedAt === undefined) {
     throw new UnverifiedAccountError();
   }
