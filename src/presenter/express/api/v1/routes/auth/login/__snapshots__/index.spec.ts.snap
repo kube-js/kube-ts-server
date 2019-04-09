@@ -40,18 +40,6 @@ Object {
 }
 `;
 
-exports[`@presenter/auth/login fails to log in user without email 2`] = `
-Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
-}
-`;
-
 exports[`@presenter/auth/login fails to log in user without password 1`] = `
 Object {
   "errors": Array [

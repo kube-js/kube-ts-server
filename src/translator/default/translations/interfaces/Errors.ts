@@ -16,4 +16,5 @@ export default interface ErrorsTranslations {
   readonly serverError: () => string;
   readonly invalidCredentials: () => string;
   readonly unverifiedAccount: () => string;
+  readonly unsupportedMediaType: () => string;
 }

@@ -1,4 +1,4 @@
-import { UNPROCESSABLE_ENTITY } from "http-status-codes";
+import { UNPROCESSABLE_ENTITY } from 'http-status-codes';
 import supertest from 'supertest';
 
 export interface BaseAssertionOptions {
@@ -17,7 +17,10 @@ const assertOnResponseAndStatus = async ({
   statusCode = UNPROCESSABLE_ENTITY,
   url,
 }: AssertionOptions) => {
-  const { status, body } = await request.post(url).send(fields);
+  const { status, body } = await request
+    .post(url)
+    .set('Content-Type', 'application/json')
+    .send(fields);
 
   expect(status).toBe(statusCode);
   expect(body).toMatchSnapshot();

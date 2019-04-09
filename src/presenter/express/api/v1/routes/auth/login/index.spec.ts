@@ -1,10 +1,11 @@
 // tslint:disable:no-magic-numbers
-import { OK, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import { OK, UNAUTHORIZED } from 'http-status-codes';
 import moment from 'moment';
 import { MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS } from '../../../../../../../constants';
 import { API_V1, AUTH, LOGIN } from '../../../../../../../constants/routes';
 import hashPassword from '../../../../../../../utils/helpers/auth/hashPassword';
 import usersFactory from '../../../../../utils/fakeFactories/users/factory';
+import assertOnResponseAndStatus from '../../../../../utils/tests/assertOnResponseAndStatus';
 import initTests from '../../../../../utils/tests/initTests';
 import {
   TEST_DIFFERENT_VALID_PASSWORD,
@@ -26,19 +27,21 @@ describe('@presenter/auth/login', () => {
   });
 
   it('fails to log in user without both credentials', async () => {
-    const { status, body } = await request.post(LOGIN_URL);
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
+    await assertOnResponseAndStatus({
+      fields: {},
+      request,
+      url: LOGIN_URL,
+    });
   });
 
   it('fails to log in user without email', async () => {
-    const { status, body } = await request.post(LOGIN_URL).send({
-      password: TEST_VALID_PASSWORD,
+    await assertOnResponseAndStatus({
+      fields: {
+        password: TEST_VALID_PASSWORD,
+      },
+      request,
+      url: LOGIN_URL,
     });
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
   });
 
   it('locks user account when too many login requests attempted', async () => {
@@ -52,51 +55,49 @@ describe('@presenter/auth/login', () => {
       },
       service: service.users,
     });
-    const { status, body } = await request.post(LOGIN_URL).send({
-      email: user.email,
-      password: TEST_DIFFERENT_VALID_PASSWORD,
+
+    await assertOnResponseAndStatus({
+      fields: {
+        email: user.email,
+        password: TEST_DIFFERENT_VALID_PASSWORD,
+      },
+      request,
+      statusCode: UNAUTHORIZED,
+      url: LOGIN_URL,
     });
-
-    expect(status).toBe(UNAUTHORIZED);
-    expect(body).toMatchSnapshot();
-  });
-
-  it('fails to log in user without email', async () => {
-    const { status, body } = await request.post(LOGIN_URL).send({
-      password: TEST_VALID_PASSWORD,
-    });
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
   });
 
   it('fails to log in user without password', async () => {
-    const { status, body } = await request.post(LOGIN_URL).send({
-      email: TEST_VALID_EMAIL,
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_VALID_EMAIL,
+      },
+      request,
+      url: LOGIN_URL,
     });
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
   });
 
   it('fails to log in user with invalid email', async () => {
-    const { status, body } = await request.post(LOGIN_URL).send({
-      email: TEST_INVALID_EMAIL,
-      password: TEST_VALID_PASSWORD,
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_INVALID_EMAIL,
+        password: TEST_VALID_PASSWORD,
+      },
+      request,
+      url: LOGIN_URL,
     });
-
-    expect(status).toBe(UNPROCESSABLE_ENTITY);
-    expect(body).toMatchSnapshot();
   });
 
   it('should fail to log in when user does not exist', async () => {
-    const { body, status } = await request.post(LOGIN_URL).send({
-      email: TEST_VALID_EMAIL,
-      password: TEST_VALID_PASSWORD,
+    await assertOnResponseAndStatus({
+      fields: {
+        email: TEST_VALID_EMAIL,
+        password: TEST_VALID_PASSWORD,
+      },
+      request,
+      statusCode: UNAUTHORIZED,
+      url: LOGIN_URL,
     });
-
-    expect(status).toBe(UNAUTHORIZED);
-    expect(body).toMatchSnapshot();
   });
 
   it('should fail to log in a user when password is invalid', async () => {
@@ -108,15 +109,15 @@ describe('@presenter/auth/login', () => {
       service: service.users,
     });
 
-    const { status, body } = await request
-      .post(`${API_V1}${AUTH}${LOGIN}`)
-      .send({
+    await assertOnResponseAndStatus({
+      fields: {
         email: user.email,
         password: TEST_DIFFERENT_VALID_PASSWORD,
-      });
-
-    expect(status).toBe(UNAUTHORIZED);
-    expect(body).toMatchSnapshot();
+      },
+      request,
+      statusCode: UNAUTHORIZED,
+      url: LOGIN_URL,
+    });
   });
 
   it('should fail to log in a user when user account is not verified', async () => {
@@ -128,15 +129,15 @@ describe('@presenter/auth/login', () => {
       service: service.users,
     });
 
-    const { status, body } = await request
-      .post(`${API_V1}${AUTH}${LOGIN}`)
-      .send({
+    await assertOnResponseAndStatus({
+      fields: {
         email: user.email,
         password: TEST_VALID_PASSWORD,
-      });
-
-    expect(status).toBe(UNAUTHORIZED);
-    expect(body).toMatchSnapshot();
+      },
+      request,
+      statusCode: UNAUTHORIZED,
+      url: LOGIN_URL,
+    });
   });
 
   it('should fail to log in a user when user has been soft deleted', async () => {
@@ -148,15 +149,15 @@ describe('@presenter/auth/login', () => {
       service: service.users,
     });
 
-    const { status, body } = await request
-      .post(`${API_V1}${AUTH}${LOGIN}`)
-      .send({
+    await assertOnResponseAndStatus({
+      fields: {
         email: user.email,
         password: TEST_VALID_PASSWORD,
-      });
-
-    expect(status).toBe(UNAUTHORIZED);
-    expect(body).toMatchSnapshot();
+      },
+      request,
+      statusCode: UNAUTHORIZED,
+      url: LOGIN_URL,
+    });
   });
 
   it('logs user in succesfully', async () => {

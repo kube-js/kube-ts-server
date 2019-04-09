@@ -18,6 +18,7 @@ const errors: Errors = {
   missingJwtTokenExtractor: () => 'Brak JWT token ekstraktor',
   serverError: () => 'Błąd serwera',
   unauthorized: () => 'Nieuwierzytelniony',
+  unsupportedMediaType: () => 'Content-Type header musi być ustawiony na application/json',
   unverifiedAccount: () =>
     'Konto nie zostało jeszcze zweryfikowane. Sprawdź swoją skrzynkę odbiorczą email i zweryfikuj swoje konto klikając w link',
 };

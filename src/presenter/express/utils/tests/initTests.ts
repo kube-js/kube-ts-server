@@ -20,7 +20,6 @@ const { presenter, service } = app({
 
 expressApp.all('*', presenter);
 
-const request = createSupertest(expressApp);
 const mailServer = new SmtpTestServer({
   port: config.repo.mail.nodemailer.port,
   secure: config.repo.mail.nodemailer.secure,
@@ -30,7 +29,9 @@ export interface Options {
   readonly useMailServer?: boolean;
 }
 
-export default ({ useMailServer = false }: Options) => {
+export default ({
+  useMailServer = false,
+}: Options) => {
   beforeAll(async () => {
     if (useMailServer) {
       await mailServer.start();
@@ -55,6 +56,8 @@ export default ({ useMailServer = false }: Options) => {
     }
     await service.closeDbConnection();
   });
+
+  const request = createSupertest(expressApp);
 
   return { service, request, mailServer };
 };

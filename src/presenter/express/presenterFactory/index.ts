@@ -10,8 +10,8 @@ import Config from './Config';
 
 const presenterFactory = (config: Config): Router => {
   const { http } = config.appConfig;
-  const router = enhancedRouter(http);
-  
+  const router = enhancedRouter({ config: http, translator: config.translator });
+
   // KUBERNETES PROBES
   // @credits: https://banzaicloud.com/blog/nodejs-in-production
   router.get(http.checks.liveness, healthCheck([checkDb(config)]));

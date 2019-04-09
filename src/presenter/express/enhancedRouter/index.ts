@@ -2,11 +2,19 @@ import * as bodyParser from 'body-parser';
 import compression from 'compression';
 import { Router } from 'express';
 import helmet from 'helmet';
+import { HttpConfig } from '../../../config/subconfigs/http';
+import { Options as TranslatorOptions } from '../../../translator/default/factory';
+import Translation from '../../../translator/default/translations/interfaces';
+import contentType from '../middlewares/contentType/factory';
 import createCorsMiddleware from '../middlewares/cors/factory';
 import createRateLimiter from '../middlewares/rateLimiter/factory';
-import Config from './Config';
 
-export default ({ express }: Config): Router => {
+export interface Options {
+  readonly translator: (options: TranslatorOptions) => Translation;
+  readonly config: HttpConfig;
+}
+
+export default ({ config: { express }, translator }: Options): Router => {
   const { middlewares } = express;
 
   const router: Router = Router();
@@ -40,6 +48,8 @@ export default ({ express }: Config): Router => {
   if (middlewares.compression.enabled) {
     router.use(compression());
   }
+
+  router.use(contentType({ translator }));
 
   return router;
 };

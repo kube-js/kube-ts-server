@@ -18,6 +18,7 @@ const errorsTranslations: Errors = {
   missingJwtTokenExtractor: () => 'Missing JWT token extractor',
   serverError: () => 'Server error',
   unauthorized: () => 'Unauthorized',
+  unsupportedMediaType: () => 'Content-Type header must be set to application/json',
   unverifiedAccount: () =>
     'Account unverified. Please verify you email by clicking an email you received from us',
 };
