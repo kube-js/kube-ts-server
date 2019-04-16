@@ -4,6 +4,7 @@
   "description": "Dokerized restful API written in typescript ready to be deployed on kubernetes cluster",
   "main": "index.js",
   "dependencies": {
+    "@js-items/express": "^1.0.1",
     "@js-items/foundation": "1.0.24",
     "@js-items/knex": "1.0.14",
     "@js-migrations/commander": "2.0.9",
@@ -68,6 +69,8 @@
     "pre-commit": "1.2.2",
     "rimraf": "2.6.3",
     "ts-jest": "24.0.2",
+    "ts-node": "^8.1.0",
+    "ts-node-dev": "^1.0.0-pre.32",
     "tslint": "5.15.0",
     "tslint-config-prettier": "1.18.0",
     "typescript": "3.4.1"
@@ -78,6 +81,7 @@
     "duplication": "jscpd ./src",
     "lint": "tslint --project tsconfig.json --config tslint.json './src/**/*.ts'",
     "start": "node ./dist/presenter/express/index.js",
+    "dev": "ts-node-dev --respawn --transpileOnly  ./src/presenter/express/index.ts",
     "semantic-release": "semantic-release-public-circleci-app",
     "test": "jest --coverage --runInBand",
     "test:watch": "jest --watch --runInBand  --coverage"

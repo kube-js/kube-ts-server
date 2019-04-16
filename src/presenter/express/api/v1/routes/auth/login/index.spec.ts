@@ -120,26 +120,6 @@ describe('@presenter/auth/login', () => {
     });
   });
 
-  it('should fail to log in a user when user account is not verified', async () => {
-    const [user] = await usersFactory({
-      overrides: {
-        password: await hashPassword(TEST_VALID_PASSWORD),
-        verifiedAt: undefined,
-      },
-      service: service.users,
-    });
-
-    await assertOnResponseAndStatus({
-      fields: {
-        email: user.email,
-        password: TEST_VALID_PASSWORD,
-      },
-      request,
-      statusCode: UNAUTHORIZED,
-      url: LOGIN_URL,
-    });
-  });
-
   it('should fail to log in a user when user has been soft deleted', async () => {
     const [user] = await usersFactory({
       overrides: {

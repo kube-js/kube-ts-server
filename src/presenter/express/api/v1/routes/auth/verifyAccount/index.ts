@@ -20,7 +20,7 @@ export default (config: Config) =>
       token,
     });
 
-    const message = translations.passwordChangedSuccessfully();
+    const message = translations.accountVerifiedSuccessfully();
 
     res.status(OK).json({ message });
   });

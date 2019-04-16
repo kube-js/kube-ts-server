@@ -21,9 +21,13 @@ npm install
 ```sh
 npm run build
 ```
-- run the server
+- run the server (for production, after build)
 ```sh
 npm run start
+```
+- run the server (for dev purposes, has a watch mode)
+```sh
+npm run dev
 ```
 - run tests
 ```sh

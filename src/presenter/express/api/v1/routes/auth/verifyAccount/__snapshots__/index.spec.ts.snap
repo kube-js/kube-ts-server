@@ -60,6 +60,6 @@ Object {
 
 exports[`@presenter/auth/verifyAccount verifies account when valid email and token is provided 1`] = `
 Object {
-  "message": "Password changed successfully. You can now log in.",
+  "message": "Account verified successfully. You can now log in.",
 }
 `;

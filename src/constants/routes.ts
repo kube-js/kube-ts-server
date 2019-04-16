@@ -6,3 +6,5 @@ export const REGISTER = '/register';
 export const RESET_PASSWORD = '/reset-password';
 export const REMIND_PASSWORD = '/remind-password';
 export const VERIFY_ACCOUNT = '/verify-account';
+
+export const USERS = '/users';

@@ -13,7 +13,7 @@ const convertersMap = {
   verifiedAt: itemToDocumentDateTime,
 };
 
-const documentToItem = (document: Document) =>
+const itemToDocument = (document: Document) =>
   recursiveConverter({ obj: document, convertersMap });
 
-export default documentToItem;
+export default itemToDocument;

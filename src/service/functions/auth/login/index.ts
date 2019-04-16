@@ -2,7 +2,6 @@ import _isNil from 'ramda/src/isNil';
 import { ACCOUNT_LOCKOUT_TIME_IN_MINUTES } from '../../../../constants';
 import InvalidCredentialsError from '../../../../utils/errors/auth/InvalidCredentialsError';
 import LockedAccountError from '../../../../utils/errors/auth/LockedAccountError';
-import UnverifiedAccountError from '../../../../utils/errors/auth/UnverifiedAccountError';
 import verifyPassword from '../../../../utils/helpers/auth/verifyPassword';
 import fastForwardTimeBy from '../../../../utils/helpers/date/fastForwardTimeBy';
 import isInTheFuture from '../../../../utils/helpers/date/isInTheFuture';
@@ -32,11 +31,6 @@ export default ({ repo, appConfig }: Config) => async ({
   }
 
   const user = items[0];
-
-  // @TODO: move to auth/authorization guard and protect resources against token from unverified account
-  if (user.verifiedAt === undefined) {
-    throw new UnverifiedAccountError();
-  }
 
   const isValidDate = user.accountLockoutExpiresAt !== undefined;
   const isAccountLocked = isInTheFuture(user.accountLockoutExpiresAt);
