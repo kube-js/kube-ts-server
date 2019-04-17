@@ -1,7 +1,9 @@
+import { ItemNotFoundError } from '@js-items/foundation';
 import { Request, Response } from 'express';
 import {
   CONFLICT,
   INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
   OK,
   UNAUTHORIZED,
   UNPROCESSABLE_ENTITY,
@@ -119,9 +121,15 @@ export default ({ req, res, error, config }: Options) => {
     return res.status(UNPROCESSABLE_ENTITY).json({ message });
   }
 
+  if (error instanceof ItemNotFoundError) {
+    const message = translations.notFound(error);
+
+    return res.status(NOT_FOUND).json({ message });
+  }
+
   if (error instanceof AccountAlreadyVerifiedError) {
     const message = translations.accountAlreadyVerified();
-    
+
     return res.status(CONFLICT).json({ message });
   }
 

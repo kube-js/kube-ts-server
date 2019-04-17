@@ -1,7 +1,9 @@
 import { Router } from 'express';
-import { AUTH, USERS } from '../../../../constants/routes';
+import { AUTH, PERMISSIONS, ROLES, USERS } from '../../../../constants/routes';
 import Config from '../../presenterFactory/Config';
 import authFactory from './routes/auth/factory';
+import permissionsFactory from './routes/permissions/factory';
+import rolesFactory from './routes/roles/factory';
 import usersFactory from './routes/users/factory';
 
 const apiV1 = (config: Config): Router => {
@@ -16,6 +18,8 @@ const apiV1 = (config: Config): Router => {
     */
   router.use(AUTH, authFactory(config));
   router.use(USERS, usersFactory(config));
+  router.use(ROLES, rolesFactory(config));
+  router.use(PERMISSIONS, permissionsFactory(config));
 
   return router;
 };
