@@ -1,31 +1,26 @@
+import _isNil from 'ramda/src/isNil';
 import _pick from 'ramda/src/pick';
 import validateData from 'rulr/validateData';
-import { v4 as uuid } from 'uuid';
-import hashPassword from '../../../../../../../../utils/helpers/auth/hashPassword';
-// import getVerifyEmailUrl from '../../../../../../../../utils/helpers/url/getVerifyEmailUrl';
-import rules, {
-  schema,
-} from '../../../../../../../express/utils/schemas/users/createItem';
 import Config from '../../../../../../presenterFactory/Config';
+import getAuthUser from '../../../../../../utils/auth/getAuthUser';
+import hasPermission from '../../../../../../utils/auth/hasPermission';
 import transactionWrapper, {
   HookOptions,
 } from '../../../../../../utils/handlers/transactionWrapper';
+import rules, {
+  schema,
+} from '../../../../../../utils/schemas/users/createItem';
 
 const defaultTransactionHandler = (config: Config) =>
   transactionWrapper({
     beforeHandler: async ({ req }: HookOptions) => {
+      const user = await getAuthUser({ req });
+
+      await hasPermission({ req, user });
+
       const payload: any = _pick(Object.keys(schema), req.body);
 
       validateData(rules)(payload);
-
-      req.body.password = await hashPassword(req.body.password);
-      /** workaround for after hook for passing the verify token */
-      req.body.verifyToken = uuid();
-
-      /** TODO: move to service */
-      req.body.createdAt = new Date();
-
-      req.body.id = uuid();
     },
     config,
   });

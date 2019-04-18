@@ -10,7 +10,10 @@ const beforeDeleteItem = (config: Config) =>
     beforeHandler: async ({ req }: HookOptions) => {
       const user = await getAuthUser({ req });
 
-      await hasPermission({ req, user });
+      // FYI: user should be able to delete itself without permission
+      if (req.params.id !== user.id) {
+        await hasPermission({ req, user });
+      }
     },
     config,
   });

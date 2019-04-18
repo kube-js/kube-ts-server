@@ -27,6 +27,10 @@ const usersFactory = (config: Config) =>
     createItem: createItem(config),
     createPatch: createPatch(config),
     service: config.service.users,
+    /* TODO: deleteItem and deleteItems should really soft delete (deletedAt) 
+     * but when have permission should hard delete (remove the record) */
+    /* TODO: getItems and getItem should only get users which are not soft deleted (deletedAt !== null) */
+    /* Consider this: https://www.pandastrike.com/posts/20161004-soft-deletes-http-api/ */
   });
 
 export default usersFactory;

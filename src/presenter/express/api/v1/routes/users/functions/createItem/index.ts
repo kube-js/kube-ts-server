@@ -5,10 +5,16 @@ import { Item } from '@js-items/foundation';
 import { Request, Response } from 'express';
 import { CREATED } from 'http-status-codes';
 import _defaultTo from 'ramda/src/defaultTo';
+import _isNil from 'ramda/src/isNil';
+import { v4 as uuid } from 'uuid';
+import hashPassword from '../../../../../../../../utils/helpers/auth/hashPassword';
+import getUtcDate from '../../../../../../../../utils/helpers/date/getUtcDate';
 import getVerifyEmailUrl from '../../../../../../../../utils/helpers/url/getVerifyEmailUrl';
 import Config from '../../../../../../presenterFactory/Config';
 
-const createItem = (factoryConfig: Config):RequestHandlerFactory => <I extends Item>(
+const createItem = (factoryConfig: Config): RequestHandlerFactory => <
+  I extends Item
+>(
   config: FacadeConfig<I>
 ) => async (req: Request, res: Response) => {
   const transactionHandler = _defaultTo(config.defaultTransactionHandler)(
@@ -16,9 +22,23 @@ const createItem = (factoryConfig: Config):RequestHandlerFactory => <I extends I
   );
 
   await transactionHandler({ req, res }, async () => {
+    const id = uuid();
+    
+    const verifyToken = uuid();
+
+    const password = !_isNil(req.body.password)
+      ? await hashPassword(req.body.password)
+      : undefined;
+
+    const createdAt = getUtcDate();
+
     const { item } = await config.service.createItem({
-      id: req.body.id,
-      item: config.convertDocumentIntoItem({ document: req.body, req, res }),
+      id,
+      item: config.convertDocumentIntoItem({
+        document: { ...req.body, verifyToken, password, createdAt, id },
+        req,
+        res,
+      }),
     });
 
     const { appConfig, translator } = factoryConfig;
@@ -64,7 +84,7 @@ export default createItem;
 
 //     req.body.password = await hashPassword(req.body.password);
 //     req.body.createdAt = new Date();
-    
+
 //     await handler({ transactionId });
 //   } catch (error) {
 //     let err = error;
