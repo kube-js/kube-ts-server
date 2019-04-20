@@ -11,7 +11,7 @@ const errorsTranslations: Errors = {
     `Model of type ${error.itemName} already exists`,
   expiredJwtToken: () => 'Expired JWT token',
   expiredResetPasswordtoken: () => `Expired reset password token`,
-  forbidden: () => 'Forbidden',
+  forbidden: () => 'Not enough permissions to perform this action',
   invalidCredentials: () => 'Invalid email and/or password',
   invalidJwtToken: () => 'Invalid JWT token',
   invalidResetPasswordtoken: () => `Invalid reset password token`,
@@ -21,7 +21,7 @@ const errorsTranslations: Errors = {
   notFound: (error: ItemNotFoundError) =>
     `Model ${error.itemName} with id ${error.itemId} not found`,
   serverError: () => 'Server error',
-  unauthorized: () => 'Unauthorized',
+  unauthenticated: () => 'Unauthenticated',
   unsupportedMediaType: () =>
     'Content-Type header must be set to application/json',
   unverifiedAccount: () =>

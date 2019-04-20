@@ -77,7 +77,8 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc",
-    "db:migrate": "node ./dist/presenter/commander/index.js migrate",
+    "db:migrate": "ts-node ./src/presenter/commander/index.ts migrate",
+    "db:createAdmin": "ts-node ./src/presenter/commander/index.ts createAdmin",
     "duplication": "jscpd ./src",
     "lint": "tslint --project tsconfig.json --config tslint.json './src/**/*.ts'",
     "start": "node ./dist/presenter/express/index.js",

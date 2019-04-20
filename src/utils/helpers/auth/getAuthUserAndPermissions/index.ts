@@ -19,7 +19,7 @@ interface AuthData {
   // readonly permissions: string[];
 }
 
-const defaultExtractTokenFromRequest = createExtractTokenFromRequest();
+const defaultExtractTokenFromRequest = createExtractTokenFromRequest({});
 
 export default async ({
   req,

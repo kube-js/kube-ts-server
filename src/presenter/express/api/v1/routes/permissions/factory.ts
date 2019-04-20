@@ -1,59 +1,35 @@
 import expressFactory from '@js-items/express/dist/factory';
-import { ConflictingItemError } from '@js-items/foundation';
-import { toCamel, toSnake } from 'convert-keys';
 import _pick from 'ramda/src/pick';
-import validateData from 'rulr/validateData';
-import { v4 as uuid } from 'uuid';
-import ConflictError from '../../../../../../utils/errors/http/ConflictError';
-import hashPassword from '../../../../../../utils/helpers/auth/hashPassword';
-import getVisibleUserProperties from '../../../../../../utils/helpers/model/getVisibleUserProperties';
+import Permission from '../../../../../../types/items/Permission';
 import Config from '../../../../presenterFactory/Config';
-import handleError from '../../../../utils/errors/handleError';
-import rules, { schema } from '../../../../utils/schemas/users/createItem';
+import beforeCreateItem from '../utils/beforeCreateItem';
+import beforeDeleteItem from '../utils/beforeDeleteItem';
+import beforeDeleteItems from '../utils/beforeDeleteItems';
+import beforeGetItem from '../utils/beforeGetItem';
+import beforeGetItems from '../utils/beforeGetItems';
+import beforeReplaceItem from '../utils/beforeReplaceItem';
+import beforeUpdateItem from '../utils/beforeUpdateItem';
+import convertItemIntoDocument from '../utils/convertItemIntoDocument';
+import createPatch from '../utils/createPatch';
+import convertDocumentIntoItem from './functions/convertDocumentIntoItem';
 
-const usersFactory = (config: Config) =>
-  expressFactory({
-    beforeCreateItem: async ({ req, res }, handler) => {
-      const transactionId = uuid();
-      try {
-        const payload: any = _pick(Object.keys(schema), req.body);
-        validateData(rules)(payload);
-
-        req.body.password = await hashPassword(req.body.password);
-        req.body.createdAt = new Date();
-        
-        await handler({ transactionId });
-      } catch (error) {
-        let err = error;
-        if (error instanceof ConflictingItemError) {
-          err = new ConflictError(error.itemName, error.itemId);
-        }
-
-        handleError({ config, errorId: transactionId, req, res, error: err });
-      }
-    },
-    convertDocumentIntoItem: ({ document }) => {
-      // tslint:disable-next-line:no-console
-      const documentCamelised: any = toCamel(document);
-
-      return { ...documentCamelised };
-    },
-    convertItemIntoDocument: ({ item }) => {
-      const user = getVisibleUserProperties(item);
-
-      return toSnake(user);
-    },
-    defaultTransactionHandler: async ({ req, res }, handler) => {
-      const transactionId = uuid();
-      try {
-        // tslint:disable-next-line:no-console
-        req.body.password = await hashPassword(req.body.password);
-        await handler({ transactionId });
-      } catch (error) {
-        handleError({ config, errorId: transactionId, req, res, error });
-      }
-    },
-    service: config.service.users,
+const rolesFactory = (config: Config) =>
+  expressFactory<Permission>({
+    beforeCreateItem: beforeCreateItem(config),
+    beforeDeleteItem: beforeDeleteItem(config),
+    beforeDeleteItems: beforeDeleteItems(config),
+    beforeGetItem: beforeGetItem(config),
+    beforeGetItems: beforeGetItems(config),
+    beforeReplaceItem: beforeReplaceItem(config),
+    beforeUpdateItem: beforeUpdateItem(config),
+    convertDocumentIntoItem: convertDocumentIntoItem(config),
+    convertItemIntoDocument: convertItemIntoDocument(config),
+    createPatch: createPatch(config),
+    service: config.service.permissions,
+    /* TODO: deleteItem and deleteItems should really soft delete (deletedAt) 
+     * but when have permission should hard delete (remove the record) */
+    /* TODO: getItems and getItem should only get users which are not soft deleted (deletedAt !== null) */
+    /* Consider this: https://www.pandastrike.com/posts/20161004-soft-deletes-http-api/ */
   });
 
-export default usersFactory;
+export default rolesFactory;

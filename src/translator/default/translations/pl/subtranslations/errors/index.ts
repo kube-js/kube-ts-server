@@ -11,7 +11,7 @@ const errors: Errors = {
     `Model typu ${error.itemName} już istnieje`,
   expiredJwtToken: () => 'Token JWT utracił ważność',
   expiredResetPasswordtoken: () => `Reset password token utracił ważność`,
-  forbidden: () => 'Brak uprawnień',
+  forbidden: () => 'Brak uprawnień do wykonania tej akcji',
   invalidCredentials: () => 'Niewłaściwy email i/lub password',
   invalidJwtToken: () => 'Niewłaściwy JWT token',
   invalidResetPasswordtoken: () => `Niewłaściwy reset password token`,
@@ -22,7 +22,7 @@ const errors: Errors = {
   notFound: (error: ItemNotFoundError) =>
   `Nie znaleziono modelu ${error.itemName} o id ${error.itemId}`,
   serverError: () => 'Błąd serwera',
-  unauthorized: () => 'Nieuwierzytelniony',
+  unauthenticated: () => 'Nieuwierzytelniony',
   unsupportedMediaType: () =>
     'Content-Type header musi być ustawiony na application/json',
   unverifiedAccount: () =>

@@ -15,7 +15,7 @@ export const createAuthSchemeExtractor = ({
   const authScheme: string = authSchemeName.toLowerCase();
   const header: any = req.headers[authHeaderName];
 
-  if (isString(header)) {
+  if (!isString(header)) {
     return null;
   }
 

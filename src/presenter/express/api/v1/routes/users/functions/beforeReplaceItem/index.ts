@@ -4,7 +4,7 @@ import validateData from 'rulr/validateData';
 import hashPassword from '../../../../../../../../utils/helpers/auth/hashPassword';
 import getUtcDate from '../../../../../../../../utils/helpers/date/getUtcDate';
 import Config from '../../../../../../presenterFactory/Config';
-import getAuthUser from '../../../../../../utils/auth/getAuthUser';
+import getAuthenticatedUser from '../../../../../../utils/auth/getAuthenticatedUser';
 import hasPermission from '../../../../../../utils/auth/hasPermission';
 import transactionWrapper, {
   HookOptions,
@@ -16,7 +16,7 @@ import rules, {
 const beforeReplaceItem = (config: Config) =>
   transactionWrapper({
     beforeHandler: async ({ req }: HookOptions) => {
-      const user = await getAuthUser({ req });
+      const user = await getAuthenticatedUser({ req, config });
 
       // FYI: user should be able to update itself without permission
       if (req.params.id !== user.id) {
@@ -30,6 +30,7 @@ const beforeReplaceItem = (config: Config) =>
       req.body.password = !_isNil(req.body.password)
         ? await hashPassword(req.body.password)
         : undefined;
+        
       req.body.updatedAt = getUtcDate();
     },
     config,

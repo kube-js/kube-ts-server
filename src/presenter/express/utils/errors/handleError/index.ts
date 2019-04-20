@@ -2,6 +2,7 @@ import { ItemNotFoundError } from '@js-items/foundation';
 import { Request, Response } from 'express';
 import {
   CONFLICT,
+  FORBIDDEN,
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
   OK,
@@ -12,6 +13,7 @@ import ValidationErrors from 'rulr/ValidationErrors';
 import AccountAlreadyVerifiedError from '../../../../../utils/errors/auth/AccountAlreadyVerifiedError';
 import ExpiredJwtTokenError from '../../../../../utils/errors/auth/ExpiredJwtTokenError';
 import ExpiredResetPasswordTokenError from '../../../../../utils/errors/auth/ExpiredResetPasswordTokenError';
+import ForbiddenError from '../../../../../utils/errors/auth/ForbiddenError';
 import InvalidCredentialsError from '../../../../../utils/errors/auth/InvalidCredentialsError';
 import InvalidJwtTokenError from '../../../../../utils/errors/auth/InvalidJwtTokenError';
 import InvalidResetPasswordTokenError from '../../../../../utils/errors/auth/InvalidResetPasswordTokenError';
@@ -20,6 +22,7 @@ import LockedAccountError from '../../../../../utils/errors/auth/LockedAccountEr
 import MissingJwtTokenError from '../../../../../utils/errors/auth/MissingJwtTokenError';
 import MissingJwtTokenExtractorError from '../../../../../utils/errors/auth/MissingJwtTokenExtractorError';
 import RemindPasswordError from '../../../../../utils/errors/auth/RemindPasswordError';
+import UnauthorizedError from '../../../../../utils/errors/auth/UnauthorizedError';
 import UnverifiedAccountError from '../../../../../utils/errors/auth/UnverifiedAccountError';
 import ConflictError from '../../../../../utils/errors/http/ConflictError';
 import Config from '../../../presenterFactory/Config';
@@ -54,11 +57,12 @@ export default ({ req, res, error, config }: Options) => {
     });
   }
 
-  if (error instanceof UnverifiedAccountError) {
-    return res.status(UNAUTHORIZED).json({
-      message: translations.unverifiedAccount(),
-    });
+  if (error instanceof UnauthorizedError) {
+    const message = translations.unauthenticated();
+
+    return res.status(UNAUTHORIZED).json({ message });
   }
+
 
   if (error instanceof MissingJwtTokenError) {
     const message = translations.missingJwtToken();
@@ -88,6 +92,18 @@ export default ({ req, res, error, config }: Options) => {
     const message = translations.invalidJwtToken();
 
     return res.status(UNAUTHORIZED).json({ message });
+  }
+
+  if (error instanceof UnverifiedAccountError) {
+    return res.status(UNAUTHORIZED).json({
+      message: translations.unverifiedAccount(),
+    });
+  }
+
+  if (error instanceof ForbiddenError) {
+    return res.status(FORBIDDEN).json({
+      message: translations.forbidden(),
+    });
   }
 
   if (error instanceof ConflictError) {

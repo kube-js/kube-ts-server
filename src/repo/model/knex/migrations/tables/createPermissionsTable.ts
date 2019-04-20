@@ -11,7 +11,7 @@ export default ({ db }: RepoConfig) => {
       table.string('id', UUID_LENGTH).primary();
       table.string('name').unique();
       table.string('method').notNullable();
-      table.string('urlRegex').notNullable();
+      table.string('url').notNullable();
       table.dateTime('createdAt').notNullable();
       table.dateTime('updatedAt').nullable();
     });

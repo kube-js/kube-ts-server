@@ -15,10 +15,10 @@ export default ({ db }: RepoConfig) => async ({
 
   const countQuery = connection
     .count('*')
+    .from('permissions')
     .where({ method })
     .whereIn('id', permissionsIds)
-    .from('permissions')
-    .whereRaw('? REGEXP `urlRegex`', [url]);
+    .whereRaw('? REGEXP `url`', [url]);
 
   const [result] = await Promise.resolve(countQuery);
 

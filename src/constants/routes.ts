@@ -8,7 +8,11 @@ export const REMIND_PASSWORD = '/remind-password';
 export const VERIFY_ACCOUNT = '/verify-account';
 
 export const USERS = '/users';
+export const ASSIGN_USER_ROLE = '/:user_id/roles';
+export const REVOKE_USER_ROLE = '/:user_id/roles/:role_id';
 
 export const ROLES = '/roles';
+export const ASSIGN_ROLE_PERMISSION = '/:role_id/permissions';
+export const REVOKE_ROLE_PERMISSION = '/:role_id/permissions/:permission_id';
 
 export const PERMISSIONS = '/permissions';

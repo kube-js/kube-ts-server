@@ -1,5 +1,5 @@
 {
-  "threshold": 5,
+  "threshold": 10,
   "reporters": ["console", "badge"],
   "absolute": true,
   "gitignore": true,

@@ -2,7 +2,7 @@ import _isNil from 'ramda/src/isNil';
 import _pick from 'ramda/src/pick';
 import validateData from 'rulr/validateData';
 import Config from '../../../../../../presenterFactory/Config';
-import getAuthUser from '../../../../../../utils/auth/getAuthUser';
+import getAuthenticatedUser from '../../../../../../utils/auth/getAuthenticatedUser';
 import hasPermission from '../../../../../../utils/auth/hasPermission';
 import transactionWrapper, {
   HookOptions,
@@ -14,12 +14,12 @@ import rules, {
 const defaultTransactionHandler = (config: Config) =>
   transactionWrapper({
     beforeHandler: async ({ req }: HookOptions) => {
-      const user = await getAuthUser({ req });
+      const user = await getAuthenticatedUser({ req, config });
 
       await hasPermission({ req, user, config });
 
       const payload: any = _pick(Object.keys(schema), req.body);
-
+      
       validateData(rules)(payload);
     },
     config,

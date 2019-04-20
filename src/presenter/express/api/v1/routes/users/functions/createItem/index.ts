@@ -23,7 +23,7 @@ const createItem = (factoryConfig: Config): RequestHandlerFactory => <
 
   await transactionHandler({ req, res }, async () => {
     const id = uuid();
-    
+
     const verifyToken = uuid();
 
     const password = !_isNil(req.body.password)
@@ -74,24 +74,3 @@ const createItem = (factoryConfig: Config): RequestHandlerFactory => <
 };
 
 export default createItem;
-
-// export default createItem;
-// beforeCreateItem: async ({ req, res }, handler) => {
-//   const transactionId = uuid();
-//   try {
-//     const payload: any = _pick(Object.keys(schema), req.body);
-//     validateData(rules)(payload);
-
-//     req.body.password = await hashPassword(req.body.password);
-//     req.body.createdAt = new Date();
-
-//     await handler({ transactionId });
-//   } catch (error) {
-//     let err = error;
-//     if (error instanceof ConflictingItemError) {
-//       err = new ConflictError(error.itemName, error.itemId);
-//     }
-
-//     handleError({ config, errorId: transactionId, req, res, error: err });
-//   }
-// },

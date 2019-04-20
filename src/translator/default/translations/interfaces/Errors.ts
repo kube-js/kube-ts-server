@@ -12,7 +12,7 @@ export default interface ErrorsTranslations {
   readonly expiredResetPasswordtoken: () => string;
   readonly missingJwtToken: () => string;
   readonly missingJwtTokenExtractor: () => string;
-  readonly unauthorized: () => string;
+  readonly unauthenticated: () => string;
   readonly forbidden: () => string;
   readonly serverError: () => string;
   readonly invalidCredentials: () => string;
