@@ -3,7 +3,7 @@ import { GenderType } from '../../../../../types/items/User';
 import { RepoConfig } from '../../factory';
 
 export default ({ db }: RepoConfig) => {
-  const key = 'createUsersTable';
+  const key = 'create_users_table';
 
   const up = async () => {
     const connection = await db();

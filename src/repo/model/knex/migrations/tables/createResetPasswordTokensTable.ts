@@ -1,30 +1,31 @@
 import { UUID_LENGTH } from '../../../../../constants';
 import { RepoConfig } from '../../factory';
 
-
 export default ({ db }: RepoConfig) => {
-
-  const key = 'createResetPasswordTokensTable';
+  const key = 'create_reset_password_tokens_table';
 
   const up = async () => {
     const connection = await db();
-    const uuidLength = 36;
-    const query = connection.schema.createTable('resetPasswordTokens', (table) => {
-      table.string('id', UUID_LENGTH).primary();
-      table.string('userId', uuidLength)
-        .references('id')
-        .inTable('users')
-        .onDelete('cascade');
-      table.dateTime('expiresAt');
-      table.dateTime('createdAt');
-      table.dateTime('updatedAt').nullable();
-    });
+    const query = connection.schema.createTable(
+      'reset_password_tokens',
+      table => {
+        table.string('id', UUID_LENGTH).primary();
+        table
+          .string('userId', UUID_LENGTH)
+          .references('id')
+          .inTable('users')
+          .onDelete('cascade');
+        table.dateTime('expiresAt');
+        table.dateTime('createdAt');
+        table.dateTime('updatedAt').nullable();
+      }
+    );
     await Promise.resolve(query);
   };
 
   const down = async () => {
     const connection = await db();
-    await Promise.resolve(connection.schema.dropTable('resetPasswordTokens'));
+    await Promise.resolve(connection.schema.dropTable('reset_password_tokens'));
   };
 
   return { key, up, down };

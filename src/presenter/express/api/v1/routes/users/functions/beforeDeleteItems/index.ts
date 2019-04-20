@@ -10,7 +10,7 @@ const beforeDeleteItems = (config: Config) =>
     beforeHandler: async ({ req }: HookOptions) => {
       const user = await getAuthUser({ req });
 
-      await hasPermission({ req, user });
+      await hasPermission({ req, user, config });
     },
     config,
   });

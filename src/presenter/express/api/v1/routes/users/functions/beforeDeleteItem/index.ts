@@ -12,7 +12,7 @@ const beforeDeleteItem = (config: Config) =>
 
       // FYI: user should be able to delete itself without permission
       if (req.params.id !== user.id) {
-        await hasPermission({ req, user });
+      await hasPermission({ req, user, config });
       }
     },
     config,

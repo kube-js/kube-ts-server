@@ -10,5 +10,5 @@ export default (config: RepoConfig) =>
     convertItemIntoDocument: resetPasswordTokensItemToDocument,
     db: config.db,
     itemName: 'Reset Password Tokens',
-    tableName: 'resetPasswordTokens',
+    tableName: 'reset_password_tokens',
   });

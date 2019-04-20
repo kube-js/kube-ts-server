@@ -1,9 +1,14 @@
 import connectToDb from '@js-items/knex/dist/utils/connectToDb';
 import * as knex from 'knex';
 import { KnexConfig } from '../../../config/subconfigs/repo/model';
-import closeDbConnection from './commons/closeDbConnection';
 import migrationsFactory from './migrations/factory';
+import closeDbConnection from './other/closeDbConnection';
+import countPermissions from './other/countPermissions';
+import permissionFactory from './permissions/factory';
 import resetPasswordTokens from './resetPasswordTokens/factory';
+import rolePermissionFactory from './rolePermission/factory';
+import rolesFactory from './roles/factory';
+import userRoleFactory from './userRole/factory';
 import usersFactory from './users/factory';
 
 export type Connect = () => Promise<knex>;
@@ -20,8 +25,13 @@ export default ({ client, connection }: KnexConfig) => {
 
   return {
     closeDbConnection: closeDbConnection({ db }),
+    countPermissions: countPermissions({ db }),
     migrations: migrationsFactory({ db }),
+    permissions: permissionFactory({ db }),
     resetPasswordTokens: resetPasswordTokens({ db }),
+    rolePermission: rolePermissionFactory({ db }),
+    roles: rolesFactory({ db }),
+    userRole: userRoleFactory({ db }),
     users: usersFactory({ db }),
   };
 };
