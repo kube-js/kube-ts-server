@@ -5,7 +5,7 @@ machine:
 jobs:
   build:
     docker:
-      - image: circleci/node:8.15
+      - image: circleci/node:8.16
       - image: circleci/mysql:5.7
     environment:
       - NPM_CONFIG_LOGLEVEL: warn
