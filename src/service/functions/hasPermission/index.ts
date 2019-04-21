@@ -39,8 +39,10 @@ export default ({ repo }: Config) => async ({ req, user }: Options) => {
   const { count } = await repo.countPermissions({
     method: req.method,
     permissionsIds,
-    url: req.url,
+    url: req.originalUrl,
   });
 
-  return Boolean(count > 0);
+  if(count === 0){
+    throw new ForbiddenError();
+  }
 };

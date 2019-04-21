@@ -8,7 +8,7 @@ const errorsTranslations: Errors = {
   accountLocked: () => `Too many invalid login attempts.
   Your account has been locked for ${ACCOUNT_LOCKOUT_TIME_IN_MINUTES} minutes`,
   conflict: (error: ConflictError) =>
-    `Model of type ${error.itemName} already exists`,
+    `${error.itemName} already exists`,
   expiredJwtToken: () => 'Expired JWT token',
   expiredResetPasswordtoken: () => `Expired reset password token`,
   forbidden: () => 'Not enough permissions to perform this action',

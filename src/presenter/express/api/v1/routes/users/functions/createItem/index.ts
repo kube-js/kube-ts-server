@@ -32,13 +32,21 @@ const createItem = (factoryConfig: Config): RequestHandlerFactory => <
 
     const createdAt = getUtcDate();
 
-    const { item } = await config.service.createItem({
-      id,
-      item: config.convertDocumentIntoItem({
-        document: { ...req.body, verifyToken, password, createdAt, id },
+    const data = {
+      ...config.convertDocumentIntoItem({
+        document: req.body,
         req,
         res,
       }),
+      createdAt,
+      id,
+      password,
+      verifyToken,
+    };
+
+    const { item } = await config.service.createItem({
+      id,
+      item: data,
     });
 
     const { appConfig, translator } = factoryConfig;

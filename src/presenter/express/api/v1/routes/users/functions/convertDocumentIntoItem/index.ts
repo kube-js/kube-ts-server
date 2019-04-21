@@ -9,7 +9,7 @@ const convertDocumentIntoItem = (_config: Config): DocumentIntoItem<User> => ({
   document,
 }) => {
   const data = _pick(Object.keys(schema), document);
-
+  
   return toCamel(data);
 };
 

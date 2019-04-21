@@ -1,27 +1,37 @@
 // tslint:disable:no-console
+import promptly from 'promptly';
 import Record from 'rulr/Record';
 import validateData from 'rulr/validateData';
 import { v4 as uuid } from 'uuid';
+import { VARCHAR_LENGTH } from '../../../../constants';
 import hashPassword from '../../../../utils/helpers/auth/hashPassword';
 import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 import Email from '../../../../utils/validation/rules/Email';
-import Password from '../../../../utils/validation/rules/Password';
+import String from '../../../../utils/validation/rules/String';
 import FactoryConfig from '../../presenterFactory/FactoryConfig';
 import adminPermissions from '../../utils/permissions/adminPermissions';
 
 const rules = Record({
   email: Email(),
-  password: Password(),
+  // FYI: intential just String validation on password,
+  // allowing weak passwords for development
+  password: String(0, VARCHAR_LENGTH),
 });
 
-export default (config: FactoryConfig) => async (
-  email: string,
-  password: string
-) => {
+const dbSeed = (config: FactoryConfig) => async () => {
   /* TODO: implement logger */
   try {
-    const { service } = config;
     console.log('Creating admin user...');
+    const email = await promptly.prompt(
+      'Choose email [default: test@example.com]: ',
+      { default: 'test@example.com' }
+    );
+    const password = await promptly.password(
+      'Choose password [default: password]: ',
+      { default: 'password' }
+    );
+
+    const { service } = config;
 
     console.log('Validating input...');
     validateData(rules)({ email, password });
@@ -42,7 +52,6 @@ export default (config: FactoryConfig) => async (
     console.log('User created successfuly!');
 
     console.log('Creating role...');
-    // create role
     const roleId = uuid();
     const { item: role } = await service.roles.createItem({
       id: roleId,
@@ -86,18 +95,23 @@ export default (config: FactoryConfig) => async (
 
     const permissionsIds = results.map(result => result.item.id);
 
-    console.log('Assigning permissions to tole...');
-    const rolePermissionsPromises = permissionsIds.map(permissionId =>
-      service.rolePermission.createItem({
-        id: userRoleId,
+    console.log('Assigning permissions to role...');
+    const rolePermissionsPromises = permissionsIds.map(async permissionId => {
+      const rolePermissionId = uuid();
+
+      return service.rolePermission.createItem({
+        id: rolePermissionId,
         item: {
           createdAt: getUtcDate(),
-          id: userRoleId,
+          id: rolePermissionId,
           permissionId,
           roleId: role.id,
         },
-      })
-    );
+      });
+    });
+
+    await Promise.all(rolePermissionsPromises);
+
     console.log('Permissions assigned successfuly!');
 
     console.log('Finito!');
@@ -110,3 +124,6 @@ export default (config: FactoryConfig) => async (
   }
   // tslint:disable-next-line:max-file-line-count
 };
+
+// tslint:disable-next-line:max-file-line-count
+export default dbSeed;

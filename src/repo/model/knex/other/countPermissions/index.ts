@@ -13,12 +13,17 @@ export default ({ db }: RepoConfig) => async ({
 }: Options) => {
   const connection = await db();
 
+  // @credits:
+  // https://medium.com/technology-learning/how-we-solved-authentication-and-authorization-in-our-microservice-architecture-994539d1b6e6
+  // https://stackoverflow.com/questions/47552940/how-can-i-store-a-regex-pattern-in-a-mysql-field-and-check-an-input-against-it
+  // query string regex:
+  // [?([a-z0-9$_.+!*'(),;:@&=-]|%[0-9a-f]{2})*]?
   const countQuery = connection
     .count('*')
     .from('permissions')
     .where({ method })
     .whereIn('id', permissionsIds)
-    .whereRaw('? REGEXP `url`', [url]);
+    .whereRaw('? REGEXP url = 1', [url]);
 
   const [result] = await Promise.resolve(countQuery);
 

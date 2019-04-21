@@ -113,7 +113,7 @@ Object {
 
 exports[`@presenter/auth/register fails to register user when user with the email already exist 1`] = `
 Object {
-  "message": "Model of type User already exists",
+  "message": "User already exists",
 }
 `;
 

@@ -17,6 +17,10 @@ git clone git@github.com:kube-js/kube-ts-server.git
 ```sh
 npm install
 ```
+- migrates and seeds a project
+```sh
+npm run setup
+```
 - build the project
 ```sh
 npm run build
