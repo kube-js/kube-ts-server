@@ -1,0 +1,42 @@
+test: 'test'
+
+# @credits: https://github.com/CloudNativeJS/helm
+replicaCount: 1
+revisionHistoryLimit: 1
+
+image:
+  repository: kubejs/kube-ts-server
+  tag: 1.0.24
+  pullPolicy: IfNotPresent 
+  resources:
+    requests:
+      cpu: 300m
+      memory: 450Mi
+livenessProbe:
+  httpGet:
+    path: /health/liveness
+    port: 3000
+  initialDelaySeconds: 60
+  periodSeconds: 5
+readinessProbe:
+  httpGet:
+    path: /health/readiness
+    port: 3000
+  initialDelaySeconds: 5
+  periodSeconds: 5
+service:
+  name: Node
+  type: NodePort
+  servicePort: 3000
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    cpu:
+      targetAverageUtilization: 70
+    memory:
+      targetAverageUtilization: 70
+services:
+prometheus:
+  enabled: false

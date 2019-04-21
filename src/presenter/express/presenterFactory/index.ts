@@ -26,6 +26,9 @@ const presenterFactory = (config: Config): Router => {
   // V1 API ROUTES
   router.use(API_V1, apiV1(config));
 
+  // TODO: add not found handler 
+  // https://stackoverflow.com/questions/40888218/webstorm-nodejs-process-finished-with-exit-code-0
+
   return router;
 };
 
