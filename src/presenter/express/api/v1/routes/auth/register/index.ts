@@ -5,6 +5,7 @@ import validateData from 'rulr/validateData';
 import { v4 as uuid } from 'uuid';
 import User from '../../../../../../../types/items/User';
 import generateToken from '../../../../../../../utils/helpers/auth/generateToken';
+import getVisibleRolesProperties from '../../../../../../../utils/helpers/model/getVisibleRolesProperties';
 import getVisibleUserProperties from '../../../../../../../utils/helpers/model/getVisibleUserProperties';
 import getVerifyEmailUrl from '../../../../../../../utils/helpers/url/getVerifyEmailUrl';
 import Config from '../../../../../presenterFactory/Config';
@@ -45,10 +46,10 @@ export default (config: Config) =>
       text: translations.verifyYourEmailText(link),
       to: email,
     };
-    
+
     // @TODO: https://stackoverflow.com/questions/23798281/should-an-api-service-send-the-user-activation-email-or-the-client-application
-    
-    const user = await config.service.auth.register({
+
+    const { user, roles } = await config.service.auth.register({
       bio,
       dateOfBirth,
       email,
@@ -61,6 +62,7 @@ export default (config: Config) =>
     });
 
     const visibleUserData: Partial<User> = getVisibleUserProperties(user);
+    const visibleRoleData: string[] = getVisibleRolesProperties(roles);
 
     const token: string = generateToken({
       config: config.appConfig.auth.jwt,
@@ -68,6 +70,7 @@ export default (config: Config) =>
     });
 
     const responseData = toSnake({
+      roles: visibleRoleData,
       token,
       user: visibleUserData,
     });

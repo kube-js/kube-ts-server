@@ -1,4 +1,5 @@
 # check: https://github.com/CloudNativeJS/helm
+# https://www.digitalocean.com/community/tutorials/an-introduction-to-helm-the-package-manager-for-kubernetes
 apiVersion: v1
 description: A Helm chart for kube-ts-server
 name: kube-ts-server

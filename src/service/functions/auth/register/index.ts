@@ -1,5 +1,6 @@
 import { ConflictingItemError } from '@js-items/foundation';
 import _isNil from 'ramda/src/isNil';
+import _pluck from 'ramda/src/pluck';
 import { v4 as uuid } from 'uuid';
 import { Options as MailOptions } from '../../../../repo/mail/nodemailer/functions/sendEmail';
 import { GenderType } from '../../../../types/items/User';
@@ -50,13 +51,32 @@ export default ({ repo }: Config) => async ({
       },
     });
 
-    const { item: insertedItem } = await repo.users.getItem({
+    const { item: insertedUser } = await repo.users.getItem({
       id,
     });
 
+    const { items: userRoles } = await repo.userRole.getItems({
+      filter: {
+        userId: insertedUser.id,
+      },
+    });
+  
+    const rolesIds = _pluck('roleId', userRoles);
+  
+    const { items: roles } = await repo.roles.getItems({
+      filter: {
+        id: {
+          $in: rolesIds,
+        },
+      },
+    });
+  
     await repo.sendEmail(mailOptions);
 
-    return Promise.resolve(insertedItem);
+    return Promise.resolve({
+      roles,
+      user: insertedUser,
+    });
   } catch (error) {
     if (error instanceof ConflictingItemError) {
       throw new ConflictError(error.itemName, error.itemId);

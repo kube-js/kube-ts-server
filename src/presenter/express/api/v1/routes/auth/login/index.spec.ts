@@ -158,6 +158,7 @@ describe('@presenter/auth/login', () => {
     expect(body.token).toBe('token');
     expect(body.user.email).toBe(user.email);
     expect(body.user.id).toBe(user.id);
+    expect(body.roles).toEqual([]);
   });
   // tslint:disable-next-line:max-file-line-count
 });

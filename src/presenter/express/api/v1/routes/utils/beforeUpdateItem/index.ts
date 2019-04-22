@@ -8,19 +8,14 @@ import hasPermission from '../../../../../utils/auth/hasPermission';
 import transactionWrapper, {
   HookOptions,
 } from '../../../../../utils/handlers/transactionWrapper';
-import rules, {
-  schema,
-} from '../../../../../utils/schemas/users/updateItem';
+import rules, { schema } from '../../../../../utils/schemas/users/updateItem';
 
 const beforeUpdateItem = (config: Config) =>
   transactionWrapper({
     beforeHandler: async ({ req }: HookOptions) => {
       const user = await getAuthenticatedUser({ req, config });
 
-      // FYI: user should be able to update itself without permission
-      if (req.params.id !== user.id) {
-        await hasPermission({ req, user, config });
-      }
+      await hasPermission({ req, user, config });
 
       const payload: any = _pick(Object.keys(schema), req.body);
 

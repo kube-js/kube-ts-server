@@ -24,7 +24,7 @@ export default ({ db }: RepoConfig) => async ({
     .where({ method })
     .whereIn('id', permissionsIds)
     .whereRaw('? REGEXP url = 1', [url]);
-
+    
   const [result] = await Promise.resolve(countQuery);
 
   const count = result !== undefined ? result['count(*)'] : 0;

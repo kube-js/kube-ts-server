@@ -30,7 +30,7 @@ const beforeReplaceItem = (config: Config) =>
       req.body.password = !_isNil(req.body.password)
         ? await hashPassword(req.body.password)
         : undefined;
-        
+
       req.body.updatedAt = getUtcDate();
     },
     config,

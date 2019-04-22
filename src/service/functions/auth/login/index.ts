@@ -1,9 +1,11 @@
 import _isNil from 'ramda/src/isNil';
+import _pluck from 'ramda/src/pluck';
 import { ACCOUNT_LOCKOUT_TIME_IN_MINUTES } from '../../../../constants';
 import InvalidCredentialsError from '../../../../utils/errors/auth/InvalidCredentialsError';
 import LockedAccountError from '../../../../utils/errors/auth/LockedAccountError';
 import verifyPassword from '../../../../utils/helpers/auth/verifyPassword';
 import fastForwardTimeBy from '../../../../utils/helpers/date/fastForwardTimeBy';
+import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 import isInTheFuture from '../../../../utils/helpers/date/isInTheFuture';
 import incrementOrInitialise from '../../../../utils/helpers/math/incrementOrInitialise';
 import Config from '../../../FactoryConfig';
@@ -40,7 +42,7 @@ export default ({ repo, appConfig }: Config) => async ({
       id: user.id,
       patch: {
         loginFailedAttempts: incrementOrInitialise(user.loginFailedAttempts),
-        loginLastAttemptAt: new Date(),
+        loginLastAttemptAt: getUtcDate(),
       },
     });
 
@@ -64,7 +66,7 @@ export default ({ repo, appConfig }: Config) => async ({
       patch: {
         accountLockoutExpiresAt,
         loginFailedAttempts,
-        loginLastAttemptAt: new Date(),
+        loginLastAttemptAt: getUtcDate(),
       },
     });
 
@@ -76,9 +78,26 @@ export default ({ repo, appConfig }: Config) => async ({
     patch: {
       accountLockoutExpiresAt: undefined,
       loginFailedAttempts: 0,
-      loginLastAttemptAt: new Date(),
+      loginLastAttemptAt: getUtcDate(),
     },
   });
 
-  return updatedUser;
+  const { items: userRoles } = await repo.userRole.getItems({
+    filter: {
+      userId: user.id,
+    },
+  });
+
+  const rolesIds = _pluck('roleId', userRoles);
+
+  const { items: roles } = await repo.roles.getItems({
+    filter: {
+      id: {
+        $in: rolesIds,
+      },
+    },
+  });
+
+  return { user: updatedUser, roles };
+// tslint:disable-next-line:max-file-line-count
 };

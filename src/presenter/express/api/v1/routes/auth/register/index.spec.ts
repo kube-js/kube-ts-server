@@ -190,6 +190,9 @@ describe('@presenter/auth/register', () => {
       statusCode: CREATED,
     });
 
+    expect(id.roles).toEqual([]);
+
+
     const { item } = await service.users.getItem({
       id,
     });

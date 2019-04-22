@@ -10,10 +10,10 @@ export const CLIENT_URL = 'http://localhost:9000';
 export const CLIENT_VERIFY_EMAIL_URL = 'http://localhost:9000/verify'; // @note: this is client url
 export const CLIENT_VERIFY_TOKEN_QUERY_PARAM_NAME = 'token';
 export const CLIENT_RESET_PASSWORD_URL = 'http://localhost:9000/reset-password'; // @note: this is client url
-export const CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME = 'token'
+export const CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME = 'token';
 
 export const TOO_MANY_REQUEST_MESSAGE =
-'Too many accounts created from this IP, please try again after an 15 minutes';
+  'Too many accounts created from this IP, please try again after an 15 minutes';
 
 // AUTH
 export const JWT_EXPIRES_IN_MS = 86400000; // 24hrs
@@ -61,3 +61,8 @@ export const REGEXP_PASSWORD = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@
 
 // DATETIME
 export const DEFAULT_DATE_FORMATS = ['DD-MM-YYYY', 'YYYY-MM-DD'];
+
+// @credits: https://stackoverflow.com/questions/136505/searching-for-uuids-in-text-with-regex
+export const QUERY_REGEX = "[?([a-z0-9$_.+!*'(),;:@&=-]|%[0-9a-f]{2})*]?";
+export const UUID_REGEX =
+  '[[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}]';

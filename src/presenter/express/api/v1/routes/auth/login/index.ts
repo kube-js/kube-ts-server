@@ -3,6 +3,7 @@ import { OK } from 'http-status-codes';
 import validateData from 'rulr/validateData';
 import User from '../../../../../../../types/items/User';
 import generateToken from '../../../../../../../utils/helpers/auth/generateToken';
+import getVisibleRolesProperties from '../../../../../../../utils/helpers/model/getVisibleRolesProperties';
 import getVisibleUserProperties from '../../../../../../../utils/helpers/model/getVisibleUserProperties';
 import Config from '../../../../../presenterFactory/Config';
 import catchErrors from '../../../../../utils/errors/catchErrors';
@@ -14,12 +15,13 @@ export default (config: Config) =>
 
     validateData(rules)({ email, password });
 
-    const user = await config.service.auth.login({
+    const { user, roles } = await config.service.auth.login({
       email,
       password,
     });
 
     const visibleUserData: Partial<User> = getVisibleUserProperties(user);
+    const visibleRoleData: string[] = getVisibleRolesProperties(roles);
 
     const token: string = generateToken({
       config: config.appConfig.auth.jwt,
@@ -27,6 +29,7 @@ export default (config: Config) =>
     });
 
     const data = toSnake({
+      roles: visibleRoleData,
       token,
       user: visibleUserData,
     });

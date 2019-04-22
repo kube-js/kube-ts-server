@@ -40,6 +40,9 @@ const usersFactory = (config: Config) =>
     router.post(ASSIGN_USER_ROLE, assignUserRole(config));
     router.delete(REVOKE_USER_ROLE, revokeUserRole(config));
 
+    // TODO: abstract sending the response across all router handlers
+    // TODO: change @js-items/express to pass custom response handler
+
     return router;
   };
 

@@ -28,6 +28,10 @@ export default ({ repo }: Config) => async ({ req, user }: Options) => {
         $in: rolesIds,
       },
     },
+    pagination: {
+      // high number to get all permissions
+      limit: 1000
+    }
   });
 
   if (rolePermissions.length === 0) {
@@ -42,7 +46,7 @@ export default ({ repo }: Config) => async ({ req, user }: Options) => {
     url: req.originalUrl,
   });
 
-  if(count === 0){
+  if (count === 0) {
     throw new ForbiddenError();
   }
 };
