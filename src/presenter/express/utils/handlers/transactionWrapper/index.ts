@@ -30,7 +30,7 @@ const transactionWrapper = ({
     await handler({ transactionId });
   } catch (error) {
     let err = error;
-    
+
     if (error instanceof ConflictingItemError) {
       err = new ConflictError(error.itemName, error.itemId);
     }

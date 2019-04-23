@@ -31,13 +31,13 @@ const usersPermissions = [
     url: `${USERS_URL_REGEX}${QUERY_REGEX}`,
   },
   {
-    method: USERS_DELETE_ITEMS,
-    name: 'users.deleteItems',
+    method: 'DELETE',
+    name: USERS_DELETE_ITEMS,
     url: `${USERS_URL_REGEX}${QUERY_REGEX}`,
   },
   {
-    method: USERS_DELETE_ITEM,
-    name: 'users.deleteItem',
+    method: 'DELETE',
+    name: USERS_DELETE_ITEM,
     url: `[${API_V1}/users/${UUID_REGEX}]${QUERY_REGEX}`,
   },
   {

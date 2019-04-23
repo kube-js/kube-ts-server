@@ -5,6 +5,7 @@ import {
   SMTP_IGNORE_TLS,
   SMTP_REQUIRE_TLS,
   SMTP_SECURE,
+  SMTP_TEST_HOST,
   SMTP_TO,
 } from '../../../constants';
 import getBooleanValue from '../../../utils/helpers/config/getBooleanValue';
@@ -15,6 +16,7 @@ export interface NodeMailerConfig {
   readonly api_key?: string;
   readonly domain?: string;
   readonly host?: string;
+  readonly smtpTestHost?: string;
   readonly ignoreTLS?: boolean;
   readonly pass?: string;
   readonly port?: number;
@@ -43,6 +45,7 @@ const config: MailConfig = {
     requireTLS: getBooleanValue(process.env.SMTP_REQUIRE_TLS, SMTP_REQUIRE_TLS),
     secure: getBooleanValue(process.env.SMTP_SECURE, SMTP_SECURE),
     service: process.env.SMTP_SERVICE,
+    smtpTestHost: getStringValue(process.env.SMTP_TEST_HOST, SMTP_TEST_HOST),
     user: process.env.SMTP_USER,
   },
   to: getStringValue(process.env.SMTP_TO, SMTP_TO),

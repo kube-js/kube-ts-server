@@ -38,6 +38,7 @@ export const SMTP_FROM = 'noreply@example.com';
 export const SMTP_HOST = 'smtp.example.com';
 export const SMTP_IGNORE_TLS = false;
 export const SMTP_REQUIRE_TLS = false;
+export const SMTP_TEST_HOST = 'localhost';
 export const SMTP_SECURE = false;
 export const SMTP_PASS = 'password';
 export const MAIL_PORT = 587;

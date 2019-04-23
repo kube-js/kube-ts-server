@@ -15,7 +15,9 @@ const beforeUpdateItem = (config: Config) =>
     beforeHandler: async ({ req }: HookOptions) => {
       const user = await getAuthenticatedUser({ req, config });
 
-      await hasPermission({ req, user, config });
+      if (req.params.id !== user.id) {
+        await hasPermission({ req, user, config });
+      }
 
       const payload: any = _pick(Object.keys(schema), req.body);
 

@@ -7,17 +7,23 @@ const createMailer = ({
   pass,
   domain,
   api_key,
+  host,
+  smtpTestHost,
   ...otherOptions
-}: NodeMailerConfig) =>
-  createTransport({
+}: NodeMailerConfig) => {
+  const smtpHost = process.env.NODE_ENV === 'test' ? smtpTestHost : host;
+  
+  return createTransport({
     auth: {
       api_key,
       domain,
       pass,
       user,
     },
+    host: smtpHost,
     ...otherOptions,
   });
+};
 
 export default (config: NodeMailerConfig) => {
   const mailer = createMailer(config);

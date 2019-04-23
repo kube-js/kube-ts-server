@@ -4,6 +4,7 @@ import getUtcDate from '../../../../../../utils/helpers/date/getUtcDate';
 import FactoryConfig from '../../../../presenterFactory/FactoryConfig';
 
 const createRoles = (config: FactoryConfig) => async (roles: string[] = []) => {
+  console.log(`--------------------------------------------------------`);
   console.log(`Creating roles [${roles.join(', ')}] created successfuly!`);
 
   const rolesPromises = roles.map(async name => {
@@ -19,9 +20,14 @@ const createRoles = (config: FactoryConfig) => async (roles: string[] = []) => {
     });
   });
 
-  await Promise.all(rolesPromises);
-  
+  const items = await Promise.all(rolesPromises);
+
+  const rolesIds = items.map(({ item }) => item.id);
+
   console.log(`Roles created successfuly!`);
+  console.log(`--------------------------------------------------------`);
+
+  return Promise.resolve(rolesIds);
 };
 
 export default createRoles;

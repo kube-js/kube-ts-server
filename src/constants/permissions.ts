@@ -33,3 +33,42 @@ export const USERS_REPLACE_ITEM = 'users.replaceItem';
 export const USERS_CREATE_ITEM = 'users.createItem';
 export const USERS_ASSIGN_ROLE = 'users.assignUserRole';
 export const USERS_REVOKE_ROLE = 'users.revokeUserRole';
+
+export const basicUsersPermissions = [USERS_GET_ITEM, USERS_GET_ITEMS];
+
+export const rolesPermissions = [
+  ROLES_GET_ITEM,
+  ROLES_GET_ITEMS,
+  ROLES_DELETE_ITEM,
+  ROLES_DELETE_ITEMS,
+  ROLES_UPDATE_ITEM,
+  ROLES_REPLACE_ITEM,
+  ROLES_CREATE_ITEM,
+  ROLES_ASSIGN_PERMISSION,
+  ROLES_REVOKE_PERMISSION,
+];
+
+export const permissionsPermissions = [
+  PERMISSIONS_GET_ITEM,
+  PERMISSIONS_GET_ITEMS,
+  PERMISSIONS_DELETE_ITEM,
+  PERMISSIONS_DELETE_ITEMS,
+  PERMISSIONS_UPDATE_ITEM,
+  PERMISSIONS_REPLACE_ITEM,
+  PERMISSIONS_CREATE_ITEM,
+];
+
+export const USER_PERMISSIONS = [...basicUsersPermissions];
+
+export const ADMIN_PERMISSIONS = [
+  ...basicUsersPermissions,
+  USERS_UPDATE_ITEM,
+  USERS_REPLACE_ITEM,
+  USERS_DELETE_ITEM,
+  USERS_DELETE_ITEMS,
+  USERS_CREATE_ITEM,
+  USERS_ASSIGN_ROLE,
+  USERS_REVOKE_ROLE,
+  ...rolesPermissions,
+  ...permissionsPermissions,
+];
