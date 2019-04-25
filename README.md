@@ -6,35 +6,35 @@
 
 ## Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
 
-### Read our [docs](https://kubetsserver.docs.apiary.io).
+### Read our [docs](https://kubetsserver.docs.apiary.io)
 
 ### Getting started
 - clone the repo
-```sh
+```js
 git clone git@github.com:kube-js/kube-ts-server.git
 ```
 - install all dependencies
-```sh
+```js
 npm install
 ```
 - migrates and seeds a project
-```sh
+```js
 npm run setup
 ```
 - build the project
-```sh
+```js
 npm run build
 ```
 - run the server (for production, after build)
-```sh
+```js
 npm run start
 ```
 - run the server (for dev purposes, has a watch mode)
-```sh
+```js
 npm run dev
 ```
 - run tests
-```sh
+```js
 npm run test 
 or
 npm run test:watch

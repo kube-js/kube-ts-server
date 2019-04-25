@@ -7,8 +7,7 @@ const errorsTranslations: Errors = {
   accountAlreadyVerified: () => 'Account has been already verified',
   accountLocked: () => `Too many invalid login attempts.
   Your account has been locked for ${ACCOUNT_LOCKOUT_TIME_IN_MINUTES} minutes`,
-  conflict: (error: ConflictError) =>
-    `${error.itemName} already exists`,
+  conflict: (error: ConflictError) => `${error.itemName} already exists`,
   expiredJwtToken: () => 'Expired JWT token',
   expiredResetPasswordtoken: () => `Expired reset password token`,
   forbidden: () => 'Not enough permissions to perform this action',
@@ -16,10 +15,11 @@ const errorsTranslations: Errors = {
   invalidJwtToken: () => 'Invalid JWT token',
   invalidResetPasswordtoken: () => `Invalid reset password token`,
   invalidVerifyAccountToken: () => 'Invalid email and/or verify account token',
+  itemNotFound: (error: ItemNotFoundError) =>
+    `Model ${error.itemName} with id ${error.itemId} not found`,
   missingJwtToken: () => 'Missing JWT token',
   missingJwtTokenExtractor: () => 'Missing JWT token extractor',
-  notFound: (error: ItemNotFoundError) =>
-    `Model ${error.itemName} with id ${error.itemId} not found`,
+  notFound: () => 'Not found',
   serverError: () => 'Server error',
   unauthenticated: () => 'Unauthenticated',
   unsupportedMediaType: () =>

@@ -17,10 +17,11 @@ const errors: Errors = {
   invalidResetPasswordtoken: () => `Niewłaściwy reset password token`,
   invalidVerifyAccountToken: () =>
     '`Niewłaściwy email i/lub verify account token',
+  itemNotFound: (error: ItemNotFoundError) =>
+    `Nie znaleziono modelu ${error.itemName} o id ${error.itemId}`,
   missingJwtToken: () => 'Nieobecny JWT token',
   missingJwtTokenExtractor: () => 'Brak JWT token ekstraktor',
-  notFound: (error: ItemNotFoundError) =>
-  `Nie znaleziono modelu ${error.itemName} o id ${error.itemId}`,
+  notFound: () => 'Nie znaleziono',
   serverError: () => 'Błąd serwera',
   unauthenticated: () => 'Nieuwierzytelniony',
   unsupportedMediaType: () =>

@@ -5,6 +5,7 @@ import authFactory from './routes/auth/factory';
 import permissionsFactory from './routes/permissions/factory';
 import rolesFactory from './routes/roles/factory';
 import usersFactory from './routes/users/factory';
+import describeApi from './routes/utils/describeApi';
 
 const apiV1 = (config: Config): Router => {
   /** Routes below have aready /api/v1 prefix */
@@ -20,6 +21,8 @@ const apiV1 = (config: Config): Router => {
   router.use(USERS, usersFactory(config));
   router.use(ROLES, rolesFactory(config));
   router.use(PERMISSIONS, permissionsFactory(config));
+
+  router.get('/', describeApi(config));
 
   return router;
 };

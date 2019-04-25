@@ -18,5 +18,6 @@ export default interface ErrorsTranslations {
   readonly invalidCredentials: () => string;
   readonly unverifiedAccount: () => string;
   readonly unsupportedMediaType: () => string;
-  readonly notFound: (error: ItemNotFoundError) => string;
+  readonly notFound: () => string;
+  readonly itemNotFound: (error: ItemNotFoundError) => string;
 }

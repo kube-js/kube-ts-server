@@ -9,6 +9,7 @@ import AppConfig from './AppConfig';
 export interface App {
   readonly presenter: Router;
   readonly service: ReturnType<typeof serviceFactory>;
+  readonly logger: ReturnType<typeof loggerFactory>;
 }
 
 export default (appConfig: AppConfig): App => {
@@ -26,5 +27,5 @@ export default (appConfig: AppConfig): App => {
     translator,
   });
 
-  return { presenter, service };
+  return { presenter, service, logger };
 };

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { NOT_FOUND } from 'http-status-codes';
 import { API_V1 } from '../../../constants/routes';
 import checkDb from '../api/commons/checks/checkDb';
 import checkVersion from '../api/commons/checks/checkVersion';
@@ -10,7 +11,10 @@ import Config from './Config';
 
 const presenterFactory = (config: Config): Router => {
   const { http } = config.appConfig;
-  const router = enhancedRouter({ config: http, translator: config.translator });
+  const router = enhancedRouter({
+    config: http,
+    translator: config.translator,
+  });
 
   // KUBERNETES PROBES
   // @credits: https://banzaicloud.com/blog/nodejs-in-production
@@ -26,8 +30,15 @@ const presenterFactory = (config: Config): Router => {
   // V1 API ROUTES
   router.use(API_V1, apiV1(config));
 
-  // TODO: add not found handler 
-  // https://stackoverflow.com/questions/40888218/webstorm-nodejs-process-finished-with-exit-code-0
+  // ALL NON MATCHED ROUTES
+  router.use((req, res) => {
+    const translations = config.translator({ req });
+
+    const message = translations.notFound();
+    res.status(NOT_FOUND).json({
+      message,
+    });
+  });
 
   return router;
 };

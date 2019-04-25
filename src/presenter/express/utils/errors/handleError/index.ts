@@ -25,6 +25,7 @@ import RemindPasswordError from '../../../../../utils/errors/auth/RemindPassword
 import UnauthorizedError from '../../../../../utils/errors/auth/UnauthorizedError';
 import UnverifiedAccountError from '../../../../../utils/errors/auth/UnverifiedAccountError';
 import ConflictError from '../../../../../utils/errors/http/ConflictError';
+import NotFoundError from '../../../../../utils/errors/http/NotFoundError';
 import Config from '../../../presenterFactory/Config';
 import mapValidationErrorsToResponse from '../../translations/mapValidationErrorsToResponse';
 
@@ -137,8 +138,15 @@ export default ({ req, res, error, config }: Options) => {
     return res.status(UNPROCESSABLE_ENTITY).json({ message });
   }
 
+  if (error instanceof NotFoundError) {
+    const message = translations.notFound();
+
+    return res.status(NOT_FOUND).json({ message });
+  }
+
+
   if (error instanceof ItemNotFoundError) {
-    const message = translations.notFound(error);
+    const message = translations.itemNotFound(error);
 
     return res.status(NOT_FOUND).json({ message });
   }

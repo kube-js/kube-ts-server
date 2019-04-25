@@ -1,6 +1,9 @@
-import sourceMapSupport from 'source-map-support';
-sourceMapSupport.install();
+// tslint:disable:no-console
 import dotenv from 'dotenv';
+import sourceMapSupport from 'source-map-support';
+import stoppable from 'stoppable';
+sourceMapSupport.install();
+import handleUnexpectedEvents from './utils/errors/handleUnexpectedEvents';
 dotenv.config();
 import express from 'express';
 import { createServer } from 'http';
@@ -14,7 +17,7 @@ if (config.http.express.trustProxy) {
   expressApp.enable('trust proxy');
 }
 
-const { presenter } = app({
+const { service, logger, presenter } = app({
   auth: config.auth,
   http: config.http,
   logger: config.logger,
@@ -24,10 +27,12 @@ const { presenter } = app({
 
 expressApp.all('*', presenter);
 
-const server = createServer(expressApp);
+const server = stoppable(createServer(expressApp));
+
+/* @credits: https://github.com/banzaicloud/node-service-tools */
+handleUnexpectedEvents({ server, service, logger });
 
 server.listen(config.http.express.port, () => {
-  // tslint:disable-next-line:no-console
   console.log(
     `Listening on ${config.http.express.host}:${config.http.express.port}`
   );
