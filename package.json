@@ -11,7 +11,7 @@
     "@js-migrations/core": "6.2.3",
     "@js-migrations/knex": "3.0.7",
     "argon2": "0.21.0",
-    "body-parser": "1.18.3",
+    "body-parser": "1.19.0",
     "boolean": "1.0.0",
     "codecov": "3.3.0",
     "commander": "2.20.0",
