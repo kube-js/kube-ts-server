@@ -1,5 +1,4 @@
 import _isNil from 'ramda/src/isNil';
-import _pluck from 'ramda/src/pluck';
 import { ACCOUNT_LOCKOUT_TIME_IN_MINUTES } from '../../../../constants';
 import InvalidCredentialsError from '../../../../utils/errors/auth/InvalidCredentialsError';
 import LockedAccountError from '../../../../utils/errors/auth/LockedAccountError';
@@ -9,6 +8,7 @@ import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 import isInTheFuture from '../../../../utils/helpers/date/isInTheFuture';
 import incrementOrInitialise from '../../../../utils/helpers/math/incrementOrInitialise';
 import Config from '../../../FactoryConfig';
+import getRolesForUser from '../utils/getRolesForUser';
 
 export interface Options {
   readonly email: string;
@@ -82,22 +82,8 @@ export default ({ repo, appConfig }: Config) => async ({
     },
   });
 
-  const { items: userRoles } = await repo.userRole.getItems({
-    filter: {
-      userId: user.id,
-    },
-  });
-
-  const rolesIds = _pluck('roleId', userRoles);
-
-  const { items: roles } = await repo.roles.getItems({
-    filter: {
-      id: {
-        $in: rolesIds,
-      },
-    },
-  });
+  const roles = await getRolesForUser({ repo, userId: user.id });
 
   return { user: updatedUser, roles };
-// tslint:disable-next-line:max-file-line-count
+  // tslint:disable-next-line:max-file-line-count
 };

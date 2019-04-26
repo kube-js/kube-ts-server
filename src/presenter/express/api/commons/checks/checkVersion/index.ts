@@ -1,10 +1,30 @@
-import { Request, Response } from 'express';
+import sendResponse from '@js-items/express/dist/utils/sendResponse';
+import * as git from 'git-rev';
 import { OK } from 'http-status-codes';
 import Config from '../../../../presenterFactory/Config';
+import catchErrors from '../../../../utils/errors/catchErrors';
 
-export default (_config: Config) => async (_req: Request, res: Response) => {
-  // TODO: implements checks with git-rev
-  res.status(OK).json({
-    version: '1.0.0',
+export default (config: Config) =>
+  catchErrors(config, async (req, res) => {
+    const [short, long, branch, tag] = await Promise.all([
+      new Promise<string>(resolve => {
+        git.short(resolve);
+      }),
+      new Promise<string>(resolve => {
+        git.long(resolve);
+      }),
+      new Promise<string>(resolve => {
+        git.branch(resolve);
+      }),
+      new Promise<string>(resolve => {
+        git.tag(resolve);
+      }),
+    ]);
+
+    sendResponse({
+      req,
+      res,
+      responseObject: { short, long, branch, tag },
+      status: OK,
+    });
   });
-};

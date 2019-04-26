@@ -23,6 +23,7 @@ const errors: Errors = {
   missingJwtTokenExtractor: () => 'Brak JWT token ekstraktor',
   notFound: () => 'Nie znaleziono',
   serverError: () => 'Błąd serwera',
+  serviceIsUnavailable: () =>'Serwer jest w tej chwili niedostępny',
   unauthenticated: () => 'Nieuwierzytelniony',
   unsupportedMediaType: () =>
     'Content-Type header musi być ustawiony na application/json',

@@ -6,6 +6,7 @@ import {
   INTERNAL_SERVER_ERROR,
   NOT_FOUND,
   OK,
+  SERVICE_UNAVAILABLE,
   UNAUTHORIZED,
   UNPROCESSABLE_ENTITY,
 } from 'http-status-codes';
@@ -26,6 +27,7 @@ import UnauthorizedError from '../../../../../utils/errors/auth/UnauthorizedErro
 import UnverifiedAccountError from '../../../../../utils/errors/auth/UnverifiedAccountError';
 import ConflictError from '../../../../../utils/errors/http/ConflictError';
 import NotFoundError from '../../../../../utils/errors/http/NotFoundError';
+import ServiceUnavailableError from '../../../../../utils/errors/http/ServiceUnavailableError';
 import Config from '../../../presenterFactory/Config';
 import mapValidationErrorsToResponse from '../../translations/mapValidationErrorsToResponse';
 
@@ -63,7 +65,6 @@ export default ({ req, res, error, config }: Options) => {
 
     return res.status(UNAUTHORIZED).json({ message });
   }
-
 
   if (error instanceof MissingJwtTokenError) {
     const message = translations.missingJwtToken();
@@ -155,6 +156,14 @@ export default ({ req, res, error, config }: Options) => {
     const message = translations.accountAlreadyVerified();
 
     return res.status(CONFLICT).json({ message });
+  }
+
+  if(error instanceof ServiceUnavailableError){
+    const message = translations.serviceIsUnavailable();
+
+    return res.status(SERVICE_UNAVAILABLE).json({
+      message
+    })
   }
 
   {

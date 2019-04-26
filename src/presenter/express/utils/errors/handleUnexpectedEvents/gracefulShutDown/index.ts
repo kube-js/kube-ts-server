@@ -24,7 +24,7 @@ const gracefulShutDown = ({ config, reason }: Options) => async () => {
     const { server, service } = config;
 
     console.log(`Gracefully shutting down all resources caused by ${reason}`);
-
+    
     await stopServer(server);
     await service.closeDbConnection();
   } catch (err) {

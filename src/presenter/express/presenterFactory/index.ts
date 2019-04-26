@@ -18,10 +18,10 @@ const presenterFactory = (config: Config): Router => {
 
   // KUBERNETES PROBES
   // @credits: https://banzaicloud.com/blog/nodejs-in-production
-  router.get(http.checks.liveness, healthCheck([checkDb(config)]));
+  router.get(http.checks.liveness, healthCheck({ checks: [checkDb], config }));
   router.get(
     http.checks.readiness,
-    healthCheck([initFinished(config), checkDb(config)])
+    healthCheck({ checks: [initFinished, checkDb], config })
   );
 
   // GIT VERSION

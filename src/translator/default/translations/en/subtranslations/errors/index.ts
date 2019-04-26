@@ -21,6 +21,7 @@ const errorsTranslations: Errors = {
   missingJwtTokenExtractor: () => 'Missing JWT token extractor',
   notFound: () => 'Not found',
   serverError: () => 'Server error',
+  serviceIsUnavailable: () => 'Service is unavailable',
   unauthenticated: () => 'Unauthenticated',
   unsupportedMediaType: () =>
     'Content-Type header must be set to application/json',

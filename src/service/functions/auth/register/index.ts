@@ -8,6 +8,7 @@ import ConflictError from '../../../../utils/errors/http/ConflictError';
 import hashPassword from '../../../../utils/helpers/auth/hashPassword';
 import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 import Config from '../../../FactoryConfig';
+import getRolesForUser from '../utils/getRolesForUser';
 
 export interface Options {
   readonly bio: string;
@@ -55,22 +56,8 @@ export default ({ repo }: Config) => async ({
       id,
     });
 
-    const { items: userRoles } = await repo.userRole.getItems({
-      filter: {
-        userId: insertedUser.id,
-      },
-    });
-  
-    const rolesIds = _pluck('roleId', userRoles);
-  
-    const { items: roles } = await repo.roles.getItems({
-      filter: {
-        id: {
-          $in: rolesIds,
-        },
-      },
-    });
-  
+    const roles = await getRolesForUser({ repo, userId: id });
+
     await repo.sendEmail(mailOptions);
 
     return Promise.resolve({
