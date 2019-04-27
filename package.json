@@ -37,7 +37,7 @@
     "nodemailer-mailgun-transport": "1.4.0",
     "promptly": "3.0.3",
     "ramda": "0.26.1",
-    "rulr": "5.0.0",
+    "rulr": "5.0.1",
     "smtp-server": "3.5.0",
     "source-map-support": "0.5.12",
     "stoppable": "1.1.0",
