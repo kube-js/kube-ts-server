@@ -4,7 +4,7 @@ export const READINESS_CHECK_URL = '/health/readiness';
 export const VERSION_CHECK_URL = '/version';
 
 export const TRUST_PROXY = true;
-export const EXPRESS_PORT = 8080;
+export const EXPRESS_PORT = 3000;
 export const EXPRESS_HOST = 'http://localhost';
 export const CLIENT_URL = 'http://localhost:9000';
 export const CLIENT_VERIFY_EMAIL_URL = 'http://localhost:9000/verify'; // @note: this is client url

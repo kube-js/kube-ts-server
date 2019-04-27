@@ -28,15 +28,3 @@ service:
   name: Node
   type: NodePort
   servicePort: 3000
-hpa:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 2
-  metrics:
-    cpu:
-      targetAverageUtilization: 70
-    memory:
-      targetAverageUtilization: 70
-services:
-prometheus:
-  enabled: false
