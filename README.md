@@ -6,6 +6,14 @@
 
 ## Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
 
+### Currently includes the following models:
+- users
+- userRole
+- roles
+- rolePermission
+- permissions
+- resetPasswordTokens
+
 ### Read our [docs](https://kubetsserver.docs.apiary.io)
 
 ### Getting started
