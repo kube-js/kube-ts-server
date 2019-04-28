@@ -1,13 +1,10 @@
-test: 'test'
-
-# @credits: https://github.com/CloudNativeJS/helm
 replicaCount: 1
 revisionHistoryLimit: 1
 
 image:
   repository: kubejs/kube-ts-server
-  tag: 1.0.24
-  pullPolicy: IfNotPresent 
+  tag: 1.1.1
+  pullPolicy: IfNotPresent
   resources:
     requests:
       cpu: 300m
@@ -24,7 +21,13 @@ readinessProbe:
     port: 3000
   initialDelaySeconds: 5
   periodSeconds: 5
+
+ingress: 
+  apiHost: api.mariuszrajczakowski.me
+  # clientHost: client.mariuszrajczakowski.me
+
 service:
   name: Node
-  type: NodePort
-  servicePort: 3000
+  # type: NodePort
+  servicePort: 80
+  serviceTargetPort: 3000

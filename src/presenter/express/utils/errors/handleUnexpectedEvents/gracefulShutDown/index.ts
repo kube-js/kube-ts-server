@@ -24,14 +24,14 @@ const gracefulShutDown = ({ config, reason }: Options) => async () => {
     const { server, service } = config;
 
     console.log(`Gracefully shutting down all resources caused by ${reason}`);
-    
+
     await stopServer(server);
     await service.closeDbConnection();
+    process.exit(0);
   } catch (err) {
     console.error(err, 'failed to close all resources');
+    process.exit(1);
   }
-
-  process.exit(1);
 };
 
 export default gracefulShutDown;

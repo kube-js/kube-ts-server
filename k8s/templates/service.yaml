@@ -1,13 +1,25 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: "{{  .Chart.Name }}-service"
+#   labels:
+#     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+# spec:
+#   # type: {{ .Values.service.type }}
+#   ports:
+#     - port: {{ .Values.service.servicePort }}
+#       targetPort: {{ .Values.service.serviceTargetPort }}
+#   selector:
+#     app: "{{  .Chart.Name }}-selector"
+
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{  .Chart.Name }}-service"
-  labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+  name: kube-ts-server
 spec:
-  type: {{ .Values.service.type }}
   ports:
-  - name: http  
-    port: {{ .Values.service.servicePort }}
+  - port: 80
+    targetPort: 3000
   selector:
-    app: "{{  .Chart.Name }}-selector"
+    app: kube-ts-server

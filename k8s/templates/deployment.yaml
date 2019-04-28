@@ -1,39 +1,84 @@
-apiVersion: extensions/v1beta1
+# apiVersion: extensions/v1beta1
+# kind: Deployment
+# metadata:
+#   name: "{{ .Chart.Name }}-deployment"
+#   labels:
+#     chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+# spec:
+#   replicas: {{ .Values.replicaCount }}
+#   strategy:
+#     type: RollingUpdate
+#     rollingUpdate:
+#       maxUnavailable: 0
+#       maxSurge: 1
+#   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+#   template:
+#     metadata:
+#       labels:
+#         app: "{{ .Chart.Name }}-selector"
+#         version: "current"
+#     spec:
+#       containers:
+#       - name: "{{  .Chart.Name  }}"
+#         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+#         imagePullPolicy: {{ .Values.image.pullPolicy }}
+#         livenessProbe:
+#           httpGet:
+#             path: {{ .Values.livenessProbe.httpGet.path }}
+#             port: {{ .Values.service.servicePort }}
+#           initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds}}
+#           periodSeconds: {{ .Values.livenessProbe.periodSeconds}}
+#         ports:
+#         - containerPort: {{ .Values.service.servicePort}}
+#         resources:
+#           requests:
+#             cpu: "{{ .Values.image.resources.requests.cpu }}"
+#             memory: "{{ .Values.image.resources.requests.memory }}"
+#         env:
+#           - name: PORT
+#             value : "{{ .Values.service.servicePort }}"
+
+# TODO: remove comments and use .Values instead of hardcoded vars
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Chart.Name }}-deployment"
-  labels:
-    chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
+  name: kube-ts-server
 spec:
+  selector:
+    matchLabels:
+      app: kube-ts-server
   replicas: {{ .Values.replicaCount }}
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
-  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:
     metadata:
       labels:
-        app: "{{  .Chart.Name }}-selector"
-        version: "current"
-    spec:
+        app: kube-ts-server
+    # spec:
+    #   containers:
+    #   - name: kube-ts-server
+    #     image: kubejs/kube-ts-server
+    #     ports:
+    #     - containerPort: 3000
+
+     spec:
       containers:
-      - name: "{{  .Chart.Name  }}"
+      - name: "{{ .Chart.Name  }}"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         livenessProbe:
           httpGet:
             path: {{ .Values.livenessProbe.httpGet.path }}
-            port: {{ .Values.service.servicePort }}
+            port: {{ .Values.service.serviceTargetPort }}
           initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds}}
           periodSeconds: {{ .Values.livenessProbe.periodSeconds}}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.readinessProbe.httpGet.path }}
+            port: {{ .Values.service.serviceTargetPort }}
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds}}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds}}
         ports:
-        - containerPort: {{ .Values.service.servicePort}}
+        - containerPort: {{ .Values.service.serviceTargetPort}}
         resources:
           requests:
             cpu: "{{ .Values.image.resources.requests.cpu }}"
             memory: "{{ .Values.image.resources.requests.memory }}"
-        env:
-          - name: PORT
-            value : "{{ .Values.service.servicePort }}"
