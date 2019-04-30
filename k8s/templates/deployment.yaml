@@ -42,7 +42,22 @@ spec:
           valueFrom:
             secretKeyRef:
               name: kube-ts-secret
-              key: knex_password         
+              key: knex_password  
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: kube-ts-secret
+              key: jwt_secret
+        - name: SMTP_USER
+          valueFrom:
+            secretKeyRef:
+              name: kube-ts-secret
+              key: smtp_user  
+        - name: SMTP_PASS
+          valueFrom:
+            secretKeyRef:
+              name: kube-ts-secret
+              key: smtp_pass   
         livenessProbe:
           httpGet:
             path: /health/liveness
