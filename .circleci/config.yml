@@ -41,7 +41,7 @@ jobs:
           command: npm run duplication
       - run:
           name: Build docker image
-          command: docker build -t kubejs/kube-ts-server .
+          command: docker build --rm=false -t kubejs/kube-ts-server:$CIRCLE_BUILD_NUM -t kubejs/kube-ts-server:latest .
       - run:
           name: Semantic Release
           command: npm run semantic-release
