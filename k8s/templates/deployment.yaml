@@ -1,72 +1,127 @@
+{{- $name := include "kube-ts-server.name" . -}}
+{{- $fullname := include "kube-ts-server.fullname" . -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kube-ts-server
+  name: {{ $fullname }}
+  labels:
+    app.kubernetes.io/name: {{ $name }}
+    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: kube-ts-server
-  replicas: 2
+      app.kubernetes.io/name: {{ $name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: kube-ts-server
+        app.kubernetes.io/name: {{ $name }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-      - name: kube-ts-server
-        image: kubejs/kube-ts-server
-        ports:
-        - containerPort: 3000
-        env:
-        - name: KNEX_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              name: kube-ts-configmap
-              key: knex_database
-        - name: KNEX_CLIENT
-          valueFrom:
-            configMapKeyRef:
-              name: kube-ts-configmap
-              key: knex_client
-        - name: KNEX_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: kube-ts-configmap
-              key: knex_host
-        - name: KNEX_USER
-          valueFrom:
-            secretKeyRef:
-              name: kube-ts-secret
-              key: knex_user
-        - name: KNEX_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: kube-ts-secret
-              key: knex_password  
-        - name: JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: kube-ts-secret
-              key: jwt_secret
-        - name: SMTP_USER
-          valueFrom:
-            secretKeyRef:
-              name: kube-ts-secret
-              key: smtp_user  
-        - name: SMTP_PASS
-          valueFrom:
-            secretKeyRef:
-              name: kube-ts-secret
-              key: smtp_pass   
-        livenessProbe:
-          httpGet:
-            path: /health/liveness
-            port: 3000
-          initialDelaySeconds: 60
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /health/readiness
-            port: 3000
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+          - containerPort: {{ .Values.image.containerPort }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          envFrom:
+            - configMapRef:
+              name: {{ $fullname }}
+            - secretRef:
+              name: {{ $fullname }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: kube-ts-server
+# spec:
+#   selector:
+#     matchLabels:
+#       app: kube-ts-server
+#   replicas: {{ .Values.replicaCount }}
+#   template:
+#     metadata:
+#       labels:
+#         app: kube-ts-server
+#     spec:
+#       containers:
+#       - name: kube-ts-server
+#         image: {{ .Values.image.repository }}
+#         ports:
+#         - containerPort: 3000
+#         env:
+#         - name: KNEX_DATABASE
+#           valueFrom:
+#             configMapKeyRef:
+#               name: kube-ts-configmap
+#               key: knex_database
+#         - name: KNEX_CLIENT
+#           valueFrom:
+#             configMapKeyRef:
+#               name: kube-ts-configmap
+#               key: knex_client
+#         - name: KNEX_HOST
+#           valueFrom:
+#             configMapKeyRef:
+#               name: kube-ts-configmap
+#               key: knex_host
+#         - name: KNEX_USER
+#           valueFrom:
+#             secretKeyRef:
+#               name: kube-ts-secret
+#               key: knex_user
+#         - name: KNEX_PASSWORD
+#           valueFrom:
+#             secretKeyRef:
+#               name: kube-ts-secret
+#               key: knex_password  
+#         - name: JWT_SECRET
+#           valueFrom:
+#             secretKeyRef:
+#               name: kube-ts-secret
+#               key: jwt_secret
+#         - name: SMTP_USER
+#           valueFrom:
+#             secretKeyRef:
+#               name: kube-ts-secret
+#               key: smtp_user  
+#         - name: SMTP_PASS
+#           valueFrom:
+#             secretKeyRef:
+#               name: kube-ts-secret
+#               key: smtp_pass   
+#         livenessProbe:
+#           httpGet:
+#             path: /health/liveness
+#             port: 3000
+#           initialDelaySeconds: 60
+#           periodSeconds: 5
+#         readinessProbe:
+#           httpGet:
+#             path: /health/readiness
+#             port: 3000
+#           initialDelaySeconds: 5
+#           periodSeconds: 5

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kube-ts-server.fullname" . }}
+data:
+  knex_database: {{ .Values.knex_database }}
+  knex_client: {{ .Values.knex_client }}
+  knex_host: {{ .Values.knex_host }}

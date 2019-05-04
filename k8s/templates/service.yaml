@@ -1,10 +1,25 @@
+{{- $fullName := include "kube-ts-server.fullname" . -}}
+{{- $name := include "kube-ts-server.name" . -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: kube-ts-server
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ $name }}
+    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   ports:
-  - port: 80
-    targetPort: 3000
+  - port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.targetPort }}
   selector:
-    app: kube-ts-server
+    app.kubernetes.io/name: {{ $name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+
+
+
+
+
+
+
