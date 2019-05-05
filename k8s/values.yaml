@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: kubejs/kube-ts-server
-  tag: 1.1.4
+  tag: 1.1.5
   pullPolicy: IfNotPresent
   containerPort: 3000
 
@@ -14,14 +14,14 @@ livenessProbe:
   httpGet:
     path: /health/liveness
     port: 3000
-  initialDelaySeconds: 60
+  initialDelaySeconds: 120
   periodSeconds: 5
 
 readinessProbe:
   httpGet:
     path: /health/readiness
     port: 3000
-  initialDelaySeconds: 5
+  initialDelaySeconds: 60
   periodSeconds: 5
 
 resources: {}

@@ -40,6 +40,9 @@ export default ({ checks, config }: Options) => {
 
     } catch (err) {
       // TODO: log error
+      // tslint:disable-next-line:no-console
+      console.log(err);
+
       throw new ServiceUnavailableError();
     }
   });
