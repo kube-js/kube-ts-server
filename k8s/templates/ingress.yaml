@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   {{- with .Values.ingress.annotations }}
   annotations:
-    certmanager.k8s.io/cluster-issuer: {{ $fullname }}
+    certmanager.k8s.io/cluster-issuer: {{ .Values.cluster_issuer.name }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
@@ -24,7 +24,7 @@ spec:
       {{- range .hosts }}
         - {{ . | quote }}
       {{- end }}
-      secretName: {{ $fullname }}-cert
+      secretName: {{ .Values.cluster_issuer.secretName }}
   {{- end }}
 {{- end }}
   rules:

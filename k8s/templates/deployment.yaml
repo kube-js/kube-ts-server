@@ -39,7 +39,7 @@ spec:
             - configMapRef:
                 name: {{ $fullname }}
             - secretRef:
-                name: {{ $fullname }}
+                name: {{ $fullname }} 
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -52,77 +52,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: kube-ts-server
-# spec:
-#   selector:
-#     matchLabels:
-#       app: kube-ts-server
-#   replicas: {{ .Values.replicaCount }}
-#   template:
-#     metadata:
-#       labels:
-#         app: kube-ts-server
-#     spec:
-#       containers:
-#       - name: kube-ts-server
-#         image: {{ .Values.image.repository }}
-#         ports:
-#         - containerPort: 3000
-#         env:
-#         - name: KNEX_DATABASE
-#           valueFrom:
-#             configMapKeyRef:
-#               name: kube-ts-configmap
-#               key: knex_database
-#         - name: KNEX_CLIENT
-#           valueFrom:
-#             configMapKeyRef:
-#               name: kube-ts-configmap
-#               key: knex_client
-#         - name: KNEX_HOST
-#           valueFrom:
-#             configMapKeyRef:
-#               name: kube-ts-configmap
-#               key: knex_host
-#         - name: KNEX_USER
-#           valueFrom:
-#             secretKeyRef:
-#               name: kube-ts-secret
-#               key: knex_user
-#         - name: KNEX_PASSWORD
-#           valueFrom:
-#             secretKeyRef:
-#               name: kube-ts-secret
-#               key: knex_password  
-#         - name: JWT_SECRET
-#           valueFrom:
-#             secretKeyRef:
-#               name: kube-ts-secret
-#               key: jwt_secret
-#         - name: SMTP_USER
-#           valueFrom:
-#             secretKeyRef:
-#               name: kube-ts-secret
-#               key: smtp_user  
-#         - name: SMTP_PASS
-#           valueFrom:
-#             secretKeyRef:
-#               name: kube-ts-secret
-#               key: smtp_pass   
-#         livenessProbe:
-#           httpGet:
-#             path: /health/liveness
-#             port: 3000
-#           initialDelaySeconds: 60
-#           periodSeconds: 5
-#         readinessProbe:
-#           httpGet:
-#             path: /health/readiness
-#             port: 3000
-#           initialDelaySeconds: 5
-#           periodSeconds: 5

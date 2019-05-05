@@ -146,7 +146,7 @@ const config: HttpConfig = {
         ),
         windowMs: getNumberValue(
           process.env.RATE_LIMITER_WINDOW_MS,
-          15 * 60 * 1000 /* 15 minutes */
+          10 * 60 * 1000 /* 10 minutes */
         ),
       },
     },
