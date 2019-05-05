@@ -23,7 +23,7 @@
     "express-rate-limit": "3.5.0",
     "faker": "4.1.0",
     "git-rev": "0.2.1",
-    "helmet": "3.17.0",
+    "helmet": "3.18.0",
     "http-status-codes": "1.3.2",
     "is-plain-object": "2.0.4",
     "jscpd": "2.0.15",
