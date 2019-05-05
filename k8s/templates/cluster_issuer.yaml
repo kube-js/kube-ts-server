@@ -1,16 +1,16 @@
-{{- $fullName := include "kube-ts-server.fullname" . -}}
+{{- $fullname := include "kube-ts-server.fullname" . -}}
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: ClusterIssuer
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullname }}
 spec:
   acme:
     # The ACME server URL
-    server: {{ $fullName }}
+    server: {{ .Values.cluster_issuer.server }}
     # Email address used for ACME registration
     email: {{ .Values.certmanager.email }}
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: {{ $fullName }}-cert
+      name: {{ $fullname }}-cert
     # Enable the HTTP-01 challenge provider
     http01: {}

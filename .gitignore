@@ -60,3 +60,5 @@ typings/
 .next
 
 dist
+
+/k8s/override.yaml

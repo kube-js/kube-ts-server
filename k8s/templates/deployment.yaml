@@ -27,7 +27,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-          - containerPort: {{ .Values.image.containerPort }}
+          - name: api-port
+            containerPort: {{ .Values.image.containerPort }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
@@ -36,9 +37,9 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           envFrom:
             - configMapRef:
-              name: {{ $fullname }}
+                name: {{ $fullname }}
             - secretRef:
-              name: {{ $fullname }}
+                name: {{ $fullname }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

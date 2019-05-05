@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "kube-ts-server.fullname" . }}
   labels:
     app.kubernetes.io/name: {{ $name }}
     helm.sh/chart: {{ include "kube-ts-server.chart" . }}
@@ -11,8 +11,9 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   ports:
-  - port: {{ .Values.service.port }}
-    targetPort: {{ .Values.service.targetPort }}
+    - name: api-port
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
   selector:
     app.kubernetes.io/name: {{ $name }}
     app.kubernetes.io/instance: {{ .Release.Name }}

@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: kubejs/kube-ts-server
-  tag: 1.1.3
+  tag: 1.1.4
   pullPolicy: IfNotPresent
   containerPort: 3000
 
@@ -24,8 +24,7 @@ readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 5
 
-resources:
-  {}
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -56,11 +55,8 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: 'true'
-    certmanager.k8s.io/cluster-issuer: kube-ts-server
   paths: 
-    - backend:
-      serviceName: kube-ts-server
-      servicePort: 80
+    - /
   hosts:
     - api.mariuszrajczakowski.me
   tls:
@@ -72,14 +68,26 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-# Configmap: adjust the values below
-knex_database: kube-ts-server
-knex_client: mysql
-knex_host: localhost
 
-# Secret: adjust the values below
-knex_user: root
-knex_password: password
-jwt_secret: secret
-smtp_user: smtp_user
-smtp_pass: smtp_pass
+# Secret [uncomment and change the values below]
+secret: {}
+  # knex_password: password
+  # knex_user: root
+  # smtp_user: user
+  # smtp_pass: password
+  # jwt_secret: secret
+
+# Configmap [uncomment and change the values below]
+configMap: {}
+  # knex_database: database
+  # knex_client: mysql
+  # knex_host: localhost
+  # smtp_host: localhost
+  # smtp_from: noreply@example.com
+  # smtp_port: 465
+  # smtp_ignore_tls: true
+  # smtp_secure: true
+  # smtp_require_tls: true
+
+
+

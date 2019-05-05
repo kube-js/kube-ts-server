@@ -44,6 +44,9 @@ export default ({ req, res, error, config }: Options) => {
   const translations = translator({ req });
   // TODO: logging (to STDERR) and translating errors
 
+  // tslint:disable-next-line:no-console
+  console.log(error);
+
   if (error instanceof ValidationErrors) {
     const jsonResponse = mapValidationErrorsToResponse({
       errors: error.errors,
