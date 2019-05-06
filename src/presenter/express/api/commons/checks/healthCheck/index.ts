@@ -14,7 +14,7 @@ export interface Options {
 
 export default ({ checks, config }: Options) => {
   let shuttingDown = false;
-  
+
   process.once('SIGTERM', () => {
     shuttingDown = true;
   });
@@ -37,11 +37,8 @@ export default ({ checks, config }: Options) => {
         },
         status: OK,
       });
-
-    } catch (err) {
-      // TODO: log error
-      // tslint:disable-next-line:no-console
-      console.log(err);
+    } catch (error) {
+      config.logger.error(`Health check error: ${JSON.stringify(error.message)}`,error);
 
       throw new ServiceUnavailableError();
     }

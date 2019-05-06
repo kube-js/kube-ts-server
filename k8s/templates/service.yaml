@@ -6,9 +6,9 @@ metadata:
   name: {{ include "kube-ts-server.fullname" . }}
   labels:
     app.kubernetes.io/name: {{ $name }}
-    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
 spec:
   ports:
     - name: api-port

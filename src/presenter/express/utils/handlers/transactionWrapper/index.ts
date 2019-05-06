@@ -35,7 +35,7 @@ const transactionWrapper = ({
       err = new ConflictError(error.itemName, error.itemId);
     }
 
-    handleError({ config, errorId: transactionId, req, res, error: err });
+    handleError({ config, transactionId, req, res, error: err });
   }
 };
 

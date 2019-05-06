@@ -2,138 +2,169 @@
 
 exports[`@presenter/auth/register fails to register user when bio exceeds number of characters 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "bio",
-      "message": "Expected string between 0 and 65535 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "bio",
+        "message": "Expected string between 0 and 65535 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when date_of_birth is not valid date 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "date_of_birth",
-      "message": "Expected date in one of the formats: DD-MM-YYYY, YYYY-MM-DD",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "date_of_birth",
+        "message": "Expected date in one of the formats: DD-MM-YYYY, YYYY-MM-DD",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when email is missing out of required properties 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "email",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when first_name is invalid 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "first_name",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "first_name",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when gender is invalid 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "gender",
-      "message": "Expected one of the following: female, male",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "gender",
+        "message": "Expected one of the following: female, male",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when last_name is invalid 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "last_name",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "last_name",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when password and password_confirmation are not matching 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "fields": Array [
-        "password",
-        "password_confirmation",
-      ],
-      "message": "Expected password to match password_confirmation",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "fields": Array [
+          "password",
+          "password_confirmation",
+        ],
+        "message": "Expected password to match password_confirmation",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when password is missing out of required properties 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "password",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "password",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when password_confirmation is missing out of required properties 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "password_confirmation",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "password_confirmation",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user when user with the email already exist 1`] = `
 Object {
   "message": "User already exists",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/register fails to register user without required fields 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-    Object {
-      "field": "password",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-    Object {
-      "field": "password_confirmation",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "email",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+      Object {
+        "field": "password",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+      Object {
+        "field": "password_confirmation",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 

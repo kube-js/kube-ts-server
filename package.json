@@ -44,7 +44,8 @@
     "supertest": "4.0.2",
     "url": "0.11.0",
     "uuid": "3.3.2",
-    "winston": "3.2.1"
+    "winston": "3.2.1",
+    "winston-loggly-bulk": "3.0.1"
   },
   "devDependencies": {
     "@kube-js/semantic-release": "1.0.7",
@@ -94,7 +95,7 @@
     "dev": "ts-node-dev --respawn --transpileOnly  ./src/presenter/express/index.ts",
     "semantic-release": "semantic-release-public-circleci-app",
     "test": "jest --coverage --runInBand",
-    "test:watch": "jest --watch --runInBand  --coverage"
+    "test:watch": "jest --watch --runInBand --coverage"
   },
   "pre-commit": [
     "build",

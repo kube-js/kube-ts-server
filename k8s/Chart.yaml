@@ -1,11 +1,8 @@
-# check: https://github.com/CloudNativeJS/helm
-# https://www.digitalocean.com/community/tutorials/an-introduction-to-helm-the-package-manager-for-kubernetes
-# https://github.com/RisingStack/kubernetes-nodejs-example
 apiVersion: v1
 description: A Helm chart for kube-ts-server
 name: kube-ts-server
 version: 1.0.0
-appVersion: 1.1.6
+appVersion: 1.1.8
 home: https://cloud.docker.com/u/kubejs/repository/docker/kubejs/kube-ts-server
 icon: https://avatars2.githubusercontent.com/u/47761918?s=200&v=4
 sources:

@@ -11,7 +11,7 @@ export default (config: Config, handler: ExpressHandler) => async (
   try {
     await handler(req, res);
   } catch (error) {
-    const errorId = uuid();
-    handleError({ config, req, res, error, errorId });
+    const transactionId = uuid();
+    handleError({ config, req, res, error, transactionId });
   }
 };

@@ -2,112 +2,135 @@
 
 exports[`@presenter/auth/resetPassword fails to reset password when password does not match password_confirmation 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "fields": Array [
-        "password",
-        "password_confirmation",
-      ],
-      "message": "Expected password to match password_confirmation",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "fields": Array [
+          "password",
+          "password_confirmation",
+        ],
+        "message": "Expected password to match password_confirmation",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password when reset password token does not exist in db 1`] = `
 Object {
   "message": "Invalid reset password token",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password when reset password token is expired 1`] = `
 Object {
   "message": "Expired reset password token",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password with invalid email 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Invalid email",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "email",
+        "message": "Invalid email",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password with invalid token 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "token",
-      "message": "Expected string 36 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "token",
+        "message": "Expected string 36 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password without password 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "password",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "password",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password without password_confirmation 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "password_confirmation",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "password_confirmation",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password without payload 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-    Object {
-      "field": "password",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-    Object {
-      "field": "password_confirmation",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-    Object {
-      "field": "token",
-      "message": "Expected string 36 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "email",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+      Object {
+        "field": "password",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+      Object {
+        "field": "password_confirmation",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+      Object {
+        "field": "token",
+        "message": "Expected string 36 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/resetPassword fails to reset password without token 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "token",
-      "message": "Expected string 36 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "token",
+        "message": "Expected string 36 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 

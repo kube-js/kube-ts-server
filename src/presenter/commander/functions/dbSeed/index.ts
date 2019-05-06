@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import _pluck from 'ramda/src/pluck';
 import {
   ADMIN_PERMISSIONS,
@@ -25,11 +24,12 @@ const userOptions = {
   userType: 'User',
 };
 
+const processExitTimeout = 10000;
+
 const dbSeed = (config: FactoryConfig) => async () => {
-  /* TODO: implement logger */
   try {
     const [adminRoleId, userRoleId] = await createRoles(config)([ADMIN, USER]);
-    console.log('here', adminRoleId, userRoleId);
+
     const createdPermissions = await createPermissions(config)(permissions);
 
     const adminPermissions = createdPermissions.filter(({ name }) =>
@@ -68,10 +68,20 @@ const dbSeed = (config: FactoryConfig) => async () => {
       rolesIds: [userRoleId],
     });
 
-    process.exit(0);
+    config.logger.log('Seeding successful');
+    
+    // FYI: allow logger to send all the logs
+    setTimeout(() => {
+      process.exit(0);
+    }, processExitTimeout);
+
   } catch (err) {
-    console.error('Seeding error', err);
-    process.exit(1);
+    config.logger.error(`Seeding error ${err}`);
+
+    // FYI: allow logger to send all the logs
+    setTimeout(() => {
+      process.exit(1);
+    }, processExitTimeout);
   }
 };
 

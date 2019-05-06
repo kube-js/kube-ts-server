@@ -33,7 +33,7 @@ const server = stoppable(createServer(expressApp));
 handleUnexpectedEvents({ server, service, logger });
 
 server.listen(config.http.express.port, () => {
-  console.log(
+  logger.info(
     `Listening on ${config.http.express.host}:${config.http.express.port}`
   );
 });

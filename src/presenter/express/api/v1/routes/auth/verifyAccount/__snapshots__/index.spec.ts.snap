@@ -2,59 +2,71 @@
 
 exports[`@presenter/auth/verifyAccount fails to verify account without payload 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-    Object {
-      "field": "token",
-      "message": "Expected string 36 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "email",
+        "message": "Expected string between 0 and 255 characters long",
+      },
+      Object {
+        "field": "token",
+        "message": "Expected string 36 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/verifyAccount fails to verify account without token 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "token",
-      "message": "Expected string 36 characters long",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "token",
+        "message": "Expected string 36 characters long",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/verifyAccount fails to verify account without valid email 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Invalid email",
-    },
-  ],
-  "message": "Validation failed",
+  "message": Object {
+    "errors": Array [
+      Object {
+        "field": "email",
+        "message": "Invalid email",
+      },
+    ],
+    "message": "Validation failed",
+  },
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/verifyAccount fails to verify already verified account 1`] = `
 Object {
   "message": "Account has been already verified",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/verifyAccount fails to verify when email does not match 1`] = `
 Object {
   "message": "Invalid email and/or verify account token",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/verifyAccount fails to verify when token does not match 1`] = `
 Object {
   "message": "Invalid email and/or verify account token",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 

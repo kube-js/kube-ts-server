@@ -18,11 +18,12 @@ export default (appConfig: AppConfig): App => {
   const logger = loggerFactory(appConfig.logger);
 
   const translator = translatorFactory(appConfig.translator);
-  
+
   const service = serviceFactory({ logger, repo, appConfig });
 
   const presenter = presenterFactory({
     appConfig,
+    logger,
     service,
     translator,
   });

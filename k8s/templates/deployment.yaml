@@ -1,15 +1,14 @@
 {{- $name := include "kube-ts-server.name" . -}}
 {{- $fullname := include "kube-ts-server.fullname" . -}}
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $fullname }}
   labels:
     app.kubernetes.io/name: {{ $name }}
-    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

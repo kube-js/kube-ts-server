@@ -8,9 +8,9 @@ metadata:
   name: {{ $fullname }}
   labels:
     app.kubernetes.io/name: {{ include "kube-ts-server.name" . }}
-    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ include "kube-ts-server.chart" . }}
   {{- with .Values.ingress.annotations }}
   annotations:
     certmanager.k8s.io/cluster-issuer: letsencrypt-prod
@@ -32,10 +32,9 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-	{{- range $ingressPaths }}
-          - backend:
+          - path: {{ .Values.ingress.path }}
+            backend:
               serviceName: {{ $fullname }}
               servicePort: {{ $servicePort }}
-	{{- end }}
   {{- end }}
 {{- end }}

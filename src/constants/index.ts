@@ -13,7 +13,7 @@ export const CLIENT_RESET_PASSWORD_URL = 'http://localhost:9000/reset-password';
 export const CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME = 'token';
 
 export const TOO_MANY_REQUEST_MESSAGE =
-  'Too many accounts created from this IP, please try again after an 15 minutes';
+  'Too many accounts created from this IP, please try again after an 10 minutes';
 
 // AUTH
 export const JWT_EXPIRES_IN_MS = 86400000; // 24hrs

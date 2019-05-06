@@ -36,146 +36,122 @@ export interface Options {
   readonly req: Request;
   readonly res: Response;
   readonly error: any;
-  readonly errorId: string;
+  readonly transactionId: string;
 }
 
-export default ({ req, res, error, config }: Options) => {
+export default ({ req, res, error, config, transactionId }: Options) => {
   const { translator } = config;
   const translations = translator({ req });
-  // TODO: logging (to STDERR) and translating errors
 
-  // tslint:disable-next-line:no-console
-  console.log(error);
+  let status = INTERNAL_SERVER_ERROR;
+  let message: any = translations.serverError();
 
   if (error instanceof ValidationErrors) {
-    const jsonResponse = mapValidationErrorsToResponse({
+    status = UNPROCESSABLE_ENTITY;
+    message = mapValidationErrorsToResponse({
       errors: error.errors,
       req,
       translator,
     });
-
-    return res.status(UNPROCESSABLE_ENTITY).json(jsonResponse);
   }
 
   if (error instanceof InvalidCredentialsError) {
-    return res.status(UNAUTHORIZED).json({
-      message: translations.invalidCredentials(),
-    });
+    status = UNAUTHORIZED;
+    message = translations.invalidCredentials();
   }
 
   if (error instanceof UnauthorizedError) {
-    const message = translations.unauthenticated();
-
-    return res.status(UNAUTHORIZED).json({ message });
+    status = UNAUTHORIZED;
+    message = translations.unauthenticated();
   }
 
   if (error instanceof MissingJwtTokenError) {
-    const message = translations.missingJwtToken();
-
-    return res.status(UNAUTHORIZED).json({ message });
+    status = UNAUTHORIZED;
+    message = translations.missingJwtToken();
   }
 
   if (error instanceof LockedAccountError) {
-    const message = translations.accountLocked();
-
-    return res.status(UNAUTHORIZED).json({ message });
+    status = UNAUTHORIZED;
+    message = translations.accountLocked();
   }
 
   if (error instanceof MissingJwtTokenExtractorError) {
-    const message = translations.missingJwtTokenExtractor();
-
-    return res.status(UNAUTHORIZED).json({ message });
+    status = UNAUTHORIZED;
+    message = translations.missingJwtTokenExtractor();
   }
 
   if (error instanceof ExpiredJwtTokenError) {
-    const message = translations.expiredJwtToken();
-
-    return res.status(UNAUTHORIZED).json({ message });
+    status = UNAUTHORIZED;
+    message = translations.expiredJwtToken();
   }
 
   if (error instanceof InvalidJwtTokenError) {
-    const message = translations.invalidJwtToken();
-
-    return res.status(UNAUTHORIZED).json({ message });
+    status = UNAUTHORIZED;
+    message = translations.invalidJwtToken();
   }
 
   if (error instanceof UnverifiedAccountError) {
-    return res.status(UNAUTHORIZED).json({
-      message: translations.unverifiedAccount(),
-    });
+    status = UNAUTHORIZED;
+    message = translations.unverifiedAccount();
   }
 
   if (error instanceof ForbiddenError) {
-    return res.status(FORBIDDEN).json({
-      message: translations.forbidden(),
-    });
+    status = FORBIDDEN;
+    message = translations.forbidden();
   }
 
   if (error instanceof ConflictError) {
-    const message = translations.conflict(error);
-
-    return res.status(CONFLICT).json({ message });
+    status = CONFLICT;
+    message = translations.conflict(error);
   }
 
   if (error instanceof RemindPasswordError) {
     // for security reasons return same response as email would exist in db
-    const message = translations.resetPasswordLinkSent();
-
-    return res.status(OK).json({ message });
+    status = OK;
+    message = translations.resetPasswordLinkSent();
   }
 
   if (error instanceof InvalidResetPasswordTokenError) {
-    const message = translations.invalidResetPasswordtoken();
-
-    return res.status(UNPROCESSABLE_ENTITY).json({ message });
+    status = UNPROCESSABLE_ENTITY;
+    message = translations.invalidResetPasswordtoken();
   }
 
   if (error instanceof ExpiredResetPasswordTokenError) {
-    const message = translations.expiredResetPasswordtoken();
-
-    return res.status(UNPROCESSABLE_ENTITY).json({ message });
+    status = UNPROCESSABLE_ENTITY;
+    message = translations.expiredResetPasswordtoken();
   }
 
   if (error instanceof InvalidVerifyAccountTokenError) {
-    const message = translations.invalidVerifyAccountToken();
-
-    return res.status(UNPROCESSABLE_ENTITY).json({ message });
+    status = UNPROCESSABLE_ENTITY;
+    message = translations.invalidVerifyAccountToken();
   }
 
   if (error instanceof NotFoundError) {
-    const message = translations.notFound();
-
-    return res.status(NOT_FOUND).json({ message });
+    status = NOT_FOUND;
+    message = translations.notFound();
   }
 
-
   if (error instanceof ItemNotFoundError) {
-    const message = translations.itemNotFound(error);
-
-    return res.status(NOT_FOUND).json({ message });
+    status = NOT_FOUND;
+    message = translations.itemNotFound(error);
   }
 
   if (error instanceof AccountAlreadyVerifiedError) {
-    const message = translations.accountAlreadyVerified();
-
-    return res.status(CONFLICT).json({ message });
+    status = CONFLICT;
+    message = translations.accountAlreadyVerified();
   }
 
-  if(error instanceof ServiceUnavailableError){
-    const message = translations.serviceIsUnavailable();
-
-    return res.status(SERVICE_UNAVAILABLE).json({
-      message
-    })
+  if (error instanceof ServiceUnavailableError) {
+    status = SERVICE_UNAVAILABLE;
+    message = translations.serviceIsUnavailable();
   }
 
-  {
-    const message = translations.serverError();
+  config.logger.error(
+    `transactionId: ${transactionId}: - ${JSON.stringify(message)}`,
+    error
+  );
 
-    // tslint:disable-next-line:no-console
-    console.log(message, error, error.message);
-    
-    res.status(INTERNAL_SERVER_ERROR).json({ message });
-  }
+  res.status(status).json({ message, transactionId });
+
   // tslint:disable-next-line:max-file-line-count
 };
