@@ -6,6 +6,9 @@
 
 ## Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
 
+## Demo
+[https://demo.mariuszrajczakowski.me/api/v1](https://demo.mariuszrajczakowski.me/api/v1)
+
 ### Currently includes the following models:
 - users
 - userRole
