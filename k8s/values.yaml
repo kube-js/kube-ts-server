@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: kubejs/kube-ts-server
-  tag: 1.1.8
+  tag: 1.2.0
   pullPolicy: IfNotPresent
   containerPort: 3000
 
