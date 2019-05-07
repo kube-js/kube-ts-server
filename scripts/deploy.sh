@@ -10,8 +10,11 @@ export DEPLOYS=$(helm ls | grep $RELEASE_NAME | wc -l)
 
 echo "$KUBERNETES_CLUSTER_CERTIFICATE" | base64 --decode > cert.crt
 
-envsubst <./values-circleci.yml >./values-circleci.yml.out
-mv ./values-circleci.yml.out ./values-circleci.yml
+pwd
+ls 
+
+envsubst <~/repo/k8s/values-circleci.yml >~/repo/k8s/values-circleci.yml.out
+mv ~/repo/k8s/values-circleci.yml.out ~/repo/k8s/values-circleci.yml
 
 ./kubectl config set-credentials cicd \
 --kubeconfig=/dev/null \
