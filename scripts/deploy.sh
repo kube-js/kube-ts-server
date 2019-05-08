@@ -26,12 +26,12 @@ kubectl config set-credentials cicd \
 --embed-certs=true \
 
 echo "initialising helm..."
-helm init --client-only
+helm init --service-account tiller
 
 echo "installing/upgrading new release..."
 
 if [ ${DEPLOYS}  -eq 0 ];
-then helm install --name=${RELEASE_NAME} --kubeconfig ~/repo/k8s/cert.crt . -f values-circleci.yaml ; 
-else helm upgrade ${RELEASE_NAME} --kubeconfig ~/repo/k8s/cert.crt . -f values-circleci.yaml ; fi
+then helm install --name=${RELEASE_NAME} . -f values-circleci.yaml ; 
+else helm upgrade ${RELEASE_NAME} . -f values-circleci.yaml ; fi
 
 echo "deployment completed..."
