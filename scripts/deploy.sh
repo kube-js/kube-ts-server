@@ -18,9 +18,11 @@ mv ~/repo/k8s/values-circleci.yaml.out ~/repo/k8s/values-circleci.yaml
 
 echo "getting contexts"
 
-./kubectl config get-contexts
+kubectl config get-contexts
 
-./kubectl config set-credentials cicd \
+kubectl config view
+
+kubectl config set-credentials cicd \
 --kubeconfig=/dev/null \
 --server=$KUBERNETES_SERVER \
 --certificate-authority=cert.crt \
