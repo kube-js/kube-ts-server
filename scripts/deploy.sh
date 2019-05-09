@@ -16,11 +16,11 @@ ls
 envsubst <~/repo/k8s/values-circleci.yaml >~/repo/k8s/values-circleci.yaml.out
 mv ~/repo/k8s/values-circleci.yaml.out ~/repo/k8s/values-circleci.yaml
 
-which kubectl
+echo "getting contexts"
 
-kubectl config get-contexts
+./kubectl config get-contexts
 
-kubectl config set-credentials cicd \
+./kubectl config set-credentials cicd \
 --kubeconfig=/dev/null \
 --server=$KUBERNETES_SERVER \
 --certificate-authority=cert.crt \
