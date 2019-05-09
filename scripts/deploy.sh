@@ -27,6 +27,9 @@ kubectl config set-credentials cicd \
 --token=$KUBERNETES_TOKEN \
 --embed-certs=true \
 
+echo "checking config..."
+cat ~/.kube/config
+
 echo "initialising helm..."
 helm init --service-account tiller
 
