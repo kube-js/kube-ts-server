@@ -18,6 +18,8 @@ mv ~/repo/k8s/values-circleci.yaml.out ~/repo/k8s/values-circleci.yaml
 
 which kubectl
 
+kubectl config get-contexts
+
 kubectl config set-credentials cicd \
 --kubeconfig=/dev/null \
 --server=$KUBERNETES_SERVER \
