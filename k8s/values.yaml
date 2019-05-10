@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: kubejs/kube-ts-server
-  tag: 1.2.0
+  tag: 1.2.1
   pullPolicy: IfNotPresent
   containerPort: 3000
 
@@ -67,6 +67,8 @@ secret: {}
   # SMTP_USER: user
   # SMTP_PASS: password
   # JWT_SECRET: secret
+  # LOGGLY_TOKEN=logglyToken
+  # LOGGLY_SUBDOMAIN=logglyUser
 
 # Configmap [remove "{}", uncomment and change the values below]
 configMap: {}
@@ -79,5 +81,9 @@ configMap: {}
   # SMTP_IGNORE_TLS: true
   # SMTP_SECURE: true
   # SMTP_REQUIRE_TLS: true
+  # LOGGER_TYPE=winston
+  # WINSTON_LOGGER_TYPE=loggly
+  # LOGGLY_JSON=true
+  # LOGGLY_TAGS=tag1,tag2
 
 
