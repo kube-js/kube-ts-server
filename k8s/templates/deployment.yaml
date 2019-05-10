@@ -26,7 +26,7 @@ spec:
           # TODO: change image tag to use $CIRCLE_SHA1
           # and replace via envsubst [https://www.digitalocean.com/community/tutorials/how-to-automate-deployments-to-digitalocean-kubernetes-with-circleci]
           # image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          image: "{{ .Values.image.repository }}:lastest"
+          image: "{{ .Values.image.repository }}:latest"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
           - name: api-port
