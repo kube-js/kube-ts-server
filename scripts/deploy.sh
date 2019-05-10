@@ -17,16 +17,15 @@ mv ~/repo/k8s/values-circleci.yaml.out ~/repo/k8s/values-circleci.yaml
 envsubst <~/repo/k8s/cicd-config.yaml >~/repo/k8s/cicd-config.yaml.out
 mv ~/repo/k8s/cicd-config.yaml.out ~/repo/k8s/cicd-config.yaml
 
-
 echo "initialising helm..."
 helm init --client-only
 
-helm --kubeconfig ./config.yaml list
+helm --kubeconfig ./cicd-config.yaml list
 
 echo "installing/upgrading new release..."
 
 if [ ${DEPLOYS}  -eq 0 ];
-then helm install --kubeconfig ./config.yaml --name=${RELEASE_NAME} . -f values-circleci.yaml ; 
-else helm upgrade --kubeconfig ./config.yaml ${RELEASE_NAME} . -f values-circleci.yaml ; fi
+then helm install --kubeconfig ./cicd-config.yaml --name=${RELEASE_NAME} . -f values-circleci.yaml ; 
+else helm upgrade --kubeconfig ./cicd-config.yaml ${RELEASE_NAME} . -f values-circleci.yaml ; fi
 
 echo "deployment completed..."
