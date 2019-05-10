@@ -77,7 +77,7 @@
     "rimraf": "2.6.3",
     "ts-jest": "24.0.2",
     "ts-node": "8.1.0",
-    "ts-node-dev": "1.0.0-pre.35",
+    "ts-node-dev": "1.0.0-pre.39",
     "tslint": "5.16.0",
     "tslint-config-prettier": "1.18.0",
     "typescript": "3.4.5"
