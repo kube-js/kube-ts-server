@@ -23,8 +23,6 @@ helm --kubeconfig ./cicd-config.yaml list
 
 echo "installing/upgrading new release..."
 
-if [ ${DEPLOYS}  -eq 0 ];
-then helm install --kubeconfig ./cicd-config.yaml --name=${APP_NAME} . -f values-circleci.yaml ; 
-else helm upgrade --kubeconfig ./cicd-config.yaml --name=${APP_NAME} . -f values-circleci.yaml ; fi
+helm upgrade --install --wait --kubeconfig ./cicd-config.yaml --name=${APP_NAME} . -f ./values-circleci.yaml
 
 echo "deployment completed..."
