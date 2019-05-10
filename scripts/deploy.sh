@@ -4,9 +4,8 @@ set -e
 
 cd ~/repo/k8s
 
-export API_VERSION="$(grep "appVersion" Chart.yaml | cut -d" " -f2)"
-export RELEASE_NAME="kube-ts-server-v${API_VERSION/./-}"
-export DEPLOYS=$(helm ls | grep $RELEASE_NAME | wc -l)
+export APP_NAME="kube-ts-server"
+export DEPLOYS=$(helm ls | grep $APP_NAME | wc -l)
 
 pwd
 ls 
@@ -25,7 +24,7 @@ helm --kubeconfig ./cicd-config.yaml list
 echo "installing/upgrading new release..."
 
 if [ ${DEPLOYS}  -eq 0 ];
-then helm install --kubeconfig ./cicd-config.yaml --name=${RELEASE_NAME} . -f values-circleci.yaml ; 
-else helm upgrade --kubeconfig ./cicd-config.yaml ${RELEASE_NAME} . -f values-circleci.yaml ; fi
+then helm install --kubeconfig ./cicd-config.yaml --name=${APP_NAME} . -f values-circleci.yaml ; 
+else helm upgrade --kubeconfig ./cicd-config.yaml --name=${APP_NAME} . -f values-circleci.yaml ; fi
 
 echo "deployment completed..."
