@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Config
+users:
+- name: KUBERNETES_USER
+  user:
+    token: $KUBERNETES_TOKEN
+clusters:
+- cluster:
+    certificate-authority-data: $KUBERNETES_CLUSTER_CERTIFICATE
+    server: $KUBERNETES_SERVER
+  name: $KUBERNETES_CLUSTER_NAME
+contexts:
+- context:
+    cluster: $KUBERNETES_CLUSTER_NAME
+    user: KUBERNETES_USER
+  name: $KUBERNETES_CONTEXT
+current-context: $KUBERNETES_CONTEXT
