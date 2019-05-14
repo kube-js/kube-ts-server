@@ -1,9 +1,10 @@
 import _pluck from 'ramda/src/pluck';
 import {
   ADMIN_PERMISSIONS,
-  USER_PERMISSIONS,
+  INSTRUCTOR_PERMISSIONS,
+  LEARNER_PERMISSIONS,
 } from '../../../../constants/permissions';
-import { ADMIN, USER } from '../../../../constants/roles';
+import { ADMIN, INSTRUCTOR, LEARNER } from '../../../../constants/roles';
 import { TEST_VALID_PASSWORD } from '../../../express/utils/tests/testData';
 import FactoryConfig from '../../presenterFactory/FactoryConfig';
 import permissions from '../../utils/permissions';
@@ -18,8 +19,14 @@ const adminOptions = {
   userType: 'Admin',
 };
 
-const userOptions = {
-  defaultEmail: 'user@example.com',
+const instructorsOptions = {
+  defaultEmail: 'instructor@example.com',
+  defaultPassword: TEST_VALID_PASSWORD,
+  userType: 'Instructor',
+};
+
+const learnerOptions = {
+  defaultEmail: 'learner@example.com',
   defaultPassword: TEST_VALID_PASSWORD,
   userType: 'User',
 };
@@ -28,7 +35,9 @@ const processExitTimeout = 10000;
 
 const dbSeed = (config: FactoryConfig) => async () => {
   try {
-    const [adminRoleId, userRoleId] = await createRoles(config)([ADMIN, USER]);
+    const [adminRoleId, instructorRoleId, learnerRoleId] = await createRoles(
+      config
+    )([ADMIN, INSTRUCTOR, LEARNER]);
 
     const createdPermissions = await createPermissions(config)(permissions);
 
@@ -38,11 +47,16 @@ const dbSeed = (config: FactoryConfig) => async () => {
 
     const adminPermissionsIds = _pluck('id', adminPermissions);
 
-    const userPermissions = createdPermissions.filter(({ name }) =>
-      USER_PERMISSIONS.includes(name)
+    const instructorPermissions = createdPermissions.filter(({ name }) =>
+      INSTRUCTOR_PERMISSIONS.includes(name)
     );
 
-    const userPermissionsIds = _pluck('id', userPermissions);
+    const learnerPermissions = createdPermissions.filter(({ name }) =>
+      LEARNER_PERMISSIONS.includes(name)
+    );
+
+    const learnerPermissionsIds = _pluck('id', learnerPermissions);
+    const instructorPermissionsIds = _pluck('id', instructorPermissions);
 
     await connectPermissionsToRoles(config)({
       permissionsIds: adminPermissionsIds,
@@ -51,30 +65,41 @@ const dbSeed = (config: FactoryConfig) => async () => {
     });
 
     await connectPermissionsToRoles(config)({
-      permissionsIds: userPermissionsIds,
-      roleId: userRoleId,
-      roleName: USER,
+      permissionsIds: instructorPermissionsIds,
+      roleId: instructorRoleId,
+      roleName: INSTRUCTOR,
     });
 
-    // admin user
+    await connectPermissionsToRoles(config)({
+      permissionsIds: learnerPermissionsIds,
+      roleId: learnerRoleId,
+      roleName: LEARNER,
+    });
+
+    // admin
     await createUser(config)({
       ...adminOptions,
       rolesIds: [adminRoleId],
     });
 
-    // regular user
+    // instructor
     await createUser(config)({
-      ...userOptions,
-      rolesIds: [userRoleId],
+      ...instructorsOptions,
+      rolesIds: [instructorRoleId],
     });
 
-    config.logger.log('Seeding successful');
-    
+    // learner
+    await createUser(config)({
+      ...learnerOptions,
+      rolesIds: [learnerRoleId],
+    });
+
+    config.logger.info('Seeding successful');
+
     // FYI: allow logger to send all the logs
     setTimeout(() => {
       process.exit(0);
     }, processExitTimeout);
-
   } catch (err) {
     config.logger.error(`Seeding error ${err}`);
 
@@ -85,4 +110,5 @@ const dbSeed = (config: FactoryConfig) => async () => {
   }
 };
 
+// tslint:disable-next-line:max-file-line-count
 export default dbSeed;

@@ -2,15 +2,14 @@ import _isNil from 'ramda/src/isNil';
 import _pick from 'ramda/src/pick';
 import validateData from 'rulr/validateData';
 import getUtcDate from '../../../../../../../utils/helpers/date/getUtcDate';
-import Config from '../../../../../presenterFactory/Config';
 import getAuthenticatedUser from '../../../../../utils/auth/getAuthenticatedUser';
 import hasPermission from '../../../../../utils/auth/hasPermission';
 import transactionWrapper, {
   HookOptions,
 } from '../../../../../utils/handlers/transactionWrapper';
-import rules, { schema } from '../../../../../utils/schemas/users/updateItem';
+import { BaseFactoryConfig } from '../baseFactory';
 
-const beforeUpdateItem = (config: Config) =>
+const beforeUpdateItem = (config: BaseFactoryConfig) =>
   transactionWrapper({
     beforeHandler: async ({ req }: HookOptions) => {
       const user = await getAuthenticatedUser({ req, config });
@@ -19,9 +18,9 @@ const beforeUpdateItem = (config: Config) =>
         await hasPermission({ req, user, config });
       }
 
-      const payload: any = _pick(Object.keys(schema), req.body);
+      const payload: any = _pick(Object.keys(config.beforeUpdateSchema), req.body);
 
-      validateData(rules)(payload);
+      validateData(config.beforeUpdateRules)(payload);
 
       req.body.updatedAt = getUtcDate();
     },

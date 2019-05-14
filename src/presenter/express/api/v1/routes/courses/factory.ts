@@ -1,19 +1,19 @@
 import _pick from 'ramda/src/pick';
-import Permission from '../../../../../../types/items/Permission';
+import Course from '../../../../../../types/items/Course';
 import Config from '../../../../presenterFactory/Config';
 import beforeCreateRules, {
   beforeCreateSchema,
-} from '../../../../utils/schemas/permissions/createItem';
+} from '../../../../utils/schemas/courses/createItem';
 import beforeReplaceRules, {
   beforeReplaceSchema,
-} from '../../../../utils/schemas/permissions/replaceItem';
+} from '../../../../utils/schemas/courses/replaceItem';
 import beforeUpdateRules, {
   beforeUpdateSchema,
-} from '../../../../utils/schemas/permissions/updateItem';
+} from '../../../../utils/schemas/courses/updateItem';
 import baseFactory from '../utils/baseFactory';
 import convertDocumentIntoItem from './functions/convertDocumentIntoItem';
 
-const permissionsFactory = (config: Config) => {
+const coursesFactory = (config: Config) => {
   const enhancedConfig = {
     ...config,
     beforeCreateRules,
@@ -23,15 +23,15 @@ const permissionsFactory = (config: Config) => {
     beforeUpdateRules,
     beforeUpdateSchema,
   };
-  const router = baseFactory<Permission>({
+  const router = baseFactory<Course>({
     config: enhancedConfig,
     factoryConfig: {
       convertDocumentIntoItem: convertDocumentIntoItem(enhancedConfig),
     },
-    service: config.service.permissions,
+    service: config.service.courses,
   });
 
   return router;
 };
 
-export default permissionsFactory;
+export default coursesFactory;

@@ -10,7 +10,7 @@ export default ({ db }: RepoConfig) => {
     const query = connection.schema.createTable('roles', table => {
       table.string('id', UUID_LENGTH).primary();
       table.string('name').unique();
-      table.dateTime('createdAt').notNullable();
+      table.dateTime('createdAt').notNullable().defaultTo(connection.fn.now());
       table.dateTime('updatedAt').nullable();
     });
 

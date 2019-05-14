@@ -2,64 +2,56 @@
 
 exports[`@presenter/auth/login fails to log in user with invalid email 1`] = `
 Object {
-  "message": Object {
-    "errors": Array [
-      Object {
-        "field": "email",
-        "message": "Invalid email",
-      },
-    ],
-    "message": "Validation failed",
-  },
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Invalid email",
+    },
+  ],
+  "message": "Validation failed",
   "transactionId": 1,
 }
 `;
 
 exports[`@presenter/auth/login fails to log in user without both credentials 1`] = `
 Object {
-  "message": Object {
-    "errors": Array [
-      Object {
-        "field": "email",
-        "message": "Expected string between 0 and 255 characters long",
-      },
-      Object {
-        "field": "password",
-        "message": "Expected string between 0 and 255 characters long",
-      },
-    ],
-    "message": "Validation failed",
-  },
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+    Object {
+      "field": "password",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+  ],
+  "message": "Validation failed",
   "transactionId": 1,
 }
 `;
 
 exports[`@presenter/auth/login fails to log in user without email 1`] = `
 Object {
-  "message": Object {
-    "errors": Array [
-      Object {
-        "field": "email",
-        "message": "Expected string between 0 and 255 characters long",
-      },
-    ],
-    "message": "Validation failed",
-  },
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+  ],
+  "message": "Validation failed",
   "transactionId": 1,
 }
 `;
 
 exports[`@presenter/auth/login fails to log in user without password 1`] = `
 Object {
-  "message": Object {
-    "errors": Array [
-      Object {
-        "field": "password",
-        "message": "Expected string between 0 and 255 characters long",
-      },
-    ],
-    "message": "Validation failed",
-  },
+  "errors": Array [
+    Object {
+      "field": "password",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+  ],
+  "message": "Validation failed",
   "transactionId": 1,
 }
 `;

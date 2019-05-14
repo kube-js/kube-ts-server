@@ -45,10 +45,12 @@ export default ({ req, res, error, config, transactionId }: Options) => {
 
   let status = INTERNAL_SERVER_ERROR;
   let message: any = translations.serverError();
+  let errorsObj = {};
 
   if (error instanceof ValidationErrors) {
     status = UNPROCESSABLE_ENTITY;
-    message = mapValidationErrorsToResponse({
+    message = translations.validationFailed();
+    errorsObj = mapValidationErrorsToResponse({
       errors: error.errors,
       req,
       translator,
@@ -151,7 +153,6 @@ export default ({ req, res, error, config, transactionId }: Options) => {
     error
   );
 
-  res.status(status).json({ message, transactionId });
-
+  res.status(status).json({ ...errorsObj, message, transactionId });
   // tslint:disable-next-line:max-file-line-count
 };

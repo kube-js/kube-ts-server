@@ -1,11 +1,10 @@
 import Record from 'rulr/Record';
-
 import baseSchema from '../base/schema';
 
-export const beforeReplaceSchema = {
+export const beforeUpdateSchema = {
   ...baseSchema,
 };
 
-const rules = Record(beforeReplaceSchema);
+const rules = Record(beforeUpdateSchema);
 
 export default rules;

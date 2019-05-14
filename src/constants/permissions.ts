@@ -34,8 +34,6 @@ export const USERS_CREATE_ITEM = 'users.createItem';
 export const USERS_ASSIGN_ROLE = 'users.assignUserRole';
 export const USERS_REVOKE_ROLE = 'users.revokeUserRole';
 
-export const basicUsersPermissions = [USERS_GET_ITEM, USERS_GET_ITEMS];
-
 export const rolesPermissions = [
   ROLES_GET_ITEM,
   ROLES_GET_ITEMS,
@@ -58,7 +56,36 @@ export const permissionsPermissions = [
   PERMISSIONS_CREATE_ITEM,
 ];
 
-export const USER_PERMISSIONS = [...basicUsersPermissions];
+export const COURSES_URL_REGEX = `[${API_V1}/courses]`;
+
+export const COURSES_GET_ITEM = 'courses.getItem';
+export const COURSES_GET_ITEMS = 'courses.getItems';
+export const COURSES_DELETE_ITEM = 'courses.deleteItem';
+export const COURSES_DELETE_ITEMS = 'courses.deleteItems';
+export const COURSES_UPDATE_ITEM = 'courses.updateItem';
+export const COURSES_REPLACE_ITEM = 'courses.replaceItem';
+export const COURSES_CREATE_ITEM = 'courses.createItem';
+
+export const coursesPermissions = [
+  COURSES_GET_ITEM,
+  COURSES_GET_ITEMS,
+  COURSES_DELETE_ITEM,
+  COURSES_DELETE_ITEMS,
+  COURSES_UPDATE_ITEM,
+  COURSES_REPLACE_ITEM,
+  COURSES_CREATE_ITEM,
+];
+
+export const basicUsersPermissions = [
+  USERS_GET_ITEM,
+  USERS_GET_ITEMS,
+  COURSES_GET_ITEM,
+  COURSES_GET_ITEMS,
+];
+
+export const LEARNER_PERMISSIONS = [...basicUsersPermissions];
+
+export const INSTRUCTOR_PERMISSIONS = [...basicUsersPermissions];
 
 export const ADMIN_PERMISSIONS = [
   ...basicUsersPermissions,
@@ -71,4 +98,6 @@ export const ADMIN_PERMISSIONS = [
   USERS_REVOKE_ROLE,
   ...rolesPermissions,
   ...permissionsPermissions,
+  ...coursesPermissions,
+// tslint:disable-next-line:max-file-line-count
 ];

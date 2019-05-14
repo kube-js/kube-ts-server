@@ -34,7 +34,6 @@ const mapValidationErrorsToResponse = ({
       ...getFieldsProperties(error),
       message: translateValidationError({ translation, error }),
     })),
-    message: translation.validationFailed(),
   };
 };
 

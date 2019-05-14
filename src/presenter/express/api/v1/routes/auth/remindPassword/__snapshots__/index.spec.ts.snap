@@ -2,30 +2,26 @@
 
 exports[`@presenter/auth/remindPassword fails to remind user password when payload contains invalid email 1`] = `
 Object {
-  "message": Object {
-    "errors": Array [
-      Object {
-        "field": "email",
-        "message": "Invalid email",
-      },
-    ],
-    "message": "Validation failed",
-  },
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Invalid email",
+    },
+  ],
+  "message": "Validation failed",
   "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
 
 exports[`@presenter/auth/remindPassword fails to remind user password without email 1`] = `
 Object {
-  "message": Object {
-    "errors": Array [
-      Object {
-        "field": "email",
-        "message": "Expected string between 0 and 255 characters long",
-      },
-    ],
-    "message": "Validation failed",
-  },
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+  ],
+  "message": "Validation failed",
   "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;

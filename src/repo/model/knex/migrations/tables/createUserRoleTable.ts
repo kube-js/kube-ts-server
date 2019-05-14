@@ -19,7 +19,7 @@ export default ({ db }: RepoConfig) => {
         .references('id')
         .inTable('roles')
         .onDelete('cascade');
-      table.dateTime('createdAt').notNullable();
+      table.dateTime('createdAt').notNullable().defaultTo(connection.fn.now());
       table.dateTime('updatedAt').nullable();
     });
 

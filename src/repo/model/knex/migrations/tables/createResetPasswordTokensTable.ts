@@ -16,7 +16,7 @@ export default ({ db }: RepoConfig) => {
           .inTable('users')
           .onDelete('cascade');
         table.dateTime('expiresAt');
-        table.dateTime('createdAt');
+        table.dateTime('createdAt').notNullable().defaultTo(connection.fn.now());
         table.dateTime('updatedAt').nullable();
       }
     );

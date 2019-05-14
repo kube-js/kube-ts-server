@@ -5,11 +5,11 @@ import String from '../../../../../../utils/validation/rules/String';
 
 import baseSchema from '../base/schema';
 
-export const schema = {
+export const beforeUpdateSchema = {
   ...baseSchema,
   name: Optional(String(0, VARCHAR_LENGTH)),
 };
 
-const rules = Record(schema);
+const rules = Record(beforeUpdateSchema);
 
 export default rules;
