@@ -8,45 +8,45 @@ import {
   COURSES_REPLACE_ITEM,
   COURSES_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
-import { API_V1 } from '../../../../../../constants/routes';
 
-const COURSES_URL_REGEX = `[${API_V1}/courses]`;
+export const COURSES_URL_REGEX = '[/api/v1/courses]{1}';
+
 
 const coursesPermissions = [
   {
     method: 'GET',
     name: COURSES_GET_ITEM,
-    url: `${COURSES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}`,
+    url: `^${COURSES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'GET',
     name: COURSES_GET_ITEMS,
-    url: `${COURSES_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${COURSES_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'POST',
     name: COURSES_CREATE_ITEM,
-    url: `${COURSES_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${COURSES_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: COURSES_DELETE_ITEMS,
-    url: `${COURSES_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${COURSES_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: COURSES_DELETE_ITEM,
-    url: `[${API_V1}/courses/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${COURSES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PUT',
     name: COURSES_REPLACE_ITEM,
-    url: `[${API_V1}/courses/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${COURSES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PATCH',
     name: COURSES_UPDATE_ITEM,
-    url: `[${API_V1}/courses/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${COURSES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
 ];
 

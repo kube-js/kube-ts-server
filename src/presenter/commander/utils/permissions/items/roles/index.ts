@@ -10,55 +10,54 @@ import {
   ROLES_REVOKE_PERMISSION,
   ROLES_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
-import { API_V1 } from '../../../../../../constants/routes';
 
-const ROLES_URL_REGEX = `[${API_V1}/roles]`;
+export const ROLES_URL_REGEX = '[/api/v1/roles]{1}';
 
 const rolesPermissions = [
   {
     method: 'GET',
     name: ROLES_GET_ITEM,
-    url: `${ROLES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'GET',
     name: ROLES_GET_ITEMS,
-    url: `${ROLES_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'POST',
     name: ROLES_CREATE_ITEM,
-    url: `${ROLES_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'POST',
     name: ROLES_ASSIGN_PERMISSION,
-    url: `${ROLES_URL_REGEX}/${UUID_REGEX}/permissions${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}/${UUID_REGEX}/permissions${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: ROLES_DELETE_ITEMS,
-    url: `${ROLES_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: ROLES_DELETE_ITEM,
-    url: `[${API_V1}/roles/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: ROLES_REVOKE_PERMISSION,
-    url: `[${API_V1}/roles/${UUID_REGEX}/permissions/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}/${UUID_REGEX}/permissions/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PUT',
     name: ROLES_REPLACE_ITEM,
-    url: `[${API_V1}/roles/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PATCH',
     name: ROLES_UPDATE_ITEM,
-    url: `[${API_V1}/roles/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${ROLES_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
 ];
 

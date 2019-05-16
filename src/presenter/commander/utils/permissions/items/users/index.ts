@@ -10,55 +10,54 @@ import {
   USERS_REVOKE_ROLE,
   USERS_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
-import { API_V1 } from '../../../../../../constants/routes';
-
-const USERS_URL_REGEX = `[${API_V1}/users]`;
-
+// ^(/api/v1/users/){1}([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}){1}(\\?([a-z0-9$_.+!*{}"(),;:@&=-]|%[0-9a-f]{2})*)?$
+export const USERS_URL_REGEX = '[/api/v1/users]{1}';
+// ^(/api/v1/users/){1}([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}){1}$
 const usersPermissions = [
   {
     method: 'GET',
     name: USERS_GET_ITEM,
-    url: `${USERS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'GET',
     name: USERS_GET_ITEMS,
-    url: `${USERS_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'POST',
     name: USERS_CREATE_ITEM,
-    url: `${USERS_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: USERS_DELETE_ITEMS,
-    url: `${USERS_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: USERS_DELETE_ITEM,
-    url: `[${API_V1}/users/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PUT',
     name: USERS_REPLACE_ITEM,
-    url: `[${API_V1}/users/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PATCH',
     name: USERS_UPDATE_ITEM,
-    url: `[${API_V1}/users/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}/${UUID_REGEX}]${QUERY_REGEX}$`,
   },
   {
     method: 'POST',
     name: USERS_ASSIGN_ROLE,
-    url: `[${API_V1}/users/${UUID_REGEX}/roles]${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}/${UUID_REGEX}/roles${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: USERS_REVOKE_ROLE,
-    url: `[${API_V1}/users/${UUID_REGEX}/roles/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${USERS_URL_REGEX}/${UUID_REGEX}/roles/${UUID_REGEX}${QUERY_REGEX}$`,
   },
 ];
 

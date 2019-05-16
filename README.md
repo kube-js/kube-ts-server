@@ -67,6 +67,7 @@ npm run test:watch
 - rolePermission
 - permissions
 - resetPasswordTokens
+- courses
 
 ## This repo would not exist if not inspiration coming from:
 

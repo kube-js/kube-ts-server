@@ -22,6 +22,7 @@ const describeApi = (config: Config) =>
           readiness,
           version,
         },
+        courses: '/api/v1/courses',
         permissions: '/api/v1/permissions',
         roles: '/api/v1/roles',
         users: '/api/v1/users',

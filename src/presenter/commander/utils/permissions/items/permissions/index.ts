@@ -8,45 +8,44 @@ import {
   PERMISSIONS_REPLACE_ITEM,
   PERMISSIONS_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
-import { API_V1 } from '../../../../../../constants/routes';
 
-const PERMISSIONS_URL_REGEX = `[${API_V1}/permissions]`;
+export const PERMISSIONS_URL_REGEX = `[/api/v1/permissions]{1}`;
 
 const permissionsPermissions = [
   {
     method: 'GET',
     name: PERMISSIONS_GET_ITEM,
-    url: `${PERMISSIONS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}`,
+    url: `^${PERMISSIONS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'GET',
     name: PERMISSIONS_GET_ITEMS,
-    url: `${PERMISSIONS_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${PERMISSIONS_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'POST',
     name: PERMISSIONS_CREATE_ITEM,
-    url: `${PERMISSIONS_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${PERMISSIONS_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: PERMISSIONS_DELETE_ITEMS,
-    url: `${PERMISSIONS_URL_REGEX}${QUERY_REGEX}`,
+    url: `^${PERMISSIONS_URL_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'DELETE',
     name: PERMISSIONS_DELETE_ITEM,
-    url: `[${API_V1}/permissions/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${PERMISSIONS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PUT',
     name: PERMISSIONS_REPLACE_ITEM,
-    url: `[${API_V1}/permissions/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${PERMISSIONS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'PATCH',
     name: PERMISSIONS_UPDATE_ITEM,
-    url: `[${API_V1}/permissions/${UUID_REGEX}]${QUERY_REGEX}`,
+    url: `^${PERMISSIONS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
 ];
 

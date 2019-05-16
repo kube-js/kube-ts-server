@@ -64,6 +64,6 @@ export const REGEXP_PASSWORD = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@
 export const DEFAULT_DATE_FORMATS = ['DD-MM-YYYY', 'YYYY-MM-DD'];
 
 // @credits: https://stackoverflow.com/questions/136505/searching-for-uuids-in-text-with-regex
-export const QUERY_REGEX = "[?([a-z0-9$_.+!*'(),;:@&=-]|%[0-9a-f]{2})*]?";
+export const QUERY_REGEX = `(\\?([a-z0-9$_.+!*{}"(),;:@&=-]|%[0-9a-f]{2})*)?`;
 export const UUID_REGEX =
-  '[[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}]';
+  '([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}){1}';
