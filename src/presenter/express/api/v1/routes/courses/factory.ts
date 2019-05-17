@@ -11,6 +11,7 @@ import beforeUpdateRules, {
   beforeUpdateSchema,
 } from '../../../../utils/schemas/courses/updateItem';
 import baseFactory from '../utils/baseFactory';
+import beforeCreateItem from './functions/beforeCreateItem';
 import convertDocumentIntoItem from './functions/convertDocumentIntoItem';
 
 const coursesFactory = (config: Config) => {
@@ -26,6 +27,7 @@ const coursesFactory = (config: Config) => {
   const router = baseFactory<Course>({
     config: enhancedConfig,
     factoryConfig: {
+      beforeCreateItem: beforeCreateItem(enhancedConfig),
       convertDocumentIntoItem: convertDocumentIntoItem(enhancedConfig),
     },
     service: config.service.courses,

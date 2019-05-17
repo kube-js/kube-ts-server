@@ -7,7 +7,10 @@ import { BaseFactoryConfig } from '../../../utils/baseFactory';
 const convertDocumentIntoItem = (
   config: BaseFactoryConfig
 ): DocumentIntoItem<Course> => ({ document }) => {
-  const data = _pick(Object.keys(config.beforeCreateSchema), document);
+  const data = _pick(
+    [...Object.keys(config.beforeCreateSchema), 'author_id'],
+    document
+  );
 
   return toCamel(data);
 };

@@ -11,7 +11,7 @@ import {
   ROLES_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
 
-export const ROLES_URL_REGEX = '[/api/v1/roles]{1}';
+export const ROLES_URL_REGEX = '(/api/v1/roles)';
 
 const rolesPermissions = [
   {

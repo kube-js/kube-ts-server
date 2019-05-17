@@ -9,7 +9,7 @@ import {
   PERMISSIONS_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
 
-export const PERMISSIONS_URL_REGEX = `[/api/v1/permissions]{1}`;
+export const PERMISSIONS_URL_REGEX = `(/api/v1/permissions)`;
 
 const permissionsPermissions = [
   {

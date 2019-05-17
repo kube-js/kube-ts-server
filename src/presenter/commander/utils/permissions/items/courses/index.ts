@@ -9,7 +9,7 @@ import {
   COURSES_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
 
-export const COURSES_URL_REGEX = '[/api/v1/courses]{1}';
+export const COURSES_URL_REGEX = '(/api/v1/courses)';
 
 
 const coursesPermissions = [

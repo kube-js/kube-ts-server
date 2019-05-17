@@ -41,6 +41,7 @@ const baseFactory = <I extends Item>({
   const overrides = _defaultTo({})(factoryConfig);
 
   return expressFactory<I>({
+    // TODO: add default sort option for express js-items
     beforeCreateItem: beforeCreateItem(config),
     beforeDeleteItem: beforeDeleteItem(config),
     beforeDeleteItems: beforeDeleteItems(config),

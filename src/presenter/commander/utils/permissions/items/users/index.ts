@@ -10,9 +10,8 @@ import {
   USERS_REVOKE_ROLE,
   USERS_UPDATE_ITEM,
 } from '../../../../../../constants/permissions';
-// ^(/api/v1/users/){1}([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}){1}(\\?([a-z0-9$_.+!*{}"(),;:@&=-]|%[0-9a-f]{2})*)?$
-export const USERS_URL_REGEX = '[/api/v1/users]{1}';
-// ^(/api/v1/users/){1}([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}){1}$
+export const USERS_URL_REGEX = '(/api/v1/users)';
+
 const usersPermissions = [
   {
     method: 'GET',
@@ -47,7 +46,7 @@ const usersPermissions = [
   {
     method: 'PATCH',
     name: USERS_UPDATE_ITEM,
-    url: `^${USERS_URL_REGEX}/${UUID_REGEX}]${QUERY_REGEX}$`,
+    url: `^${USERS_URL_REGEX}/${UUID_REGEX}${QUERY_REGEX}$`,
   },
   {
     method: 'POST',
