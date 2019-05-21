@@ -1,9 +1,11 @@
 import expressFactory from '@js-items/express/dist/factory';
 import FactoryConfig from '@js-items/express/dist/FactoryConfig';
-import { Item } from '@js-items/foundation';
+import { Sort } from '@js-items/foundation';
 import Facade from '@js-items/foundation/dist/Facade';
+import { desc } from '@js-items/foundation/dist/interfaces/SortOrder';
 import _defaultTo from 'ramda/src/defaultTo';
 import Record from 'rulr/Record';
+import BaseItem from '../../../../../../../types/items/BaseItem';
 import Config from '../../../../../presenterFactory/Config';
 import beforeCreateItem from '../../utils/beforeCreateItem';
 import beforeDeleteItem from '../../utils/beforeDeleteItem';
@@ -27,13 +29,13 @@ export interface BaseFactoryConfig extends Config {
   readonly beforeReplaceRules: ReturnType<typeof Record>;
 }
 
-export interface Options<I extends Item> {
+export interface Options<I extends BaseItem> {
   readonly config: BaseFactoryConfig;
   readonly service: Facade<I>;
   readonly factoryConfig?: Partial<FactoryConfig<I>>;
 }
 
-const baseFactory = <I extends Item>({
+const baseFactory = <I extends BaseItem>({
   config,
   service,
   factoryConfig,
@@ -51,6 +53,8 @@ const baseFactory = <I extends Item>({
     beforeUpdateItem: beforeUpdateItem(config),
     convertItemIntoDocument: convertItemIntoDocument(config),
     createPatch: createPatch(config),
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    defaultSort: { createdAt: desc } as Sort<I>,
     service,
     ...overrides,
   });
