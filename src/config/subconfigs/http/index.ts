@@ -137,7 +137,7 @@ const config: HttpConfig = {
           TOO_MANY_REQUEST_MESSAGE
         ),
         skipMethods: getStringValue(
-          process.env.RATE_LIMITER_MESSAGE,
+          process.env.RATE_LIMITER_SKIP_METHODS,
           'OPTIONS'
         ),
         statusCode: getNumberValue(
