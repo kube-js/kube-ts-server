@@ -1,4 +1,4 @@
-// tslint:disable:no-magic-numbers
+
 import { TOO_MANY_REQUESTS } from 'http-status-codes';
 import {
   CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME,
@@ -9,6 +9,9 @@ import {
   EXPRESS_HOST,
   EXPRESS_PORT,
   LIVENESS_CHECK_URL,
+  RATE_LIMITER_MAX_NUMBER_OF_REQUEST,
+  RATE_LIMITER_SKIP_METHODS,
+  RATE_LIMITER_WINDOW_MS,
   READINESS_CHECK_URL,
   TOO_MANY_REQUEST_MESSAGE,
   TRUST_PROXY,
@@ -98,7 +101,7 @@ const config: HttpConfig = {
       process.env.CLIENT_RESET_PASSWORD_URL,
       CLIENT_RESET_PASSWORD_URL
     ),
-    siteUrl: getStringValue(process.env.CLIENT_SITE_URL, CLIENT_URL),
+    siteUrl: getStringValue(process.env.CLIENT_URL, CLIENT_URL),
     verifyEmailUrl: getStringValue(
       process.env.CLIENT_VERIFY_EMAIL_URL,
       CLIENT_VERIFY_EMAIL_URL
@@ -130,7 +133,7 @@ const config: HttpConfig = {
         enabled: getBooleanValue(process.env.RATE_LIMITER_ENABLED, true),
         maxNumberOfRequest: getNumberValue(
           process.env.RATE_LIMITER_MAX_NUMBER_OF_REQUEST,
-          100
+          RATE_LIMITER_MAX_NUMBER_OF_REQUEST
         ),
         message: getStringValue(
           process.env.RATE_LIMITER_MESSAGE,
@@ -138,7 +141,7 @@ const config: HttpConfig = {
         ),
         skipMethods: getStringValue(
           process.env.RATE_LIMITER_SKIP_METHODS,
-          'OPTIONS'
+          RATE_LIMITER_SKIP_METHODS
         ),
         statusCode: getNumberValue(
           process.env.RATE_LIMITER_STATUS_CODE,
@@ -146,7 +149,7 @@ const config: HttpConfig = {
         ),
         windowMs: getNumberValue(
           process.env.RATE_LIMITER_WINDOW_MS,
-          10 * 60 * 1000 /* 10 minutes */
+          RATE_LIMITER_WINDOW_MS
         ),
       },
     },
