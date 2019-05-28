@@ -18,7 +18,7 @@ export const TOO_MANY_REQUEST_MESSAGE =
 export const RATE_LIMITER_MAX_NUMBER_OF_REQUEST = 100;
 
 export const RATE_LIMITER_SKIP_METHODS = 'OPTIONS'; // comma separated list of http methods i.e. OPTIONS,GET
-export const RATE_LIMITER_WINDOW_MS = 10 * 60 * 1000; /* 10 minutes */;
+export const RATE_LIMITER_WINDOW_MS = 10 * 60 * 1000; /* 10 minutes */
 
 // AUTH
 export const JWT_EXPIRES_IN_MS = 86400000; // 24hrs
@@ -30,6 +30,15 @@ export const AUTH_BODY_FIELD_NAME = 'auth_token';
 export const ACCOUNT_LOCKOUT_TIME_IN_MINUTES = 10;
 export const MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS = 5;
 export const DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES = 60;
+
+// LOGGER
+export const LOGGER_TYPE = 'winston';
+export const WINSTON_LEVEL = 'info';
+export const WINSTON_LOGGER_TYPE = 'none';
+export const LOGGLY_JSON = true;
+export const LOGGLY_TAGS = 'kube-ts-server,api';
+export const LOGGLY_TOKEN = 'your-loggly-token';
+export const LOGGLY_SUBDOMAIN = 'your-loggly-subdomain';
 
 // MODEL
 export const UUID_LENGTH = 36;
