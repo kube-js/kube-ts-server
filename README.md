@@ -68,6 +68,7 @@ npm run test:watch
 - permissions
 - resetPasswordTokens
 - courses
+- enrolments
 
 ## This repo would not exist if not inspiration coming from:
 

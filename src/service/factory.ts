@@ -13,6 +13,7 @@ export default (config: FactoryConfig) => ({
   auth: authFactory(config),
   closeDbConnection: config.repo.closeDbConnection,
   courses: config.repo.courses,
+  enrolments: config.repo.enrolments,
   hasPermission: hasPermission(config),
   migrations: migrationsServiceFactory({
     repo: config.repo.migrations,
