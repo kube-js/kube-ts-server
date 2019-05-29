@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   AUTH,
   COURSES,
-  // ENROLMENTS,
+  ENROLMENTS,
   // OBJECTS,
   // COMMENTS
   PERMISSIONS,
@@ -12,6 +12,7 @@ import {
 import Config from '../../presenterFactory/Config';
 import authFactory from './routes/auth/factory';
 import coursesFactory from './routes/courses/factory';
+import enrolmentsFactory from './routes/enrolments/factory';
 import permissionsFactory from './routes/permissions/factory';
 import rolesFactory from './routes/roles/factory';
 import usersFactory from './routes/users/factory';
@@ -32,7 +33,7 @@ const apiV1 = (config: Config): Router => {
   router.use(ROLES, rolesFactory(config));
   router.use(PERMISSIONS, permissionsFactory(config));
   router.use(COURSES, coursesFactory(config));
-  // router.use(ENROLMENTS, enrolmentsFactory(config));
+  router.use(ENROLMENTS, enrolmentsFactory(config));
   // router.use(OBJECTS, objectsFactory(config));
   // router.use(COMMENTS, commentsFactory(config));
 
