@@ -44,6 +44,12 @@ export const LOGGLY_SUBDOMAIN = 'your-loggly-subdomain';
 export const UUID_LENGTH = 36;
 export const VARCHAR_LENGTH = 255;
 export const TEXT_LENGTH = 65535;
+export const KNEX_CLIENT = 'mysql';
+export const KNEX_DATABASE = 'test_db';
+export const KNEX_HOST = '127.0.0.1';
+export const KNEX_PASSWORD = '';
+export const KNEX_USER = 'root';
+export const MODELS_REPO_TYPE = 'knex';
 
 // MAIL
 export const SMTP_API_KEY = 'xxxxx';
