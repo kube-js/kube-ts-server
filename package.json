@@ -9,7 +9,7 @@
     "@js-items/knex": "1.0.16",
     "@js-migrations/commander": "2.0.9",
     "@js-migrations/core": "6.2.3",
-    "@js-migrations/knex": "3.0.7",
+    "@js-migrations/knex": "3.0.8",
     "argon2": "0.23.0",
     "body-parser": "1.19.0",
     "boolean": "1.0.0",
