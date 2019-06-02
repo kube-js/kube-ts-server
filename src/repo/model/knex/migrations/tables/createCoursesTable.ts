@@ -10,7 +10,7 @@ export default ({ db }: RepoConfig) => {
     const query = connection.schema.createTable('courses', table => {
       table.string('id', UUID_LENGTH).primary();
       table
-        .string('authorId', UUID_LENGTH)
+        .string('userId', UUID_LENGTH)
         .references('id')
         .inTable('users')
         .onDelete('cascade');
