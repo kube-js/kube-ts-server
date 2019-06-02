@@ -22,7 +22,6 @@ const defaultTransactionHandler = (config: BaseFactoryConfig) =>
 
       validateData(rules)(payload);
 
-      // user who has permission to create an article is an author
       req.body.user_id = user.id;
     },
     config,

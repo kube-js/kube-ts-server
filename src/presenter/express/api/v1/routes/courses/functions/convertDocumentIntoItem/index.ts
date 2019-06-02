@@ -8,7 +8,7 @@ const convertDocumentIntoItem = (
   config: BaseFactoryConfig
 ): DocumentIntoItem<Course> => ({ document }) => {
   const data = _pick(
-    [...Object.keys(config.beforeCreateSchema), 'author_id'],
+    [...Object.keys(config.beforeCreateSchema), 'user_id'],
     document
   );
 
