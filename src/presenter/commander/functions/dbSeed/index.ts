@@ -31,7 +31,7 @@ const learnerOptions = {
   userType: 'User',
 };
 
-const processExitTimeout = 10000;
+export const processExitTimeout = 10000;
 
 const dbSeed = (config: FactoryConfig) => async () => {
   try {
@@ -101,7 +101,7 @@ const dbSeed = (config: FactoryConfig) => async () => {
       process.exit(0);
     }, processExitTimeout);
   } catch (err) {
-    config.logger.error(`Seeding error ${err}`);
+    config.logger.error(`Seeding error ${err}`, err);
 
     // FYI: allow logger to send all the logs
     setTimeout(() => {
