@@ -1,6 +1,7 @@
 // tslint:disable:no-console
 /* @credits: https://github.com/banzaicloud/node-service-tools */
 import { StoppableServer } from 'stoppable';
+import { processExitTimeout } from '../../../../../commander/functions/dbSeed';
 import { Config } from '../index';
 
 export interface Options {
@@ -19,18 +20,24 @@ const stopServer = async (server: StoppableServer) =>
   });
 
 const gracefulShutDown = ({ config, reason }: Options) => async () => {
-  /** TODO implement logger */
-  try {
-    const { server, service } = config;
+  const { server, service, logger } = config;
 
-    console.log(`Gracefully shutting down all resources caused by ${reason}`);
+  try {
+    logger.warn(`Gracefully shutting down all resources caused by ${reason}`);
 
     await stopServer(server);
+
     await service.closeDbConnection();
-    process.exit(0);
+
+    setTimeout(() => {
+      process.exit(0);
+    }, processExitTimeout);
   } catch (err) {
-    console.error(err, 'failed to close all resources');
-    process.exit(1);
+    logger.error(`Failed to close all resources ${err}`);
+
+    setTimeout(() => {
+      process.exit(1);
+    }, processExitTimeout);
   }
 };
 
