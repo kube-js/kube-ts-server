@@ -10,14 +10,6 @@ export interface Options {
   readonly text?: string;
 }
 
-// export interface MailOptions {
-//   readonly from: string;
-//   readonly html: string;
-//   readonly subject: string;
-//   readonly text: string;
-//   readonly to: string;
-// }
-
 export interface Config {
   readonly mailer: Transporter;
 }
