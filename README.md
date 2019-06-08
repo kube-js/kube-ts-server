@@ -7,7 +7,7 @@
 
 ## Dockerized restful API powered by express/typescript ready to be deployed on kubernetes cluster
 
-## Demo
+## Demo - deployed on digital ocean kubernetes cluster
 
 [https://demo.mariuszrajczakowski.me/api/v1](https://demo.mariuszrajczakowski.me/api/v1)
 
@@ -57,7 +57,7 @@ npm run dev
 
 ```js
 npm run test
-or
+
 npm run test:watch
 ```
 ## Currently includes the following models:
@@ -69,6 +69,8 @@ npm run test:watch
 - resetPasswordTokens
 - courses
 - enrolments
+- sections
+- objects
 
 ## This repo would not exist if not inspiration coming from:
 
