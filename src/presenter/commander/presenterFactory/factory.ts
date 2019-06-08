@@ -8,19 +8,17 @@ import dbSeed from '../functions/dbSeed';
 import FactoryConfig from './FactoryConfig';
 
 export default (factoryConfig: FactoryConfig) => {
-  const { program, service } = factoryConfig;
+  const { program, service, logger } = factoryConfig;
 
   commanderMigrationsPresenterFactory({
     handleError: err => {
       handleMigrationError(err, (message: string, ...args: any[]) => {
-        // tslint:disable-next-line:no-console
-        console.error(message, args);
+        logger.error(message, args);
       });
     },
     log: status => {
       defaultLog(status, message => {
-        // tslint:disable-next-line:no-console
-        console.log(status, message);
+        logger.info(status, message);
       });
     },
     program,
