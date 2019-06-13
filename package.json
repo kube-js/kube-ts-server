@@ -59,7 +59,7 @@
     "@types/git-rev": "0.2.0",
     "@types/helmet": "0.0.43",
     "@types/is-plain-obj": "1.1.0",
-    "@types/jest": "24.0.13",
+    "@types/jest": "24.0.14",
     "@types/jsonwebtoken": "8.3.2",
     "@types/mailparser": "2.4.0",
     "@types/node": "11.13.14",
