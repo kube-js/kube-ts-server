@@ -6,6 +6,7 @@ import { STUDENT } from '../../../../constants/roles';
 import { Options as MailOptions } from '../../../../repo/mail/nodemailer/functions/sendEmail';
 import { GenderType } from '../../../../types/items/User';
 import ConflictError from '../../../../utils/errors/http/ConflictError';
+import NotFoundError from '../../../../utils/errors/http/NotFoundError';
 import hashPassword from '../../../../utils/helpers/auth/hashPassword';
 import getUtcDate from '../../../../utils/helpers/date/getUtcDate';
 import Config from '../../../FactoryConfig';
@@ -36,7 +37,6 @@ export default ({ repo }: Config) => async ({
 }: Options) => {
   try {
     const id = uuid();
-    const roleId = uuid();
     const userRoleId = uuid();
 
     await repo.users.createItem({
@@ -59,14 +59,19 @@ export default ({ repo }: Config) => async ({
       id,
     });
 
-    const { item: studentRole } = await repo.roles.createItem({
-      id: roleId,
-      item: {
-        createdAt: getUtcDate(),
-        id,
-        name: STUDENT,
+    const { items } = await repo.roles.getItems({
+      filter: {
+        name: {
+          $eq: STUDENT,
+        },
       },
     });
+
+    if (items.length === 0) {
+      throw new NotFoundError();
+    }
+
+    const studentRole = items[0];
 
     await repo.userRole.createItem({
       id: userRoleId,
@@ -93,4 +98,5 @@ export default ({ repo }: Config) => async ({
 
     throw error;
   }
+// tslint:disable-next-line:max-file-line-count
 };

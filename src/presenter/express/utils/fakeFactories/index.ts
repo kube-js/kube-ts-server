@@ -15,17 +15,15 @@ export interface Options<I extends Item> {
 }
 
 const baseFactory = <I extends Item>(itemData: Partial<I>) => async ({
-  overrides,
-  times,
+  overrides = {},
+  times = 1,
   service,
 }: Options<I>): Promise<I[]> => {
   const models: Partial<I>[] = [];
 
-  const count = times !== undefined ? times : 1;
-
   _times(() => {
     models.push(itemData);
-  }, count);
+  }, times);
 
   const promises = models.map(async model => {
     const id = uuid();

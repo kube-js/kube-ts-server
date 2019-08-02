@@ -5,6 +5,7 @@ import { CONFLICT, CREATED } from 'http-status-codes';
 import { TEXT_LENGTH } from '../../../../../../../constants';
 import { STUDENT } from '../../../../../../../constants/roles';
 import { API_V1, AUTH, REGISTER } from '../../../../../../../constants/routes';
+import roleFactory from '../../../../../utils/fakeFactories/roles/factory';
 import usersFactory from '../../../../../utils/fakeFactories/users/factory';
 import assertOnResponseAndStatus, {
   BaseAssertionOptions,
@@ -177,6 +178,8 @@ describe('@presenter/auth/register', () => {
       verifyYourEmailText: jest.fn(() => link),
     }));
 
+    await roleFactory({ service: service.roles });
+
     const fields = {
       bio: 'short bio',
       date_of_birth: '1970-01-01',
@@ -192,7 +195,6 @@ describe('@presenter/auth/register', () => {
     });
 
     expect(id.roles).toEqual([STUDENT]);
-
 
     const { item } = await service.users.getItem({
       id,
