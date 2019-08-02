@@ -150,7 +150,9 @@ Object {
 
 exports[`@presenter/auth/register registers user returning back it visible fields and jwt token 1`] = `
 Object {
-  "roles": Array [],
+  "roles": Array [
+    "student",
+  ],
   "token": "token",
   "user": Object {
     "bio": "short bio",

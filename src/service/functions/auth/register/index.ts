@@ -2,6 +2,7 @@ import { ConflictingItemError } from '@js-items/foundation';
 import _isNil from 'ramda/src/isNil';
 import _pluck from 'ramda/src/pluck';
 import { v4 as uuid } from 'uuid';
+import { STUDENT } from '../../../../constants/roles';
 import { Options as MailOptions } from '../../../../repo/mail/nodemailer/functions/sendEmail';
 import { GenderType } from '../../../../types/items/User';
 import ConflictError from '../../../../utils/errors/http/ConflictError';
@@ -35,6 +36,8 @@ export default ({ repo }: Config) => async ({
 }: Options) => {
   try {
     const id = uuid();
+    const roleId = uuid();
+    const userRoleId = uuid();
 
     await repo.users.createItem({
       id,
@@ -54,6 +57,25 @@ export default ({ repo }: Config) => async ({
 
     const { item: insertedUser } = await repo.users.getItem({
       id,
+    });
+
+    const { item: studentRole } = await repo.roles.createItem({
+      id: roleId,
+      item: {
+        createdAt: getUtcDate(),
+        id,
+        name: STUDENT,
+      },
+    });
+
+    await repo.userRole.createItem({
+      id: userRoleId,
+      item: {
+        createdAt: getUtcDate(),
+        id: userRoleId,
+        roleId: studentRole.id,
+        userId: insertedUser.id,
+      },
     });
 
     const roles = await getRolesForUser({ repo, userId: id });

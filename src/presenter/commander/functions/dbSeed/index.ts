@@ -2,9 +2,9 @@ import _pluck from 'ramda/src/pluck';
 import {
   ADMIN_PERMISSIONS,
   INSTRUCTOR_PERMISSIONS,
-  LEARNER_PERMISSIONS,
+  STUDENT_PERMISSIONS,
 } from '../../../../constants/permissions';
-import { ADMIN, INSTRUCTOR, LEARNER } from '../../../../constants/roles';
+import { ADMIN, INSTRUCTOR, STUDENT } from '../../../../constants/roles';
 import { TEST_VALID_PASSWORD } from '../../../express/utils/tests/testData';
 import FactoryConfig from '../../presenterFactory/FactoryConfig';
 import permissions from '../../utils/permissions';
@@ -25,19 +25,19 @@ const instructorsOptions = {
   userType: 'Instructor',
 };
 
-const learnerOptions = {
-  defaultEmail: 'learner@example.com',
+const studentOptions = {
+  defaultEmail: 'student@example.com',
   defaultPassword: TEST_VALID_PASSWORD,
-  userType: 'User',
+  userType: 'Student',
 };
 
 export const processExitTimeout = 10000;
 
 const dbSeed = (config: FactoryConfig) => async () => {
   try {
-    const [adminRoleId, instructorRoleId, learnerRoleId] = await createRoles(
+    const [adminRoleId, instructorRoleId, studentRoleId] = await createRoles(
       config
-    )([ADMIN, INSTRUCTOR, LEARNER]);
+    )([ADMIN, INSTRUCTOR, STUDENT]);
 
     const createdPermissions = await createPermissions(config)(permissions);
 
@@ -51,11 +51,11 @@ const dbSeed = (config: FactoryConfig) => async () => {
       INSTRUCTOR_PERMISSIONS.includes(name)
     );
 
-    const learnerPermissions = createdPermissions.filter(({ name }) =>
-      LEARNER_PERMISSIONS.includes(name)
+    const studentPermissions = createdPermissions.filter(({ name }) =>
+      STUDENT_PERMISSIONS.includes(name)
     );
 
-    const learnerPermissionsIds = _pluck('id', learnerPermissions);
+    const studentPermissionsIds = _pluck('id', studentPermissions);
     const instructorPermissionsIds = _pluck('id', instructorPermissions);
 
     await connectPermissionsToRoles(config)({
@@ -71,9 +71,9 @@ const dbSeed = (config: FactoryConfig) => async () => {
     });
 
     await connectPermissionsToRoles(config)({
-      permissionsIds: learnerPermissionsIds,
-      roleId: learnerRoleId,
-      roleName: LEARNER,
+      permissionsIds: studentPermissionsIds,
+      roleId: studentRoleId,
+      roleName: STUDENT,
     });
 
     // admin
@@ -88,10 +88,10 @@ const dbSeed = (config: FactoryConfig) => async () => {
       rolesIds: [instructorRoleId],
     });
 
-    // learner
+    // student
     await createUser(config)({
-      ...learnerOptions,
-      rolesIds: [learnerRoleId],
+      ...studentOptions,
+      rolesIds: [studentRoleId],
     });
 
     config.logger.info('Seeding successful');

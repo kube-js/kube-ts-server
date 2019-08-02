@@ -21,7 +21,7 @@ export default ({ db }: RepoConfig) => {
       table.boolean('isApproved').defaultTo(false);
       table.string('slug').unique();
       table.text('description');
-      table.dateTime('createdAt').notNullable().defaultTo(connection.fn.now());
+      table.dateTime('createdAt').notNullable();
       table.dateTime('updatedAt').nullable();
       table.dateTime('deletedAt').nullable();
     });

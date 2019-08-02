@@ -105,7 +105,7 @@ export const basicUsersPermissions = [
   COURSES_GET_ITEMS,
 ];
 
-export const LEARNER_PERMISSIONS = [...basicUsersPermissions];
+export const STUDENT_PERMISSIONS = [...basicUsersPermissions];
 
 export const INSTRUCTOR_PERMISSIONS = [...basicUsersPermissions];
 

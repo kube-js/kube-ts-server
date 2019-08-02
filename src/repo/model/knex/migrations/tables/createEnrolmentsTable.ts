@@ -21,8 +21,7 @@ export default ({ db }: RepoConfig) => {
         .onDelete('cascade');
       table
         .dateTime('createdAt')
-        .notNullable()
-        .defaultTo(connection.fn.now());
+        .notNullable();
       table.dateTime('updatedAt').nullable();
       table.dateTime('deletedAt').nullable();
       table.unique(['courseId', 'userId'])
