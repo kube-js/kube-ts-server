@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: kubejs/kube-ts-server
-  tag: 1.4.2
+  tag: 1.4.3
   pullPolicy: Always
   containerPort: 3000
 
@@ -85,5 +85,8 @@ configMap: {}
   # WINSTON_LOGGER_TYPE=loggly
   # LOGGLY_JSON=true
   # LOGGLY_TAGS=tag1,tag2
+  # CLIENT_RESET_PASSWORD_URL=
+  # CLIENT_VERIFY_EMAIL_URL=
+  # CLIENT_URL=
 
 
