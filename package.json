@@ -57,7 +57,7 @@
     "@types/express-rate-limit": "3.3.2",
     "@types/faker": "4.1.5",
     "@types/git-rev": "0.2.0",
-    "@types/helmet": "0.0.43",
+    "@types/helmet": "0.0.44",
     "@types/is-plain-obj": "1.1.0",
     "@types/jest": "24.0.18",
     "@types/jsonwebtoken": "8.3.3",
