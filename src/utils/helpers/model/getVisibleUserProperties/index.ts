@@ -14,6 +14,7 @@ export default (user: User): Partial<User> =>
       'dateOfBirth',
       'gender',
       'verifiedAt',
+      'verifyToken',
       'loginLastAttemptAt',
     ],
     user

@@ -10,6 +10,7 @@ import initTests from '../../../../../utils/tests/initTests';
 import {
   TEST_DIFFERENT_VALID_PASSWORD,
   TEST_INVALID_EMAIL,
+  TEST_UUID,
   TEST_VALID_EMAIL,
   TEST_VALID_PASSWORD,
 } from '../../../../../utils/tests/testData';
@@ -145,6 +146,7 @@ describe('@presenter/auth/login', () => {
       overrides: {
         id: '1',
         password: await hashPassword(TEST_VALID_PASSWORD),
+        verifyToken: TEST_UUID,
       },
       service: service.users,
     });
@@ -158,6 +160,8 @@ describe('@presenter/auth/login', () => {
     expect(body.token).toBe('token');
     expect(body.user.email).toBe(user.email);
     expect(body.user.id).toBe(user.id);
+    expect(body.user.verify_token).toBe(TEST_UUID);
+    
     expect(body.roles).toEqual([]);
   });
   // tslint:disable-next-line:max-file-line-count

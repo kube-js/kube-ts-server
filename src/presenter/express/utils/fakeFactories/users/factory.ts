@@ -2,6 +2,7 @@
 import faker from 'faker';
 import User from '../../../../../types/items/User';
 import hashPassword from '../../../../../utils/helpers/auth/hashPassword';
+import { TEST_UUID } from '../../tests/testData';
 import baseFactory, { Options } from '../index';
 
 const constantDate = new Date('2019-03-27T21:32:31.000Z');
@@ -17,6 +18,7 @@ const createUserItemData = async () => ({
   loginLastAttemptAt: constantDate,
   password: await hashPassword(faker.internet.password()),
   verifiedAt: constantDate,
+  verifyToken: TEST_UUID,
 });
 
 const usersFactory = async (options: Options<User>) => {

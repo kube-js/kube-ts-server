@@ -22,7 +22,7 @@ export default (config: Config) =>
 
     const visibleUserData: Partial<User> = getVisibleUserProperties(user);
     const visibleRoleData: string[] = getVisibleRolesProperties(roles);
-
+    
     const token: string = generateToken({
       config: config.appConfig.auth.jwt,
       data: visibleUserData,
