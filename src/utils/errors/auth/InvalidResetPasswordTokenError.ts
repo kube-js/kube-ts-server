@@ -1,10 +1,10 @@
 import { BaseError } from 'make-error';
 
 export default class InvalidResetPasswordTokenError extends BaseError {
-  public email: string;
+  public token: string;
 
-  constructor(email: string) {
+  constructor(token: string) {
     super();
-    this.email = email;
+    this.token = token;
   }
 }

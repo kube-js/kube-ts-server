@@ -32,13 +32,7 @@ Object {
 
 exports[`@presenter/auth/resetPassword fails to reset password with invalid email 1`] = `
 Object {
-  "errors": Array [
-    Object {
-      "field": "email",
-      "message": "Invalid email",
-    },
-  ],
-  "message": "Validation failed",
+  "message": "Invalid reset password token",
   "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
 }
 `;
@@ -86,10 +80,6 @@ exports[`@presenter/auth/resetPassword fails to reset password without payload 1
 Object {
   "errors": Array [
     Object {
-      "field": "email",
-      "message": "Expected string between 0 and 255 characters long",
-    },
-    Object {
       "field": "password",
       "message": "Expected string between 0 and 255 characters long",
     },
@@ -122,7 +112,7 @@ Object {
 
 exports[`@presenter/auth/resetPassword resets password and send confirming email 1`] = `
 Object {
-  "message": "Password changed successfully. You can now log in.",
+  "message": "Password changed successfully",
 }
 `;
 
