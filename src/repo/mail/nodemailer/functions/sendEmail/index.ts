@@ -1,13 +1,16 @@
 import { Transporter } from 'nodemailer';
 import isString from '../../../../../utils/helpers/commons/isString';
 
-export interface Options {
+export interface BaseOptions {
   readonly from: string;
   readonly cc?: string | string[];
-  readonly to: string | string[];
   readonly subject: string;
   readonly html: string;
   readonly text?: string;
+}
+
+export interface Options extends BaseOptions {
+  readonly to: string | string[];
 }
 
 export interface Config {

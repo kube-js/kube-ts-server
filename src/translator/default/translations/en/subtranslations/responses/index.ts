@@ -1,9 +1,9 @@
 import Responses from '../../../interfaces/Responses';
 
 const responsesTranslations: Responses = {
-  accountVerifiedSuccessfully: () => 'Account verified successfully. You can now log in.',
+  accountVerifiedSuccessfully: () => 'Account verified successfully',
   created: () => 'Created',
-  passwordChangedSuccessfully: () => 'Password changed successfully. You can now log in.',
+  passwordChangedSuccessfully: () => 'Password changed successfully',
   resetPasswordLinkSent: () =>
     `If the email you specified exists in our system, we've sent a password reset link to it.`,
 };

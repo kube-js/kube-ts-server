@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES } from '../../../../constants';
-import { Options as MailOptions } from '../../../../repo/mail/nodemailer/functions/sendEmail';
+import { BaseOptions } from '../../../../repo/mail/nodemailer/functions/sendEmail';
 import ExpiredResetPasswordTokenError from '../../../../utils/errors/auth/ExpiredResetPasswordTokenError';
 import InvalidResetPasswordTokenError from '../../../../utils/errors/auth/InvalidResetPasswordTokenError';
 import hashPassword from '../../../../utils/helpers/auth/hashPassword';
@@ -9,14 +9,12 @@ import lessThanAgo from '../../../../utils/helpers/date/lessThanAgo';
 import Config from '../../../FactoryConfig';
 
 export interface Options {
-  readonly email: string;
   readonly password: string;
-  readonly mailOptions: MailOptions;
+  readonly mailOptions: BaseOptions;
   readonly token: string;
 }
 
 export default ({ repo }: Config) => async ({
-  email,
   password,
   mailOptions,
   token,
@@ -28,7 +26,7 @@ export default ({ repo }: Config) => async ({
   });
 
   if (items.length === 0) {
-    throw new InvalidResetPasswordTokenError(email);
+    throw new InvalidResetPasswordTokenError(token);
   }
 
   const resetPasswordTokenModel = items[0];
@@ -37,19 +35,20 @@ export default ({ repo }: Config) => async ({
 
   const { items: users } = await repo.users.getItems({
     filter: {
-      email,
       id: userId,
     },
   });
 
   if (users.length === 0) {
-    throw new InvalidResetPasswordTokenError(email);
+    throw new InvalidResetPasswordTokenError(token);
   }
+
+  const user = users[0];
 
   const expiresAt = moment(resetPasswordTokenModel.expiresAt);
 
   if (!expiresAt.isValid()) {
-    throw new InvalidResetPasswordTokenError(email);
+    throw new InvalidResetPasswordTokenError(token);
   }
 
   const isTokenExpired = !lessThanAgo({
@@ -59,7 +58,7 @@ export default ({ repo }: Config) => async ({
   });
 
   if (isTokenExpired) {
-    throw new ExpiredResetPasswordTokenError(email);
+    throw new ExpiredResetPasswordTokenError(token);
   }
 
   await repo.users.updateItem({
@@ -77,5 +76,5 @@ export default ({ repo }: Config) => async ({
     id: resetPasswordTokenModel.id,
   });
 
-  await repo.sendEmail(mailOptions);
+  await repo.sendEmail({ ...mailOptions, to: user.email });
 };
