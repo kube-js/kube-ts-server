@@ -163,6 +163,7 @@ Object {
     "gender": "male",
     "id": "25742910-c654-4481-949f-c3f01e4e823f",
     "last_name": "Doe",
+    "verify_token": "25742910-c654-4481-949f-c3f01e4e823f",
   },
 }
 `;

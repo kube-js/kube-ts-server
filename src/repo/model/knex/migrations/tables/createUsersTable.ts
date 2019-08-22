@@ -19,6 +19,15 @@ export default ({ db }: RepoConfig) => {
       table.enum('gender', Object.keys(GenderType));
       table.dateTime('verifiedAt').nullable();
       table.string('verifyToken', UUID_LENGTH).nullable();
+      // https://serverless.com/blog/s3-one-time-signed-url/
+      // https://github.com/expressjs/multer
+      // https://www.js-tutorials.com/nodejs-tutorial/amazon-s3-image-upload-using-nodejs/
+      // https://github.com/badunk/multer-s3
+      // https://blog.bigbinary.com/2018/09/04/uploading-files-directly-to-s3-using-pre-signed-post-request.html
+      // https://github.com/SanderKnape/aws-upload-to-s3
+      // https://www.youtube.com/watch?v=ASuU4km3VHE
+      // https://www.quora.com/How-do-I-link-a-file-from-S3-to-DynamoDB
+      // table.string('avatar');
       table.dateTime('deletedAt').nullable();
       table
         .integer('loginFailedAttempts')
