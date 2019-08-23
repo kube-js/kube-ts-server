@@ -8,14 +8,15 @@ export default (user: User): Partial<User> =>
       'updatedAt',
       'id',
       'email',
+      'avatar',
       'firstName',
       'lastName',
       'bio',
       'dateOfBirth',
       'gender',
       'verifiedAt',
-      'verifyToken',
       'loginLastAttemptAt',
+      'verifyLastAttemptAt'
     ],
     user
   );

@@ -98,5 +98,5 @@ export default ({ repo }: Config) => async ({
 
     throw error;
   }
-// tslint:disable-next-line:max-file-line-count
+  // tslint:disable-next-line:max-file-line-count
 };

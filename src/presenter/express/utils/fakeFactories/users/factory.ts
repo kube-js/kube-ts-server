@@ -8,7 +8,6 @@ import baseFactory, { Options } from '../index';
 const constantDate = new Date('2019-03-27T21:32:31.000Z');
 
 const createUserItemData = async () => ({
-  accountLockoutExpiresAt: null,
   bio: faker.lorem.sentences(10),
   dateOfBirth: faker.date.past(50),
   email: faker.internet.exampleEmail(),
@@ -16,6 +15,7 @@ const createUserItemData = async () => ({
   gender: Math.random() > 0.5 ? 'male' : 'female',
   lastName: faker.name.lastName(),
   loginLastAttemptAt: constantDate,
+  loginLockoutExpiresAt: null,
   password: await hashPassword(faker.internet.password()),
   verifiedAt: constantDate,
   verifyToken: TEST_UUID,

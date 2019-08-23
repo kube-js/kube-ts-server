@@ -7,6 +7,7 @@ import {
   // COMMENTS
   PERMISSIONS,
   ROLES,
+  ROOT,
   USERS,
 } from '../../../../constants/routes';
 import Config from '../../presenterFactory/Config';
@@ -36,8 +37,14 @@ const apiV1 = (config: Config): Router => {
   router.use(ENROLMENTS, enrolmentsFactory(config));
   // router.use(OBJECTS, objectsFactory(config));
   // router.use(COMMENTS, commentsFactory(config));
+  // TODO: add route for uploading /avatar
+  // TODO: add route for uploads
+  // TODO: research uploading to s3: https://github.com/SanderKnape/aws-upload-to-s3
+  // https://sanderknape.com/2017/08/using-pre-signed-urls-upload-file-private-s3-bucket/
+  // https://stackoverflow.com/questions/40304512/get-or-put-objects-on-amazon-s3-with-pre-signed-url
+  // https://www.quora.com/How-do-I-link-a-file-from-S3-to-DynamoDB
 
-  router.get('/', describeApi(config));
+  router.get(ROOT, describeApi(config));
 
   return router;
 };

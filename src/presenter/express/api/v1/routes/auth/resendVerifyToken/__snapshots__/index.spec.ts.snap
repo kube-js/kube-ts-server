@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@presenter/auth/resendVerifyToken fails to resend verifyToken for already verified account 1`] = `
+Object {
+  "message": "Account has been already verified",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
+}
+`;
+
+exports[`@presenter/auth/resendVerifyToken fails to resend verifyToken if functionality is locked 1`] = `
+Object {
+  "message": "Too many verify account attempts. Try again in 10 minutes",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
+}
+`;
+
+exports[`@presenter/auth/resendVerifyToken fails to resend verifyToken without payload 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Expected string between 0 and 255 characters long",
+    },
+  ],
+  "message": "Validation failed",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
+}
+`;
+
+exports[`@presenter/auth/resendVerifyToken fails to resend verifyToken without valid email 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "Invalid email",
+    },
+  ],
+  "message": "Validation failed",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
+}
+`;
+
+exports[`@presenter/auth/resendVerifyToken locks resend verifyToken functionality if more than 5 attempts made in last 10 minutes 1`] = `
+Object {
+  "message": "Too many verify account attempts. Try again in 10 minutes",
+  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
+}
+`;
+
+exports[`@presenter/auth/resendVerifyToken sends successfully verifyToken 1`] = `
+Object {
+  "message": "VerifyToken has been sent. Please check your email",
+}
+`;
+
+exports[`@presenter/auth/resendVerifyToken sends successfully verifyToken: from 1`] = `"noreply@gamechanger.diet"`;
+
+exports[`@presenter/auth/resendVerifyToken sends successfully verifyToken: htmlContent 1`] = `"<h1>Hello,</h1><p>To activate your account click <a href=\\"https://client.mariuszrajczakowski.me/verify?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com\\">here</a>.</p><p>kube-ts-server</p>"`;
+
+exports[`@presenter/auth/resendVerifyToken sends successfully verifyToken: subject 1`] = `"[kube-ts-server] Verify your email"`;
+
+exports[`@presenter/auth/resendVerifyToken sends successfully verifyToken: textContent 1`] = `"Hello, to activate your account click: https://client.mariuszrajczakowski.me/verify?token=25742910-c654-4481-949f-c3f01e4e823f&email=valid.email@test.com. kube-ts-server"`;
+
+exports[`@presenter/auth/resendVerifyToken sends successfully verifyToken: to 1`] = `"valid.email@test.com"`;

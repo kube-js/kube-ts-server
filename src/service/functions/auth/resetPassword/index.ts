@@ -64,9 +64,9 @@ export default ({ repo }: Config) => async ({
   await repo.users.updateItem({
     id: userId,
     patch: {
-      accountLockoutExpiresAt: undefined,
       loginFailedAttempts: 0,
       loginLastAttemptAt: undefined,
+      loginLockoutExpiresAt: undefined,
       password: await hashPassword(password),
       updatedAt: getUtcDate(),
     },

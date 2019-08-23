@@ -23,7 +23,6 @@ export default (config: Config) =>
     try {
       const link = getResetPasswordUrl({
         config: appConfig.http.client,
-        email,
         token,
       });
 

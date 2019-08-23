@@ -7,6 +7,7 @@ import {
   NOT_FOUND,
   OK,
   SERVICE_UNAVAILABLE,
+  TOO_MANY_REQUESTS,
   UNAUTHORIZED,
   UNPROCESSABLE_ENTITY,
 } from 'http-status-codes';
@@ -25,6 +26,7 @@ import MissingJwtTokenExtractorError from '../../../../../utils/errors/auth/Miss
 import RemindPasswordError from '../../../../../utils/errors/auth/RemindPasswordError';
 import UnauthorizedError from '../../../../../utils/errors/auth/UnauthorizedError';
 import UnverifiedAccountError from '../../../../../utils/errors/auth/UnverifiedAccountError';
+import VerifyLockoutError from '../../../../../utils/errors/auth/VerifyLockoutError';
 import ConflictError from '../../../../../utils/errors/http/ConflictError';
 import NotFoundError from '../../../../../utils/errors/http/NotFoundError';
 import ServiceUnavailableError from '../../../../../utils/errors/http/ServiceUnavailableError';
@@ -39,6 +41,7 @@ export interface Options {
   readonly transactionId: string;
 }
 
+// tslint:disable-next-line:cyclomatic-complexity
 export default ({ req, res, error, config, transactionId }: Options) => {
   const { translator } = config;
   const translations = translator({ req });
@@ -75,6 +78,11 @@ export default ({ req, res, error, config, transactionId }: Options) => {
   if (error instanceof LockedAccountError) {
     status = UNAUTHORIZED;
     message = translations.accountLocked();
+  }
+
+  if (error instanceof VerifyLockoutError) {
+    status = TOO_MANY_REQUESTS;
+    message = translations.verifyFunctionalityLocked();
   }
 
   if (error instanceof MissingJwtTokenExtractorError) {

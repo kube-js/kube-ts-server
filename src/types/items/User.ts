@@ -11,12 +11,16 @@ export default interface User extends BaseItem {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly bio?: string;
+  readonly avatar?: string;
   readonly dateOfBirth?: NullableDate;
   readonly gender?: GenderType;
   readonly verifiedAt?: NullableDate;
   readonly deletedAt?: NullableDate;
   readonly loginFailedAttempts?: number;
   readonly loginLastAttemptAt?: NullableDate;
-  readonly accountLockoutExpiresAt?: NullableDate;
+  readonly loginLockoutExpiresAt?: NullableDate;
   readonly verifyToken?: string;
+  readonly verifyAttempts?: number;
+  readonly verifyLastAttemptAt?: NullableDate;
+  readonly verifyLockoutExpiresAt?: NullableDate;
 }

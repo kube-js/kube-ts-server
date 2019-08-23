@@ -14,6 +14,7 @@ const describeApi = (config: Config) =>
           login: '/api/v1/auth/login',
           register: '/api/v1/auth/register',
           remindPassword: '/api/v1/auth/remind-password',
+          resendVerifyToken: '/api/v1/auth/resend-verify-token',
           resetPassword: '/api/v1/auth/reset-password',
           verifyAccount: '/api/v1/auth/verify-account',
         },

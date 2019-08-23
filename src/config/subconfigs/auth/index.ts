@@ -6,6 +6,7 @@ import {
   JWT_ALGORITM,
   JWT_EXPIRES_IN_MS,
   MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS,
+  MAX_NUMBER_OF_VERIFY_ATTEMPTS,
 } from '../../../constants';
 import getNumberValue from '../../../utils/helpers/config/getNumberValue';
 import getStringValue from '../../../utils/helpers/config/getStringValue';
@@ -23,6 +24,7 @@ export interface JwtConfig {
 export interface AuthConfig {
   readonly jwt: JwtConfig;
   readonly maxNumberOfLoginFailedAttempts: number;
+  readonly maxNumberOfVerifyAttempts: number;
 }
 
 const config: AuthConfig = {
@@ -50,6 +52,10 @@ const config: AuthConfig = {
   maxNumberOfLoginFailedAttempts: getNumberValue(
     process.env.MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS,
     MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS
+  ),
+  maxNumberOfVerifyAttempts: getNumberValue(
+    process.env.MAX_NUMBER_OF_VERIFY_ATTEMPTS,
+    MAX_NUMBER_OF_VERIFY_ATTEMPTS
   ),
 };
 

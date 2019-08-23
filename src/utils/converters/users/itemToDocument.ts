@@ -5,12 +5,13 @@ import recursiveConverter from '../recursiveConverter';
 
 const convertersMap = {
   ...baseMap,
-  accountLockoutExpiresAt: itemToDocumentDateTime,
-  authLastAttempt: itemToDocumentDateTime,
   dateOfBirth: itemToDocumentDateTime,
   deletedAt: itemToDocumentDateTime,
   loginLastAttemptAt: itemToDocumentDateTime,
+  loginLockoutExpiresAt: itemToDocumentDateTime,
   verifiedAt: itemToDocumentDateTime,
+  verifyLastAttemptAt: itemToDocumentDateTime,
+  verifyLockoutExpiresAt: itemToDocumentDateTime,
 };
 
 const itemToDocument = (document: Document) =>
