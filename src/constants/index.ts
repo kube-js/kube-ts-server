@@ -28,7 +28,9 @@ export const AUTH_HEADER_NAME = 'authorization';
 export const AUTH_QUERY_PARAM_NAME = 'auth_token';
 export const AUTH_BODY_FIELD_NAME = 'auth_token';
 export const ACCOUNT_LOCKOUT_TIME_IN_MINUTES = 10;
+export const VERIFY_LOCKOUT_TIME_IN_MINUTES = 10;
 export const MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS = 5;
+export const MAX_NUMBER_OF_VERIFY_ATTEMPTS = 5;
 export const DEFAULT_RESET_PASSWORD_TIME_IN_MINUTES = 60;
 
 // LOGGER

@@ -48,10 +48,10 @@ describe('@presenter/auth/login', () => {
   it('locks user account when too many login requests attempted', async () => {
     const [user] = await usersFactory({
       overrides: {
-        accountLockoutExpiresAt: moment()
+        loginFailedAttempts: MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS,
+        loginLockoutExpiresAt: moment()
           .add(60, 'minutes')
           .toDate(),
-        loginFailedAttempts: MAX_NUMBER_OF_FAILED_LOGIN_ATTEMPTS,
         password: await hashPassword(TEST_VALID_PASSWORD),
       },
       service: service.users,
@@ -141,7 +141,7 @@ describe('@presenter/auth/login', () => {
     });
   });
 
-  it('logs user in succesfully', async () => {
+  it('logs in user in succesfully', async () => {
     const [user] = await usersFactory({
       overrides: {
         id: '1',
@@ -160,7 +160,6 @@ describe('@presenter/auth/login', () => {
     expect(body.token).toBe('token');
     expect(body.user.email).toBe(user.email);
     expect(body.user.id).toBe(user.id);
-    expect(body.user.verify_token).toBe(TEST_UUID);
     
     expect(body.roles).toEqual([]);
   });

@@ -60,6 +60,7 @@ const createUser = (config: FactoryConfig) => async ({
       id: userId,
       password: await hashPassword(password),
       verifiedAt: getUtcDate(),
+      verifyToken: uuid()
     },
   });
 
@@ -76,7 +77,7 @@ const createUser = (config: FactoryConfig) => async ({
         createdAt: getUtcDate(),
         id: userRoleId,
         roleId,
-        userId: user.id,
+        userId: user.id
       },
     });
   });

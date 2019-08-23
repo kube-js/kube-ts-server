@@ -30,13 +30,6 @@ Object {
 }
 `;
 
-exports[`@presenter/auth/resetPassword fails to reset password with invalid email 1`] = `
-Object {
-  "message": "Invalid reset password token",
-  "transactionId": "25742910-c654-4481-949f-c3f01e4e823f",
-}
-`;
-
 exports[`@presenter/auth/resetPassword fails to reset password with invalid token 1`] = `
 Object {
   "errors": Array [

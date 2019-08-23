@@ -27,15 +27,21 @@ export default ({ db }: RepoConfig) => {
       // https://github.com/SanderKnape/aws-upload-to-s3
       // https://www.youtube.com/watch?v=ASuU4km3VHE
       // https://www.quora.com/How-do-I-link-a-file-from-S3-to-DynamoDB
-      // table.string('avatar');
+      table.string('avatar');
       table.dateTime('deletedAt').nullable();
+      table
+        .integer('verifyAttempts')
+        .unsigned()
+        .notNullable()
+        .defaultTo(0);
+      table.dateTime('verifyLastAttemptAt').nullable();
+      table.dateTime('verifyLockoutExpiresAt').nullable();
       table
         .integer('loginFailedAttempts')
         .unsigned()
         .notNullable()
         .defaultTo(0);
-      table.dateTime('authLastAttempt').nullable();
-      table.dateTime('accountLockoutExpiresAt').nullable();
+      table.dateTime('loginLockoutExpiresAt').nullable();
       table.dateTime('loginLastAttemptAt').nullable();
       table.dateTime('createdAt').notNullable();
       table.dateTime('updatedAt').nullable();

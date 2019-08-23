@@ -34,8 +34,8 @@ export default ({ repo, appConfig }: Config) => async ({
 
   const user = items[0];
 
-  const isValidDate = user.accountLockoutExpiresAt !== undefined;
-  const isAccountLocked = isInTheFuture(user.accountLockoutExpiresAt);
+  const isValidDate = user.loginLockoutExpiresAt !== undefined;
+  const isAccountLocked = isInTheFuture(user.loginLockoutExpiresAt);
 
   if (isValidDate && isAccountLocked) {
     await repo.users.updateItem({
@@ -57,16 +57,16 @@ export default ({ repo, appConfig }: Config) => async ({
     const shouldLockAccount =
       loginFailedAttempts >= appConfig.auth.maxNumberOfLoginFailedAttempts;
 
-    const accountLockoutExpiresAt = shouldLockAccount
+    const loginLockoutExpiresAt = shouldLockAccount
       ? fastForwardTimeBy(ACCOUNT_LOCKOUT_TIME_IN_MINUTES, 'minutes')
       : null;
 
     await repo.users.updateItem({
       id: user.id,
       patch: {
-        accountLockoutExpiresAt,
         loginFailedAttempts,
         loginLastAttemptAt: getUtcDate(),
+        loginLockoutExpiresAt,
       },
     });
 
@@ -76,9 +76,9 @@ export default ({ repo, appConfig }: Config) => async ({
   const { item: updatedUser } = await repo.users.updateItem({
     id: user.id,
     patch: {
-      accountLockoutExpiresAt: undefined,
       loginFailedAttempts: 0,
       loginLastAttemptAt: getUtcDate(),
+      loginLockoutExpiresAt: undefined,
     },
   });
 

@@ -3,6 +3,8 @@ import ConflictError from "../../../../utils/errors/http/ConflictError";
 
 export default interface ErrorsTranslations {
   readonly accountLocked: () => string;
+  readonly verifyFunctionalityLocked: () => string;
+  readonly verifyTokenSent: () => string;
   readonly conflict: (error: ConflictError) => string;
   readonly expiredJwtToken: () => string;
   readonly invalidJwtToken: () => string;

@@ -14,7 +14,6 @@ import usersFactory from '../../../../../utils/fakeFactories/users/factory';
 import initTests from '../../../../../utils/tests/initTests';
 import {
   TEST_DIFFERENT_VALID_PASSWORD,
-  TEST_INVALID_EMAIL,
   TEST_UUID,
   TEST_VALID_EMAIL,
   TEST_VALID_PASSWORD,
@@ -38,19 +37,6 @@ describe('@presenter/auth/resetPassword', () => {
 
   it('fails to reset password without payload', async () => {
     await assertOnResponseAndStatus({
-      request,
-      url: RESET_PASSWORD_URL,
-    });
-  });
-
-  it('fails to reset password with invalid email', async () => {
-    await assertOnResponseAndStatus({
-      fields: {
-        email: TEST_INVALID_EMAIL,
-        password: TEST_VALID_PASSWORD,
-        password_confirmation: TEST_VALID_PASSWORD,
-        token: TEST_UUID,
-      },
       request,
       url: RESET_PASSWORD_URL,
     });

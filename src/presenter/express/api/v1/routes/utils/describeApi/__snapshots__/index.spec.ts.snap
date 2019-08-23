@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@presenter/describeApi describes API metadata 1`] = `
+Object {
+  "available_routes": Object {
+    "auth": Object {
+      "login": "/api/v1/auth/login",
+      "register": "/api/v1/auth/register",
+      "remind_password": "/api/v1/auth/remind-password",
+      "resend_verify_token": "/api/v1/auth/resend-verify-token",
+      "reset_password": "/api/v1/auth/reset-password",
+      "verify_account": "/api/v1/auth/verify-account",
+    },
+    "checks": Object {
+      "liveness": "/health/liveness",
+      "readiness": "/health/readiness",
+      "version": "/version",
+    },
+    "courses": "/api/v1/courses",
+    "enrolments": "/api/v1/enrolments",
+    "permissions": "/api/v1/permissions",
+    "roles": "/api/v1/roles",
+    "users": "/api/v1/users",
+  },
+  "docs": "https://kubetsserver.docs.apiary.io",
+  "issues": "https://github.com/kube-js/kube-ts-server/issues",
+  "repo": "https://github.com/kube-js/kube-ts-server",
+}
+`;
