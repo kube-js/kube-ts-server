@@ -32,6 +32,9 @@ export default ({ repo }: Config) => async ({ email, token }: Options) => {
     patch: {
       updatedAt: getUtcDate(),
       verifiedAt: getUtcDate(),
+      verifyAttempts: 0,
+      verifyLastAttemptAt: getUtcDate(),
+      verifyLockoutExpiresAt: null,
     },
   });
 };

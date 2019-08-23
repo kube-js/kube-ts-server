@@ -72,6 +72,7 @@ describe('@presenter/auth/resendVerifyToken', () => {
         email: TEST_VALID_EMAIL,
         verifiedAt: undefined,
         verifyAttempts: 6,
+        verifyLockoutExpiresAt: null
       },
       service: service.users,
     });

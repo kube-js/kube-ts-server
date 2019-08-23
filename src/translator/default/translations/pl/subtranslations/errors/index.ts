@@ -35,7 +35,7 @@ const errors: Errors = {
     'Konto nie zostało jeszcze zweryfikowane. Sprawdź swoją skrzynkę odbiorczą email i zweryfikuj swoje konto klikając w link',
   verifyFunctionalityLocked: () => `Zbyt wiele prób veryfikacji konta. Sprobuj ponownie za ${VERIFY_LOCKOUT_TIME_IN_MINUTES} minut`,
   verifyTokenSent: () =>
-    'Token weryfikujący konto zostal wysłany na podany adres email.',
+    'Token weryfikujący konto został wysłany na podany adres email.',
 };
 
 export default errors;

@@ -141,7 +141,7 @@ describe('@presenter/auth/login', () => {
     });
   });
 
-  it('log in user in succesfully', async () => {
+  it('logs in user in succesfully', async () => {
     const [user] = await usersFactory({
       overrides: {
         id: '1',
