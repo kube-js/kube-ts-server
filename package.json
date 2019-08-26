@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@js-items/express": "1.0.8",
-    "@js-items/foundation": "1.0.24",
+    "@js-items/foundation": "1.0.25",
     "@js-items/knex": "1.0.17",
     "@js-migrations/commander": "2.0.9",
     "@js-migrations/core": "6.2.3",
