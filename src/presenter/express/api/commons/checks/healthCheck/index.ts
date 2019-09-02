@@ -30,11 +30,11 @@ export default ({ checks, config }: Options) => {
       }
 
       sendResponse({
-        req,
-        res,
-        responseObject: {
+        body: {
           message: 'OK',
         },
+        req,
+        res,
         status: OK,
       });
     } catch (error) {
