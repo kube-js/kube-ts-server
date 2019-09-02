@@ -22,9 +22,9 @@ export default (config: Config) =>
     ]);
 
     sendResponse({
+      body: { short, long, branch, tag },
       req,
       res,
-      responseObject: { short, long, branch, tag },
       status: OK,
     });
   });

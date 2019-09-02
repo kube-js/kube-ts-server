@@ -72,10 +72,10 @@ const createItem = (factoryConfig: Config): RequestHandlerFactory => <
     await factoryConfig.service.sendEmail(mailOptions);
 
     sendResponse({
+      body: config.convertItemIntoDocument({ item, req, res }),
       config,
       req,
       res,
-      responseObject: config.convertItemIntoDocument({ item, req, res }),
       status: CREATED,
     });
   });

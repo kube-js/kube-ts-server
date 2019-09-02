@@ -35,9 +35,9 @@ const describeApi = (config: Config) =>
     };
 
     sendResponse({
+      body: toSnake(response),
       req,
       res,
-      responseObject: toSnake(response),
       status: OK,
     });
   });

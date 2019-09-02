@@ -1,5 +1,5 @@
 import connectToDb from '@js-items/knex/dist/utils/connectToDb';
-import * as knex from 'knex';
+import knex from 'knex/types/knex';
 import { KnexConfig } from '../../../config/subconfigs/repo/model';
 import coursesFactory from './courses/factory';
 import enrolmentsFactory from './enrolments/factory';
