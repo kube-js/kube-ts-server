@@ -1,7 +1,7 @@
+import { ItemNotFoundError } from '@js-items/foundation';
 import { OK } from 'http-status-codes';
 import _pick from 'ramda/src/pick';
 import validateData from 'rulr/validateData';
-import { v4 as uuid } from 'uuid';
 import getVerifyEmailUrl from '../../../../../../../utils/helpers/url/getVerifyEmailUrl';
 import Config from '../../../../../presenterFactory/Config';
 import catchErrors from '../../../../../utils/errors/catchErrors';
@@ -17,12 +17,20 @@ export default (config: Config) =>
 
     const translations = translator({ req });
 
-    const verifyToken = uuid();
+    const { items } = await config.service.users.getItems({
+      filter: {
+        email,
+      },
+    });
+
+    if (items.length === 0) {
+      throw new ItemNotFoundError('User');
+    }
 
     const link = getVerifyEmailUrl({
       config: appConfig.http.client,
       email,
-      token: verifyToken,
+      token: items[0].verifyToken as string,
     });
 
     const mailOptions = {

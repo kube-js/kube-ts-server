@@ -31,7 +31,7 @@ export default ({ repo, appConfig }: Config) => async ({
   }
 
   const user = items[0];
-  const verifyAttempts = incrementOrInitialise(user.verifyAttempts);
+  let verifyAttempts = incrementOrInitialise(user.verifyAttempts);
 
   if (!_isNil(user.verifiedAt)) {
     await repo.users.updateItem({
@@ -54,21 +54,37 @@ export default ({ repo, appConfig }: Config) => async ({
       value: '10',
     });
 
-  const hasLockoutError =
-    verifyAttempts >= appConfig.auth.maxNumberOfVerifyAttempts ||
-    isLockedAlready;
-
-  if (hasLockoutError) {
-    const verifyLockoutExpiresAt = hasLockoutError
-      ? fastForwardTimeBy(VERIFY_LOCKOUT_TIME_IN_MINUTES, 'minutes')
-      : null;
-
+  if (isLockedAlready) {
     await repo.users.updateItem({
       id: user.id,
       patch: {
         verifyAttempts,
         verifyLastAttemptAt: getUtcDate(),
-        verifyLockoutExpiresAt,
+        verifyLockoutExpiresAt: fastForwardTimeBy(
+          VERIFY_LOCKOUT_TIME_IN_MINUTES,
+          'minutes'
+        ),
+      },
+    });
+
+    throw new VerifyLockoutError();
+  }
+
+  // verifyLockoutExpiresAt it's not empty but it's expired so we reset the counter
+  if (!_isNil(user.verifyLockoutExpiresAt)) {
+    verifyAttempts = 1;
+  }
+
+  if (verifyAttempts >= appConfig.auth.maxNumberOfVerifyAttempts) {
+    await repo.users.updateItem({
+      id: user.id,
+      patch: {
+        verifyAttempts,
+        verifyLastAttemptAt: getUtcDate(),
+        verifyLockoutExpiresAt: fastForwardTimeBy(
+          VERIFY_LOCKOUT_TIME_IN_MINUTES,
+          'minutes'
+        ),
       },
     });
 
@@ -85,4 +101,5 @@ export default ({ repo, appConfig }: Config) => async ({
   });
 
   await repo.sendEmail(mailOptions);
+// tslint:disable-next-line:max-file-line-count
 };
