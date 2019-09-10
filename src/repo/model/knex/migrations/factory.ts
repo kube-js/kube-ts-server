@@ -1,5 +1,6 @@
 import knexMigrationsRepoFactory from '@js-migrations/knex/dist/factory';
 import { RepoConfig } from '../factory';
+import createCategoriesTable from './tables/createCategoriesTable';
 import createCoursesTable from './tables/createCoursesTable';
 import createEnrolmentsTable from './tables/createEnrolmentsTable';
 import createPermissionsTable from './tables/createPermissionsTable';
@@ -14,6 +15,7 @@ export default ({ db }: RepoConfig) =>
     db,
     migrations: [
       createUsersTable({ db }),
+      createCategoriesTable({ db }),
       createCoursesTable({ db }),
       createEnrolmentsTable({ db }),
       createRolesTable({ db }),

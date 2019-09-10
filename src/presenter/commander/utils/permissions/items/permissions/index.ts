@@ -7,7 +7,7 @@ import {
   PERMISSIONS_GET_ITEMS,
   PERMISSIONS_REPLACE_ITEM,
   PERMISSIONS_UPDATE_ITEM,
-} from '../../../../../../constants/permissions';
+} from '../../../../../../constants/permissions/permissions';
 
 export const PERMISSIONS_URL_REGEX = `(/api/v1/permissions)`;
 

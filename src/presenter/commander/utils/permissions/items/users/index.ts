@@ -9,7 +9,7 @@ import {
   USERS_REPLACE_ITEM,
   USERS_REVOKE_ROLE,
   USERS_UPDATE_ITEM,
-} from '../../../../../../constants/permissions';
+} from '../../../../../../constants/permissions/users';
 export const USERS_URL_REGEX = '(/api/v1/users)';
 
 const usersPermissions = [

@@ -17,7 +17,7 @@ import beforeUpdateItem from '../../utils/beforeUpdateItem';
 import convertItemIntoDocument from '../../utils/convertItemIntoDocument';
 import createPatch from '../createPatch';
 
-interface PlainObject {
+export interface PlainObject {
   readonly [key: string]: any;
 }
 export interface BaseFactoryConfig extends Config {

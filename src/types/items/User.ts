@@ -11,7 +11,7 @@ export default interface User extends BaseItem {
   readonly firstName?: string;
   readonly lastName?: string;
   readonly bio?: string;
-  readonly avatar?: string;
+  readonly avatarUrl?: string;
   readonly dateOfBirth?: NullableDate;
   readonly gender?: GenderType;
   readonly verifiedAt?: NullableDate;

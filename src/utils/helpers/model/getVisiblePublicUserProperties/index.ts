@@ -6,7 +6,7 @@ export default (user: User): Partial<User> =>
     [
       'id',
       'email',
-      'avatar',
+      'avatarUrl',
       'firstName',
       'lastName',
       'bio',

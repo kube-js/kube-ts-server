@@ -1,6 +1,7 @@
 import connectToDb from '@js-items/knex/dist/utils/connectToDb';
 import knex from 'knex/types/knex';
 import { KnexConfig } from '../../../config/subconfigs/repo/model';
+import categoriesFactory from './categories/factory';
 import coursesFactory from './courses/factory';
 import enrolmentsFactory from './enrolments/factory';
 import migrationsFactory from './migrations/factory';
@@ -26,6 +27,7 @@ export default ({ client, connection }: KnexConfig) => {
   });
 
   return {
+    categories: categoriesFactory({ db }),
     closeDbConnection: closeDbConnection({ db }),
     countPermissions: countPermissions({ db }),
     courses: coursesFactory({ db }),

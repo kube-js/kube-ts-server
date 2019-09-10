@@ -27,7 +27,7 @@ export default ({ db }: RepoConfig) => {
       // https://github.com/SanderKnape/aws-upload-to-s3
       // https://www.youtube.com/watch?v=ASuU4km3VHE
       // https://www.quora.com/How-do-I-link-a-file-from-S3-to-DynamoDB
-      table.string('avatar');
+      table.string('avatarUrl');
       table.dateTime('deletedAt').nullable();
       table
         .integer('verifyAttempts')

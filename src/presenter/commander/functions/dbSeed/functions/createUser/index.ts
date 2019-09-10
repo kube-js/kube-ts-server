@@ -1,4 +1,6 @@
 // tslint:disable:no-console
+// tslint:disable:no-magic-numbers
+import faker from 'faker';
 import promptly from 'promptly';
 import Record from 'rulr/Record';
 import validateData from 'rulr/validateData';
@@ -55,12 +57,17 @@ const createUser = (config: FactoryConfig) => async ({
   const { item: user } = await service.users.createItem({
     id: userId,
     item: {
+      avatarUrl: faker.internet.avatar(),
+      bio: faker.lorem.sentences(10),
       createdAt: getUtcDate(),
+      dateOfBirth: faker.date.past(50),
       email,
+      firstName: faker.name.firstName(),
       id: userId,
+      lastName: faker.name.lastName(),
       password: await hashPassword(password),
       verifiedAt: getUtcDate(),
-      verifyToken: uuid()
+      verifyToken: uuid(),
     },
   });
 
@@ -77,7 +84,7 @@ const createUser = (config: FactoryConfig) => async ({
         createdAt: getUtcDate(),
         id: userRoleId,
         roleId,
-        userId: user.id
+        userId: user.id,
       },
     });
   });
@@ -86,6 +93,9 @@ const createUser = (config: FactoryConfig) => async ({
 
   console.log('Role assigned successfuly!');
   console.log(`--------------------------------------------------------`);
+
+  return Promise.resolve(userId);
 };
 
+// tslint:disable-next-line:max-file-line-count
 export default createUser;
