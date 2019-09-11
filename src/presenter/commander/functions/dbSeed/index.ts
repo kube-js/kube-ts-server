@@ -5,31 +5,21 @@ import {
   STUDENT_PERMISSIONS,
 } from '../../../../constants/permissions';
 import { ADMIN, INSTRUCTOR, STUDENT } from '../../../../constants/roles';
-import { TEST_VALID_PASSWORD } from '../../../express/utils/tests/testData';
+import categories from '../../data/categories';
+import {
+  adminOptions,
+  firstInstructorOptions,
+  firstStudentOptions,
+  secondInstructorOptions,
+  secondStudentOptions,
+} from '../../data/users';
 import FactoryConfig from '../../presenterFactory/FactoryConfig';
 import permissions from '../../utils/permissions';
 import connectPermissionsToRoles from './functions/connectPermissionsToRoles';
+import createCategoriesAndCourses from './functions/createCategoriesAndCourses';
 import createPermissions from './functions/createPermissions';
 import createRoles from './functions/createRoles';
 import createUser from './functions/createUser';
-
-const adminOptions = {
-  defaultEmail: 'admin@example.com',
-  defaultPassword: TEST_VALID_PASSWORD,
-  userType: 'Admin',
-};
-
-const instructorsOptions = {
-  defaultEmail: 'instructor@example.com',
-  defaultPassword: TEST_VALID_PASSWORD,
-  userType: 'Instructor',
-};
-
-const studentOptions = {
-  defaultEmail: 'student@example.com',
-  defaultPassword: TEST_VALID_PASSWORD,
-  userType: 'Student',
-};
 
 export const processExitTimeout = 10000;
 
@@ -56,6 +46,7 @@ const dbSeed = (config: FactoryConfig) => async () => {
     );
 
     const studentPermissionsIds = _pluck('id', studentPermissions);
+
     const instructorPermissionsIds = _pluck('id', instructorPermissions);
 
     await connectPermissionsToRoles(config)({
@@ -82,16 +73,33 @@ const dbSeed = (config: FactoryConfig) => async () => {
       rolesIds: [adminRoleId],
     });
 
-    // instructor
-    await createUser(config)({
-      ...instructorsOptions,
+    // first instructor
+    const firstInstructorId = await createUser(config)({
+      ...firstInstructorOptions,
       rolesIds: [instructorRoleId],
     });
 
-    // student
+    // second instructor
+    const secondInstructorId = await createUser(config)({
+      ...secondInstructorOptions,
+      rolesIds: [instructorRoleId],
+    });
+
+    // first student
     await createUser(config)({
-      ...studentOptions,
+      ...firstStudentOptions,
       rolesIds: [studentRoleId],
+    });
+
+    // second student
+    await createUser(config)({
+      ...secondStudentOptions,
+      rolesIds: [studentRoleId],
+    });
+
+    await createCategoriesAndCourses(config)({
+      categories,
+      instructorsIds: [firstInstructorId, secondInstructorId],
     });
 
     config.logger.info('Seeding successful');

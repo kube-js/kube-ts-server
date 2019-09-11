@@ -11,6 +11,7 @@ export default (config: FactoryConfig) => ({
   assignRolePermission: assignRolePermission(config),
   assignUserRole: assignUserRole(config),
   auth: authFactory(config),
+  categories: config.repo.categories,
   closeDbConnection: config.repo.closeDbConnection,
   courses: config.repo.courses,
   enrolments: config.repo.enrolments,

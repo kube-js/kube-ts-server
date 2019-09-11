@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import {
   AUTH,
+  CATEGORIES,
   COURSES,
   ENROLMENTS,
-  // OBJECTS,
-  // COMMENTS
+  // MODULES,
+  // UNITS
   PERMISSIONS,
   ROLES,
   ROOT,
@@ -12,6 +13,7 @@ import {
 } from '../../../../constants/routes';
 import Config from '../../presenterFactory/Config';
 import authFactory from './routes/auth/factory';
+import categoriesFactory from './routes/categories/factory';
 import coursesFactory from './routes/courses/factory';
 import enrolmentsFactory from './routes/enrolments/factory';
 import permissionsFactory from './routes/permissions/factory';
@@ -33,10 +35,11 @@ const apiV1 = (config: Config): Router => {
   router.use(USERS, usersFactory(config));
   router.use(ROLES, rolesFactory(config));
   router.use(PERMISSIONS, permissionsFactory(config));
+  router.use(CATEGORIES, categoriesFactory(config));
   router.use(COURSES, coursesFactory(config));
   router.use(ENROLMENTS, enrolmentsFactory(config));
-  // router.use(OBJECTS, objectsFactory(config));
-  // router.use(COMMENTS, commentsFactory(config));
+  // router.use(MODULES, modulesFactory(config));
+  // router.use(UNITS, unitsFactory(config));
   // TODO: add route for uploading /avatar
   // TODO: add route for uploads
   // TODO: research uploading to s3: https://github.com/SanderKnape/aws-upload-to-s3

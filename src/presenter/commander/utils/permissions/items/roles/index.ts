@@ -9,7 +9,7 @@ import {
   ROLES_REPLACE_ITEM,
   ROLES_REVOKE_PERMISSION,
   ROLES_UPDATE_ITEM,
-} from '../../../../../../constants/permissions';
+} from '../../../../../../constants/permissions/roles';
 
 export const ROLES_URL_REGEX = '(/api/v1/roles)';
 

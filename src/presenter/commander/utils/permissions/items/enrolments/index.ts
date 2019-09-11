@@ -7,10 +7,9 @@ import {
   ENROLMENTS_GET_ITEMS,
   ENROLMENTS_REPLACE_ITEM,
   ENROLMENTS_UPDATE_ITEM,
-} from '../../../../../../constants/permissions';
+} from '../../../../../../constants/permissions/enrolments';
 
 export const ENROLMENTS_URL_REGEX = '(/api/v1/enrolments)';
-
 
 const enrolmentsPermissions = [
   {

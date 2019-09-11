@@ -15,12 +15,20 @@ export default ({ db }: RepoConfig) => {
         .references('id')
         .inTable('users')
         .onDelete('cascade');
+      table
+        .string('categoryId', UUID_LENGTH)
+        .references('id')
+        .inTable('categories')
+        .onDelete('cascade');
       table.string('title');
+      table.text('description');
+      table.text('requirements');
+      table.text('goals');
+      table.string('imageUrl');
+      table.string('slug').unique();
       table.boolean('isPaid').defaultTo(false);
       table.boolean('isPublished').defaultTo(false);
       table.boolean('isApproved').defaultTo(false);
-      table.string('slug').unique();
-      table.text('description');
       table.dateTime('createdAt').notNullable();
       table.dateTime('updatedAt').nullable();
       table.dateTime('deletedAt').nullable();

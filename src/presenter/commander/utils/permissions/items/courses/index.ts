@@ -7,10 +7,9 @@ import {
   COURSES_GET_ITEMS,
   COURSES_REPLACE_ITEM,
   COURSES_UPDATE_ITEM,
-} from '../../../../../../constants/permissions';
+} from '../../../../../../constants/permissions/courses';
 
 export const COURSES_URL_REGEX = '(/api/v1/courses)';
-
 
 const coursesPermissions = [
   {

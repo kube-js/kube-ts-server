@@ -18,6 +18,7 @@ const describeApi = (config: Config) =>
           resetPassword: '/api/v1/auth/reset-password',
           verifyAccount: '/api/v1/auth/verify-account',
         },
+        categories: '/api/v1/categories',
         checks: {
           liveness,
           readiness,

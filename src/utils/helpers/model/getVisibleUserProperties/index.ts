@@ -8,7 +8,7 @@ export default (user: User): Partial<User> =>
       'updatedAt',
       'id',
       'email',
-      'avatar',
+      'avatarUrl',
       'firstName',
       'lastName',
       'bio',
