@@ -1,6 +1,6 @@
 import BaseItem from './BaseItem';
 
-export default interface Section extends BaseItem {
+export default interface Module extends BaseItem {
   readonly courseId: string;
   readonly sortOrder: number;
   readonly title: string;

@@ -22,5 +22,6 @@ export const PERMISSIONS = '/permissions';
 export const COURSES = '/courses';
 export const CATEGORIES = '/categories';
 export const ENROLMENTS = '/enrolments';
-export const OBJECTS = '/objects';
+export const MODULES = '/modules';
+export const UNITS = '/units';
 export const COMMENTS = '/comments';

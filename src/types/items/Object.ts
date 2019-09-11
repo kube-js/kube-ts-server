@@ -1,14 +1,14 @@
 import BaseItem, { NullableDate } from './BaseItem';
 
-export enum ObjectType {
+export enum UnitType {
   video = 'video',
   document = 'document'
 }
 
-export default interface Object extends BaseItem {
-  readonly sectionId: string;
+export default interface Unit extends BaseItem {
+  readonly moduleId: string;
   readonly sortOrder: number;
-  readonly type: ObjectType;
+  readonly type: UnitType;
   readonly title: string;
   readonly description?: string;
   readonly slug: string;

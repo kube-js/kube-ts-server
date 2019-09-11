@@ -69,8 +69,8 @@ npm run test:watch
 - resetPasswordTokens
 - courses
 - enrolments
-- sections
-- objects
+- modules
+- units
 
 ## This repo would not exist if not inspiration coming from:
 
