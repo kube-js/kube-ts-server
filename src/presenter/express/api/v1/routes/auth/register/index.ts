@@ -47,8 +47,6 @@ export default (config: Config) =>
       to: email,
     };
 
-    // @TODO: https://stackoverflow.com/questions/23798281/should-an-api-service-send-the-user-activation-email-or-the-client-application
-
     const { user, roles } = await config.service.auth.register({
       bio,
       dateOfBirth,
