@@ -11,6 +11,9 @@
 
 [https://demo.mariuszrajczakowski.me/api/v1](https://demo.mariuszrajczakowski.me/api/v1)
 
+## Client for this API - deployed on digital ocean kubernetes cluster
+[https://client.mariuszrajczakowski.me](https://client.mariuszrajczakowski.me)
+
 ## Docs
 
 [https://kubetsserver.docs.apiary.io](https://kubetsserver.docs.apiary.io)
