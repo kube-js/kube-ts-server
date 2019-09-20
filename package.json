@@ -6,7 +6,7 @@
   "dependencies": {
     "@js-items/express": "1.0.18",
     "@js-items/foundation": "1.0.28",
-    "@js-items/knex": "1.0.23",
+    "@js-items/knex": "1.0.24",
     "@js-migrations/commander": "2.0.9",
     "@js-migrations/core": "6.2.3",
     "@js-migrations/knex": "3.0.7",
