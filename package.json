@@ -4,7 +4,7 @@
   "description": "Dokerized restful API written in typescript ready to be deployed on kubernetes cluster",
   "main": "index.js",
   "dependencies": {
-    "@js-items/express": "1.0.17",
+    "@js-items/express": "1.0.18",
     "@js-items/foundation": "1.0.28",
     "@js-items/knex": "1.0.23",
     "@js-migrations/commander": "2.0.9",
