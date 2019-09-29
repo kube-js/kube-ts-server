@@ -3,6 +3,7 @@ import {
   AUTH,
   CATEGORIES,
   COURSES,
+  DISCOVERY_ITEMS,
   ENROLMENTS,
   // MODULES,
   // UNITS
@@ -16,6 +17,7 @@ import authFactory from './routes/auth/factory';
 import categoriesFactory from './routes/categories/factory';
 import coursesFactory from './routes/courses/factory';
 import enrolmentsFactory from './routes/enrolments/factory';
+import getDiscoveryItems from './routes/getDiscoveryItems';
 import permissionsFactory from './routes/permissions/factory';
 import rolesFactory from './routes/roles/factory';
 import usersFactory from './routes/users/factory';
@@ -38,6 +40,7 @@ const apiV1 = (config: Config): Router => {
   router.use(CATEGORIES, categoriesFactory(config));
   router.use(COURSES, coursesFactory(config));
   router.use(ENROLMENTS, enrolmentsFactory(config));
+  router.use(DISCOVERY_ITEMS, getDiscoveryItems(config));
   // router.use(MODULES, modulesFactory(config));
   // router.use(UNITS, unitsFactory(config));
   // TODO: add route for uploading /avatar
