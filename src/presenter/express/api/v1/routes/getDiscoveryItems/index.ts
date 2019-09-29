@@ -6,8 +6,15 @@ import catchErrors from '../../../../utils/errors/catchErrors';
 
 const getDiscoveryItems = (config: Config) =>
   catchErrors(config, async (req, res) => {
-
-   const response =  await config.service.getDiscoveryItems({});
+    const type = req.query.type;
+    
+    let response;
+    
+    switch (type) {
+      case 'homepage':
+      default:
+        response = await config.service.getDiscoveryItemsForHomepage({});
+    }
 
     sendResponse({
       body: toSnake(response),

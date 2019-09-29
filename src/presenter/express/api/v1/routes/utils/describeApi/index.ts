@@ -25,6 +25,7 @@ const describeApi = (config: Config) =>
           version,
         },
         courses: '/api/v1/courses',
+        discoveryItems: '/api/v1/discovery-items',
         enrolments: '/api/v1/enrolments',
         permissions: '/api/v1/permissions',
         roles: '/api/v1/roles',

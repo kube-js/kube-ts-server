@@ -18,6 +18,7 @@ Object {
       "version": "/version",
     },
     "courses": "/api/v1/courses",
+    "discovery_items": "/api/v1/discovery-items",
     "enrolments": "/api/v1/enrolments",
     "permissions": "/api/v1/permissions",
     "roles": "/api/v1/roles",
