@@ -27,7 +27,7 @@ export default ({ repo }: Config) => async (_options: Options) => {
 
   const enhancedCourses = courses.map((course: Course) => ({
     ...course,
-    user: users.filter(user => user.id === course.userId),
+    user: users.filter(user => user.id === course.userId)[0],
   }));
 
   return {
