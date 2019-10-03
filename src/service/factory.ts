@@ -1,6 +1,7 @@
 import migrationsServiceFactory from '@js-migrations/core/dist/factory';
 import FactoryConfig from './FactoryConfig';
 import authFactory from './functions/auth/factory';
+import getCourseDetails from './functions/getCourseDetails';
 import getDiscoveryItemsForHomepage from './functions/getDiscoveryItemsForHomepage';
 import hasPermission from './functions/hasPermission';
 import assignRolePermission from './functions/roles/assignRolePermission';
@@ -16,6 +17,7 @@ export default (config: FactoryConfig) => ({
   closeDbConnection: config.repo.closeDbConnection,
   courses: config.repo.courses,
   enrolments: config.repo.enrolments,
+  getCourseDetails: getCourseDetails(config),
   getDiscoveryItemsForHomepage: getDiscoveryItemsForHomepage(config),
   hasPermission: hasPermission(config),
   migrations: migrationsServiceFactory({
