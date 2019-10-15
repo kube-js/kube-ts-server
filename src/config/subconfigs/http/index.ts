@@ -13,6 +13,7 @@ import {
   RATE_LIMITER_SKIP_METHODS,
   RATE_LIMITER_WINDOW_MS,
   READINESS_CHECK_URL,
+  SEARCH_QUERY_PARAM_NAME,
   TOO_MANY_REQUEST_MESSAGE,
   TRUST_PROXY,
   VERSION_CHECK_URL,
@@ -72,6 +73,7 @@ export interface ClientConfig {
   readonly verifyTokenQueryParamName: string;
   readonly resetPasswordUrl: string;
   readonly resetPasswordTokenQueryParamName: string;
+  readonly searchQueryParamName: string;
 }
 
 export interface HttpConfig {
@@ -101,6 +103,7 @@ const config: HttpConfig = {
       process.env.CLIENT_RESET_PASSWORD_URL,
       CLIENT_RESET_PASSWORD_URL
     ),
+    searchQueryParamName: getStringValue(process.env.SEARCH_QUERY_PARAM_NAME, SEARCH_QUERY_PARAM_NAME),
     siteUrl: getStringValue(process.env.CLIENT_URL, CLIENT_URL),
     verifyEmailUrl: getStringValue(
       process.env.CLIENT_VERIFY_EMAIL_URL,
