@@ -1,6 +1,7 @@
 import { Filter, ItemNotFoundError } from '@js-items/foundation';
 import _pluck from 'ramda/src/pluck';
 import Course from '../../../types/items/Course';
+import getVisibleUserProperties from '../../../utils/helpers/model/getVisibleUserProperties';
 import Config from '../../FactoryConfig';
 
 export interface Options {
@@ -30,7 +31,7 @@ export default ({ repo }: Config) => async ({ filter }: Options) => {
     course: {
       ...course,
       category,
-      user,
+      user: getVisibleUserProperties(user),
     },
   };
 };

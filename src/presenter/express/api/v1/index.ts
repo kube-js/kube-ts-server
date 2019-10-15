@@ -10,6 +10,7 @@ import {
   PERMISSIONS,
   ROLES,
   ROOT,
+  SEARCH,
   USERS,
 } from '../../../../constants/routes';
 import Config from '../../presenterFactory/Config';
@@ -20,6 +21,7 @@ import enrolmentsFactory from './routes/enrolments/factory';
 import getDiscoveryItems from './routes/getDiscoveryItems';
 import permissionsFactory from './routes/permissions/factory';
 import rolesFactory from './routes/roles/factory';
+import searchHandler from './routes/searchHandler';
 import usersFactory from './routes/users/factory';
 import describeApi from './routes/utils/describeApi';
 
@@ -41,6 +43,7 @@ const apiV1 = (config: Config): Router => {
   router.use(COURSES, coursesFactory(config));
   router.use(ENROLMENTS, enrolmentsFactory(config));
   router.use(DISCOVERY_ITEMS, getDiscoveryItems(config));
+  router.get(SEARCH, searchHandler(config));
   // router.use(MODULES, modulesFactory(config));
   // router.use(UNITS, unitsFactory(config));
   // TODO: add route for uploading /avatar
