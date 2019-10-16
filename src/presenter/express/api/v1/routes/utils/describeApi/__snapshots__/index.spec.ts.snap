@@ -11,6 +11,7 @@ Object {
       "reset_password": "/api/v1/auth/reset-password",
       "verify_account": "/api/v1/auth/verify-account",
     },
+    "autocomplete": "/api/v1/autocomplete",
     "categories": "/api/v1/categories",
     "checks": Object {
       "liveness": "/health/liveness",
