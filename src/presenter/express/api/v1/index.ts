@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
   AUTH,
+  AUTOCOMPLETE,
   CATEGORIES,
   COURSES,
   DISCOVERY_ITEMS,
@@ -10,18 +11,17 @@ import {
   PERMISSIONS,
   ROLES,
   ROOT,
-  SEARCH,
   USERS,
 } from '../../../../constants/routes';
 import Config from '../../presenterFactory/Config';
 import authFactory from './routes/auth/factory';
+import autocompleteHandler from './routes/autocompleteHandler';
 import categoriesFactory from './routes/categories/factory';
 import coursesFactory from './routes/courses/factory';
 import enrolmentsFactory from './routes/enrolments/factory';
 import getDiscoveryItems from './routes/getDiscoveryItems';
 import permissionsFactory from './routes/permissions/factory';
 import rolesFactory from './routes/roles/factory';
-import searchHandler from './routes/searchHandler';
 import usersFactory from './routes/users/factory';
 import describeApi from './routes/utils/describeApi';
 
@@ -43,7 +43,7 @@ const apiV1 = (config: Config): Router => {
   router.use(COURSES, coursesFactory(config));
   router.use(ENROLMENTS, enrolmentsFactory(config));
   router.use(DISCOVERY_ITEMS, getDiscoveryItems(config));
-  router.get(SEARCH, searchHandler(config));
+  router.get(AUTOCOMPLETE, autocompleteHandler(config));
   // router.use(MODULES, modulesFactory(config));
   // router.use(UNITS, unitsFactory(config));
   // TODO: add route for uploading /avatar

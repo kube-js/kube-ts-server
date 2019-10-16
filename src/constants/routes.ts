@@ -26,4 +26,4 @@ export const MODULES = '/modules';
 export const UNITS = '/units';
 export const COMMENTS = '/comments';
 export const DISCOVERY_ITEMS = '/discovery-items';
-export const SEARCH = '/search';
+export const AUTOCOMPLETE = '/autocomplete';

@@ -1,6 +1,7 @@
 
 import { TOO_MANY_REQUESTS } from 'http-status-codes';
 import {
+  AUTOCOMPLETE_QUERY_PARAM_NAME,
   CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME,
   CLIENT_RESET_PASSWORD_URL,
   CLIENT_URL,
@@ -13,7 +14,6 @@ import {
   RATE_LIMITER_SKIP_METHODS,
   RATE_LIMITER_WINDOW_MS,
   READINESS_CHECK_URL,
-  SEARCH_QUERY_PARAM_NAME,
   TOO_MANY_REQUEST_MESSAGE,
   TRUST_PROXY,
   VERSION_CHECK_URL,
@@ -73,7 +73,7 @@ export interface ClientConfig {
   readonly verifyTokenQueryParamName: string;
   readonly resetPasswordUrl: string;
   readonly resetPasswordTokenQueryParamName: string;
-  readonly searchQueryParamName: string;
+  readonly autocompleteQueryParam: string;
 }
 
 export interface HttpConfig {
@@ -95,6 +95,7 @@ const config: HttpConfig = {
     version: getStringValue(process.env.VERSION_CHECK_URL, VERSION_CHECK_URL),
   },
   client: {
+    autocompleteQueryParam: getStringValue(process.env.AUTOCOMPLETE_QUERY_PARAM_NAME, AUTOCOMPLETE_QUERY_PARAM_NAME),
     resetPasswordTokenQueryParamName: getStringValue(
       process.env.CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME,
       CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME
@@ -103,7 +104,6 @@ const config: HttpConfig = {
       process.env.CLIENT_RESET_PASSWORD_URL,
       CLIENT_RESET_PASSWORD_URL
     ),
-    searchQueryParamName: getStringValue(process.env.SEARCH_QUERY_PARAM_NAME, SEARCH_QUERY_PARAM_NAME),
     siteUrl: getStringValue(process.env.CLIENT_URL, CLIENT_URL),
     verifyEmailUrl: getStringValue(
       process.env.CLIENT_VERIFY_EMAIL_URL,
