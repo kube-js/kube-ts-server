@@ -12,7 +12,7 @@ export const CLIENT_VERIFY_EMAIL_URL = 'http://localhost:9000/verify'; // @note:
 export const CLIENT_VERIFY_TOKEN_QUERY_PARAM_NAME = 'token';
 export const CLIENT_RESET_PASSWORD_URL = 'http://localhost:9000/reset-password'; // @note: this is client url
 export const CLIENT_RESET_PASSWORD_TOKEN_QUERY_PARAM_NAME = 'token';
-export const SEARCH_QUERY_PARAM_NAME = 'q';
+export const AUTOCOMPLETE_QUERY_PARAM_NAME = 'q';
 
 export const TOO_MANY_REQUEST_MESSAGE =
   'Too many accounts created from this IP, please try again after an 10 minutes';

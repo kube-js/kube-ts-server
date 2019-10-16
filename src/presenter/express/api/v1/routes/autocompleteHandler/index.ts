@@ -9,9 +9,9 @@ import Config from '../../../../presenterFactory/Config';
 import catchErrors from '../../../../utils/errors/catchErrors';
 
 
-const searchHandler = (config: Config) =>
+const autocompleteHandler = (config: Config) =>
   catchErrors(config, async (req, res) => {
-    const name = config.appConfig.http.client.searchQueryParamName;
+    const name = config.appConfig.http.client.autocompleteQueryParam;
 
     const validationSchema = {
       [name]: String(0, SAFE_URL_LENGTH),
@@ -24,7 +24,7 @@ const searchHandler = (config: Config) =>
 
     validateData(rules)(payload);
 
-    const response = await config.service.search({
+    const response = await config.service.autocomplete({
       query: value
     });
        
@@ -36,4 +36,4 @@ const searchHandler = (config: Config) =>
     });
   });
 
-export default searchHandler;
+export default autocompleteHandler;

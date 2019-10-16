@@ -6,7 +6,7 @@ export interface Options {
 }
 
 export default ({ repo }: Config) => async ({ query }: Options) => {
-  const { items: courses } = await repo.courses.getItems({
+  const courses = await repo.courses.getItems({
     filter: {
       $or: [
         {
@@ -25,7 +25,7 @@ export default ({ repo }: Config) => async ({ query }: Options) => {
     },
   });
 
-  const { items: users } = await repo.users.getItems({
+  const users = await repo.users.getItems({
     filter: {
       $or: [
         {
@@ -43,6 +43,9 @@ export default ({ repo }: Config) => async ({ query }: Options) => {
 
   return {
     courses,
-    users: users.map(getVisibleUserProperties),
+    users: {
+      cursor: users.cursor,
+      items: users.items.map(getVisibleUserProperties),
+    },
   };
 };
