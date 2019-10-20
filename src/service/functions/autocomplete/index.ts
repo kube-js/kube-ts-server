@@ -1,3 +1,4 @@
+import { INSTRUCTOR } from '../../../constants/roles';
 import getVisibleUserProperties from '../../../utils/helpers/model/getVisibleUserProperties';
 import Config from '../../FactoryConfig';
 
@@ -41,8 +42,26 @@ export default ({ repo }: Config) => async ({ query }: Options) => {
     },
   });
 
+  const { items: roles } = await repo.roles.getItems({
+    filter: {
+      name: INSTRUCTOR,
+    },
+  });
+
+  const instructorRoleId = roles[0].id;
+
+  const { items: usersRoles } = await repo.userRole.getItems({
+    filter: {
+      roleId: instructorRoleId,
+    },
+  });
+
+  const instructorsIds = usersRoles.map(userRole => userRole.userId);
+
+  const filteredUsers = users.filter(user => instructorsIds.includes(user.id));
+
   return {
     courses,
-    users: users.map(getVisibleUserProperties),
+    users: filteredUsers.map(getVisibleUserProperties),
   };
 };
