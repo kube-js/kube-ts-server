@@ -63,7 +63,7 @@
     "@types/jsonwebtoken": "8.3.5",
     "@types/mailparser": "2.4.0",
     "@types/node": "11.13.22",
-    "@types/nodemailer": "6.2.1",
+    "@types/nodemailer": "6.2.2",
     "@types/promptly": "3.0.0",
     "@types/ramda": "0.26.21",
     "@types/smtp-server": "3.5.2",
