@@ -27,10 +27,17 @@ export default ({ repo }: Config) => async ({ filter }: Options) => {
     id: course.userId,
   });
 
+  const { items: sections } = await repo.sections.getItems({
+    filter: {
+      courseId: course.id
+    },
+  });
+
   return {
     course: {
       ...course,
       category,
+      sections,
       user: getVisibleUserProperties(user),
     },
   };

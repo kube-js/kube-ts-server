@@ -6,11 +6,11 @@ import {
   COURSES,
   DISCOVERY_ITEMS,
   ENROLMENTS,
-  // MODULES,
   // UNITS
   PERMISSIONS,
   ROLES,
   ROOT,
+  SECTIONS,
   USERS,
 } from '../../../../constants/routes';
 import Config from '../../presenterFactory/Config';
@@ -22,6 +22,7 @@ import enrolmentsFactory from './routes/enrolments/factory';
 import getDiscoveryItems from './routes/getDiscoveryItems';
 import permissionsFactory from './routes/permissions/factory';
 import rolesFactory from './routes/roles/factory';
+import sectionsFactory from './routes/sections/factory';
 import usersFactory from './routes/users/factory';
 import describeApi from './routes/utils/describeApi';
 
@@ -44,7 +45,7 @@ const apiV1 = (config: Config): Router => {
   router.use(ENROLMENTS, enrolmentsFactory(config));
   router.use(DISCOVERY_ITEMS, getDiscoveryItems(config));
   router.get(AUTOCOMPLETE, autocompleteHandler(config));
-  // router.use(MODULES, modulesFactory(config));
+  router.use(SECTIONS, sectionsFactory(config));
   // router.use(UNITS, unitsFactory(config));
   // TODO: add route for uploading /avatar
   // TODO: add route for uploads
@@ -52,6 +53,7 @@ const apiV1 = (config: Config): Router => {
   // https://sanderknape.com/2017/08/using-pre-signed-urls-upload-file-private-s3-bucket/
   // https://stackoverflow.com/questions/40304512/get-or-put-objects-on-amazon-s3-with-pre-signed-url
   // https://www.quora.com/How-do-I-link-a-file-from-S3-to-DynamoDB
+  // https://stackoverflow.com/questions/54119399/expose-port-80-on-digital-oceans-managed-kubernetes-without-a-load-balancer/55968709#55968709
 
   router.get(ROOT, describeApi(config));
 

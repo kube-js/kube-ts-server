@@ -30,6 +30,7 @@ const describeApi = (config: Config) =>
         enrolments: '/api/v1/enrolments',
         permissions: '/api/v1/permissions',
         roles: '/api/v1/roles',
+        sections: '/api/v1/sections',
         users: '/api/v1/users',
       },
       docs: 'https://kubetsserver.docs.apiary.io',

@@ -86,10 +86,13 @@ const createCategoriesAndCourses = (config: FactoryConfig) => async ({
     return [...acc, ...coursesPromisesArray];
   }, []);
 
-  await Promise.all(coursesPromises);
+  const items = await Promise.all(coursesPromises);
 
+  
   console.log(`Courses created successfuly!`);
   console.log(`--------------------------------------------------------`);
+  
+  return items.map(({ item }) => item.id);
 };
 
 export default createCategoriesAndCourses;

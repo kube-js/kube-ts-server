@@ -11,6 +11,7 @@ import permissionFactory from './permissions/factory';
 import resetPasswordTokens from './resetPasswordTokens/factory';
 import rolePermissionFactory from './rolePermission/factory';
 import rolesFactory from './roles/factory';
+import sectionsFactory from './sections/factory';
 import userRoleFactory from './userRole/factory';
 import usersFactory from './users/factory';
 
@@ -37,6 +38,7 @@ export default ({ client, connection }: KnexConfig) => {
     resetPasswordTokens: resetPasswordTokens({ db }),
     rolePermission: rolePermissionFactory({ db }),
     roles: rolesFactory({ db }),
+    sections: sectionsFactory({ db }),
     userRole: userRoleFactory({ db }),
     users: usersFactory({ db }),
   };
