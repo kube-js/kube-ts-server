@@ -6,6 +6,7 @@ import {
 } from '../../../../constants/permissions';
 import { ADMIN, INSTRUCTOR, STUDENT } from '../../../../constants/roles';
 import categories from '../../data/categories';
+import sections from '../../data/sections';
 import {
   adminOptions,
   firstInstructorOptions,
@@ -19,6 +20,7 @@ import connectPermissionsToRoles from './functions/connectPermissionsToRoles';
 import createCategoriesAndCourses from './functions/createCategoriesAndCourses';
 import createPermissions from './functions/createPermissions';
 import createRoles from './functions/createRoles';
+import createSectionsAndUnits from './functions/createSectionsAndUnits';
 import createUser from './functions/createUser';
 
 export const processExitTimeout = 10000;
@@ -97,9 +99,14 @@ const dbSeed = (config: FactoryConfig) => async () => {
       rolesIds: [studentRoleId],
     });
 
-    await createCategoriesAndCourses(config)({
+    const coursesIds = await createCategoriesAndCourses(config)({
       categories,
       instructorsIds: [firstInstructorId, secondInstructorId],
+    });
+
+    await createSectionsAndUnits(config)({
+      coursesIds,
+      sections,
     });
 
     config.logger.info('Seeding successful');

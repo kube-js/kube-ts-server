@@ -31,6 +31,7 @@ export default (config: FactoryConfig) => ({
   revokeUserRole: revokeUserRole(config),
   rolePermission: config.repo.rolePermission,
   roles: config.repo.roles,
+  sections: config.repo.sections,
   sendEmail: config.repo.sendEmail,
   userRole: config.repo.userRole,
   users: config.repo.users,

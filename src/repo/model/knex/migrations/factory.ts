@@ -7,6 +7,7 @@ import createPermissionsTable from './tables/createPermissionsTable';
 import createResetPasswordTokensTable from './tables/createResetPasswordTokensTable';
 import createRolePermissionTable from './tables/createRolePermissionTable';
 import createRolesTable from './tables/createRolesTable';
+import createSectionsTable from './tables/createSectionsTable';
 import createUserRoleTable from './tables/createUserRoleTable';
 import createUsersTable from './tables/createUsersTable';
 
@@ -17,6 +18,7 @@ export default ({ db }: RepoConfig) =>
       createUsersTable({ db }),
       createCategoriesTable({ db }),
       createCoursesTable({ db }),
+      createSectionsTable({ db }),
       createEnrolmentsTable({ db }),
       createRolesTable({ db }),
       createPermissionsTable({ db }),

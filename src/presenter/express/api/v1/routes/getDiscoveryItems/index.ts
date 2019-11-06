@@ -14,7 +14,8 @@ const getDiscoveryItems = (config: Config) =>
     switch (type) {
       case 'course':
         response = await config.service.getCourseDetails({
-          filter: JSON.parse(req.query.filter),
+          // TODO: validate filter
+          filter: req.query.filter ? JSON.parse(req.query.filter) : {},
         });
         break;
       case 'homepage':
