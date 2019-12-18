@@ -1,4 +1,4 @@
-FROM node:10.17.0-alpine as builder
+FROM node:10.18.0-alpine as builder
 
 STOPSIGNAL SIGTERM
 RUN apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python git
