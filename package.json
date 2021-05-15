@@ -62,7 +62,7 @@
     "@types/jest": "24.9.0",
     "@types/jsonwebtoken": "8.3.5",
     "@types/mailparser": "2.7.0",
-    "@types/node": "11.15.4",
+    "@types/node": "11.15.54",
     "@types/nodemailer": "6.4.0",
     "@types/promptly": "3.0.0",
     "@types/ramda": "0.26.21",
